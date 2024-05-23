@@ -5,6 +5,9 @@ plugins {
     // adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+
+    // add the Google services Gradle plugin
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -82,6 +85,9 @@ dependencies {
     // adding compose navigation dependencies from https://developer.android.com/develop/ui/compose/navigation?hl=it
     val nav_version = "2.7.7"
     implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    // import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
 }
 
 // adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it

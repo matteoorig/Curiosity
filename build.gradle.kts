@@ -5,4 +5,7 @@ plugins {
 
     // adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it
     id("com.google.dagger.hilt.android") version "2.44" apply false
+
+    // add the dependency for the Google services Gradle plugin
+    id("com.google.gms.google-services") version "4.4.1" apply false
 }

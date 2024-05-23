@@ -6,6 +6,7 @@ package com.curiosity.presentation.intro
 
 import androidx.lifecycle.ViewModel
 import com.curiosity.domain.use_cases.ExistCurrentUserUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,6 +18,7 @@ import javax.inject.Inject
  * This class holds the state of the intro screen using a StateFlow and provides
  * a way to observe changes to that state.
  */
+@HiltViewModel
 class IntroViewModel @Inject constructor(
     private val existCurrentUserUseCase: ExistCurrentUserUseCase
 ): ViewModel() {

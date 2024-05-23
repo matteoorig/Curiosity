@@ -5,11 +5,16 @@ package com.curiosity.presentation.intro
  */
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.curiosity.domain.model.Resource
 import com.curiosity.domain.use_cases.ExistCurrentUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -26,4 +31,31 @@ class IntroViewModel @Inject constructor(
     private val _state = MutableStateFlow(IntroStates())
     val state: StateFlow<IntroStates> = _state.asStateFlow()
 
+    init {
+        checkUserExist()
+    }
+
+    private fun checkUserExist() {
+        viewModelScope.launch {
+            existCurrentUserUseCase().onEach { resource ->
+                when (resource) {
+                    is Resource.Loading -> {
+                        _state.value = _state.value.copy(isLoading = true)
+                    }
+                    is Resource.Success -> {
+                        _state.value = _state.value.copy(
+                            isLoading = false,
+                            currentUserExist = true
+                        )
+                    }
+                    is Resource.Error -> {
+                        _state.value = _state.value.copy(
+                            isLoading = false,
+                            currentUserExistError = resource.message
+                        )
+                    }
+                }
+            }.launchIn(this)
+        }
+    }
 }

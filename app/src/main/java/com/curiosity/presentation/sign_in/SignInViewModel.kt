@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
  * This class holds the state of the sign-in screen using a StateFlow and provides
  * a way to observe changes to that state.
  */
+
 class SignInViewModel: ViewModel() {
 
     private val _state = MutableStateFlow(SignInStates())

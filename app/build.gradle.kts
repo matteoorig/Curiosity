@@ -1,11 +1,16 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    // adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.curiosity"
-    compileSdk = 33
+    // update compileSdk to 34 to have the dependencies up to date
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.curiosity"
@@ -30,6 +35,7 @@ android {
         }
     }
     compileOptions {
+        // hilt needs functionality of Java8
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -66,4 +72,13 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+}
+
+// adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it
+kapt {
+    correctErrorTypes = true
 }

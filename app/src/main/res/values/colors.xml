@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <color name="curiosity_gray">#ECECEC</color>
+    <color name="curiosity_violet">#797B95</color>
+    <color name="curiosity_blue">#7CCCED</color>
+    <color name="curiosity_orange">#F0B94E</color>
+    <color name="curiosity_dark_violet">#705F9F</color>
+    <color name="curiosity_green">#6EAD40</color>
+    <color name="curiosity_pink">#CD4E81</color>
+    <color name="curiosity_yellow">#F0DA4C</color>
 </resources>

@@ -76,6 +76,8 @@ dependencies {
     // adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.49")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // adding compose navigation dependencies from https://developer.android.com/develop/ui/compose/navigation?hl=it
     val nav_version = "2.7.7"

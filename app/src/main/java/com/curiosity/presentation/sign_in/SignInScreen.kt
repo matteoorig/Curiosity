@@ -4,7 +4,10 @@ package com.curiosity.presentation.sign_in
  * @author matteooriggi
  */
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.sign_in.content.SignInContent
@@ -16,10 +19,15 @@ import com.curiosity.presentation.sign_in.content.SignInContent
  */
 @Composable
 fun SignInScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: SignInViewModel = hiltViewModel(),
 ){
+    val state by viewModel.state.collectAsState()
+
     SignInContent(
-        navController = navController
+        navController = navController,
+        viewModel = viewModel,
+        state = state
     )
 }
 

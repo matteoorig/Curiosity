@@ -13,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.app.routes.Routes
+import com.curiosity.presentation.sign_in.SignInStates
+import com.curiosity.presentation.sign_in.SignInViewModel
 
 /**
  * Composable function that represents the content of the sign-in screen.
@@ -21,7 +23,9 @@ import com.curiosity.presentation.app.routes.Routes
  */
 @Composable
 fun SignInContent(
-    navController: NavController
+    navController: NavController,
+    viewModel: SignInViewModel,
+    state: SignInStates
 ){
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -47,6 +51,8 @@ fun SignInContent(
 @Composable
 fun SignInContentPreview(){
     SignInContent(
-        navController = rememberNavController()
+        navController = rememberNavController(),
+        viewModel = SignInViewModel(),
+        state = SignInStates()
     )
 }

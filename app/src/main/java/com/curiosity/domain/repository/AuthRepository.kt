@@ -4,6 +4,7 @@ package com.curiosity.domain.repository
  * @author matteooriggi
  */
 
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 
 /**
@@ -16,4 +17,9 @@ interface AuthRepository {
     val currentUser: FirebaseUser?
 
     suspend fun signOut()
+
+    suspend fun createUserWithEmailAndPassword(email: String, password: String): AuthResult
+
+    suspend fun signInUserWithEmailAndPassword(email: String, password: String): AuthResult
+
 }

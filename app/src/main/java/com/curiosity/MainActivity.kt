@@ -1,46 +1,33 @@
 package com.curiosity
 
+/**
+ * @author matteooriggi
+ */
+
+import dagger.hilt.android.AndroidEntryPoint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.curiosity.ui.theme.CuriosityTheme
+import com.curiosity.presentation.app.navigation.CuriosityNavigationGraph
 
+/**
+ * MainActivity class that serves as the entry point of the application.
+ *
+ * This activity is responsible for setting up the main content view of the application,
+ * which includes the navigation graph.
+ */
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down
+     *                           then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CuriosityTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+            CuriosityNavigationGraph()
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CuriosityTheme {
-        Greeting("Android")
     }
 }

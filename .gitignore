@@ -1,3 +1,4 @@
+# General Android project files
 *.iml
 .gradle
 /local.properties
@@ -13,3 +14,38 @@
 .externalNativeBuild
 .cxx
 local.properties
+build/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/.name
+.idea/codeStyles/
+.idea/inspectionProfiles/
+.idea/vcs.xml
+*.hprof
+*.log
+*.swp
+*.tmp
+*.bak
+*.backup
+*.orig
+*.rej
+Thumbs.db
+
+# Firebase configuration files
+/google-services.json
+/android/app/google-services.json
+
+# Android Studio generated files and folders
+.idea/
+*.apk
+*.ap_
+*.db
+*.jks
+*.keystore
+*.so
+*.stacktrace
+

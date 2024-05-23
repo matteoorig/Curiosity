@@ -9,4 +9,6 @@ package com.curiosity.presentation.sign_in
  */
 data class SignInStates(
     val isLoading: Boolean = false,
+    val requestSignInSuccessful: Boolean = false,
+    val requestSignInError: String? = null
 )

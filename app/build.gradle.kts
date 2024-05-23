@@ -88,6 +88,9 @@ dependencies {
 
     // import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    // Firebase Auth
+    implementation("com.google.android.gms:play-services-auth:21.1.1")
+    implementation("com.google.firebase:firebase-auth")
 }
 
 // adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it

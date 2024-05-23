@@ -5,7 +5,10 @@ package com.curiosity.presentation.intro
  */
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.intro.content.IntroContent
@@ -17,10 +20,15 @@ import com.curiosity.presentation.intro.content.IntroContent
  */
 @Composable
 fun IntroScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: IntroViewModel = hiltViewModel(),
 ) {
+    val state by viewModel.state.collectAsState()
+
     IntroContent(
-        navController = navController
+        navController = navController,
+        viewModel = viewModel,
+        state = state
     )
 }
 

@@ -14,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.app.routes.Routes
+import com.curiosity.presentation.intro.IntroStates
+import com.curiosity.presentation.intro.IntroViewModel
 
 /**
  * Composable function that represents the content of the intro screen.
@@ -22,7 +24,9 @@ import com.curiosity.presentation.app.routes.Routes
  */
 @Composable
 fun IntroContent(
-    navController: NavController
+    navController: NavController,
+    viewModel: IntroViewModel,
+    state: IntroStates
 ) {
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -48,6 +52,8 @@ fun IntroContent(
 @Composable
 fun IntroScreenContentPreview() {
     IntroContent(
-        navController = rememberNavController()
+        navController = rememberNavController(),
+        viewModel = IntroViewModel(),
+        state = IntroStates()
     )
 }

@@ -1,4 +1,4 @@
-package com.curiosity.model
+package com.curiosity.domain.model
 
 /**
  * @author matteooriggi

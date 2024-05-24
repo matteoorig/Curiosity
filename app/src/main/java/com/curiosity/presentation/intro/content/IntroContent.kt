@@ -75,7 +75,7 @@ fun IntroContent(
                 valueColor = Color.White,
                 backgroundColor = CuriosityViolet,
                 onClick = {
-
+                    navController.navigate(Routes.SignUpScreen.route)
                 }
             )
         }

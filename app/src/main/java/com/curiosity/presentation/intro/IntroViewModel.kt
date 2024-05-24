@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.use_cases.ExistCurrentUserUseCase
+import com.curiosity.domain.use_cases.LogoutCurrentUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +26,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class IntroViewModel @Inject constructor(
-    private val existCurrentUserUseCase: ExistCurrentUserUseCase
+    private val existCurrentUserUseCase: ExistCurrentUserUseCase,
+    private val logoutCurrentUserUseCase: LogoutCurrentUserUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(IntroStates())

@@ -35,6 +35,7 @@ fun IntroScreen(
         }
         state.currentUserExist -> {
             LaunchedEffect(Unit) {
+
                 // navController.clearBackStack(Routes.IntroScreen.route)
                 /**
                  * navController.navigate(Routes.ProfileScreen.route){

@@ -1,4 +1,4 @@
-package com.curiosity.presentation.intro.content
+package com.curiosity.presentation.sign_up.content
 
 /**
  * @author matteooriggi
@@ -12,24 +12,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.common.components.CuriosityCoupleTitle
 import com.curiosity.common.components.CuriosityDefaultButton
-import com.curiosity.presentation.intro.IntroStates
+import com.curiosity.presentation.sign_up.SignUpStates
+import com.curiosity.presentation.sign_up.SignUpViewModel
 
 /**
  * Composable function that displays an error screen for the intro flow.
  *
- * This function displays an error message and a button to reload the intro screen.
+ * This function displays an error message and a button to reload the sign-up screen.
  *
  * @param navController The NavController used for navigation.
- * @param state The state of the intro screen, which includes the error message.
+ * @param viewModel The viewModel used for control user data.
+ * @param state The state of the sign-up screen, which includes the error message.
  */
 @Composable
-fun IntroError(
+fun SignUpError(
     navController: NavController,
-    state: IntroStates
+    viewModel: SignUpViewModel,
+    state: SignUpStates
 ){
     Column(
         modifier = Modifier
@@ -39,12 +43,12 @@ fun IntroError(
     ){
         CuriosityCoupleTitle(
             titleText = "ERROR",
-            subtitleText = state.currentUserExistError ?: "Internal error"
+            subtitleText = state.requestSignUpError ?: "Internal error"
         )
         CuriosityDefaultButton(
             value = "Reload",
             onClick = {
-                navController.popBackStack()
+                viewModel.updateStateValue(SignUpStates())
             }
         )
     }
@@ -52,9 +56,10 @@ fun IntroError(
 
 @Preview
 @Composable
-fun IntroErrorPreview(){
-    IntroError(
+fun SignUpErrorPreview(){
+    SignUpError(
         navController = rememberNavController(),
-        state = IntroStates()
+        viewModel = hiltViewModel(),
+        state = SignUpStates()
     )
 }

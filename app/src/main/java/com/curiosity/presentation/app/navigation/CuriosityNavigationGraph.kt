@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.intro.IntroScreen
 import com.curiosity.presentation.sign_in.SignInScreen
+import com.curiosity.presentation.sign_up.SignUpScreen
 
 /**
  * Composable function that sets up the navigation graph for the Curiosity app.
@@ -40,6 +41,12 @@ fun CuriosityNavigationGraph() {
             route = Routes.SignInScreen.route
         ){
             SignInScreen(navController = navigationController)
+        }
+
+        composable(
+            route = Routes.SignUpScreen.route
+        ){
+            SignUpScreen(navController = navigationController)
         }
     }
 }

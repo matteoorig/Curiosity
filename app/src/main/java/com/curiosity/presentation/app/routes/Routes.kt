@@ -18,7 +18,12 @@ sealed class Routes(val route: String) {
     object IntroScreen : Routes("intro_screen")
 
     /**
-     * Object representing the intro screen route.
+     * Object representing the sign-in screen route.
      */
     object SignInScreen : Routes("sign_in_screen")
+
+    /**
+     * Object representing the sign-up screen route.
+     */
+    object SignUpScreen : Routes("sign_up_screen")
 }

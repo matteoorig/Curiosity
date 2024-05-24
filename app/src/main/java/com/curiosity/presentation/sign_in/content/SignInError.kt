@@ -1,5 +1,9 @@
 package com.curiosity.presentation.sign_in.content
 
+/**
+ * @author matteooriggi
+ */
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,10 +17,18 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.common.components.CuriosityCoupleTitle
 import com.curiosity.common.components.CuriosityDefaultButton
-import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.sign_in.SignInStates
 import com.curiosity.presentation.sign_in.SignInViewModel
 
+/**
+ * Composable function that displays an error screen for the intro flow.
+ *
+ * This function displays an error message and a button to reload the sign-in screen.
+ *
+ * @param navController The NavController used for navigation.
+ * @param viewModel The viewModel used for control user data.
+ * @param state The state of the sign-in screen, which includes the error message.
+ */
 @Composable
 fun SignInError(
     navController: NavController,
@@ -34,7 +46,7 @@ fun SignInError(
             subtitleText = state.requestSignInError ?: "Internal error"
         )
         CuriosityDefaultButton(
-            value = "Go to the first page",
+            value = "Reload",
             onClick = {
                 viewModel.updateStateValue(SignInStates())
             }

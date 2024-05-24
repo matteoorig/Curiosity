@@ -1,8 +1,9 @@
-package com.curiosity.presentation.sign_in
+package com.curiosity.presentation.sign_up
 
 /**
  * @author matteooriggi
  */
+
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,64 +13,61 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.curiosity.presentation.sign_in.content.SignInContent
-import com.curiosity.presentation.sign_in.content.SignInError
+import com.curiosity.presentation.sign_up.content.SignUpContent
+import com.curiosity.presentation.sign_up.content.SignUpError
 
 /**
- * Composable function that represents the sign-in screen of the application.
+ * Composable function that represents the sign-up screen of the application.
  *
- * This function is responsible for displaying the UI elements for the user to sign in.
+ * This function is responsible for displaying the UI elements for the user to sign up.
  */
 @Composable
-fun SignInScreen(
+fun SignUpScreen(
     navController: NavController,
-    viewModel: SignInViewModel = hiltViewModel(),
+    viewModel: SignUpViewModel = hiltViewModel(),
 ){
     val state by viewModel.state.collectAsState()
+
+    val usernameValue by viewModel.usernameValue.collectAsState()
     val mailValue by viewModel.mailValue.collectAsState()
     val passwordValue by viewModel.passwordValue.collectAsState()
 
-    when {
+    when{
         state.isLoading -> {
             CircularProgressIndicator()
         }
-        state.requestSignInError != null -> {
-            SignInError(
+        state.requestSignUpError != null -> {
+            SignUpError(
                 navController = navController,
                 viewModel = viewModel,
                 state = state
             )
         }
-        state.requestSignInSuccessful -> {
+        state.requestSignUpSuccessful -> {
             LaunchedEffect(Unit){
-                // navController.clearBackStack(Routes.SignInScreen.route)
+                // navController.clearBackStack(Routes.SignUpScreen.route)
                 // navController.navigate(Routes.ProfileScreen.route)
             }
         }
         else -> {
-            SignInContent(
+            SignUpContent(
                 navController = navController,
                 viewModel = viewModel,
                 state = state,
+                usernameValue = usernameValue,
                 mailValue = mailValue,
                 passwordValue = passwordValue
             )
         }
     }
-
-
 }
 
-/**
- * Preview function for the SignInScreen composable.
- *
- * This function is used to display a preview of the SignInScreen composable in Android Studio.
- * It helps in visualizing the UI without running the application on a device or emulator.
- */
+
 @Preview
 @Composable
-fun SignInScreenPreview(){
-    SignInScreen(
-        navController = rememberNavController()
+fun SignUpScreenPreview(){
+    SignUpScreen(
+        navController = rememberNavController(),
+        viewModel = hiltViewModel()
     )
 }

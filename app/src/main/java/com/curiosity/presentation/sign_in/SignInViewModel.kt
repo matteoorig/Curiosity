@@ -38,18 +38,30 @@ class SignInViewModel @Inject constructor(
     private val  _passwordValue = MutableStateFlow("")
     val passwordValue: StateFlow<String> = _passwordValue.asStateFlow()
 
+    fun updateMailValue(newValue: String) {
+        _mailValue.value = newValue
+    }
+
+    fun updatePasswordValue(newValue: String) {
+        _passwordValue.value = newValue
+    }
+
+    fun updateStateValue(newState: SignInStates){
+        _state.value = newState
+    }
+
     fun signInUser() {
         viewModelScope.launch {
             signInWithEmailAndPasswordUseCase(_mailValue.value, _passwordValue.value).onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {
-                        _state.value = _state.value.copy(isLoading = false)
+                        _state.value = _state.value.copy(isLoading = true)
                     }
                     is Resource.Success -> {
-                        _state.value = _state.value.copy(requestSignInSuccessful = true)
+                        _state.value = _state.value.copy(isLoading = false, requestSignInSuccessful = true)
                     }
                     is Resource.Error -> {
-                        _state.value = _state.value.copy(requestSignInError = resource.message)
+                        _state.value = _state.value.copy(isLoading = false, requestSignInError = resource.message)
                     }
                 }
             }.launchIn(this)

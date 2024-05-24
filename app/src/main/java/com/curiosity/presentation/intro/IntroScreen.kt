@@ -4,14 +4,18 @@ package com.curiosity.presentation.intro
  * @author matteooriggi
  */
 
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.intro.content.IntroContent
+import com.curiosity.presentation.intro.content.IntroError
 
 /**
  * Composable function that represents the intro screen of the application.
@@ -25,11 +29,35 @@ fun IntroScreen(
 ) {
     val state by viewModel.state.collectAsState()
 
-    IntroContent(
-        navController = navController,
-        viewModel = viewModel,
-        state = state
-    )
+    when {
+        state.isLoading -> {
+            CircularProgressIndicator()
+        }
+        state.currentUserExist -> {
+            LaunchedEffect(Unit) {
+                // navController.clearBackStack(Routes.IntroScreen.route)
+                /**
+                 * navController.navigate(Routes.ProfileScreen.route){
+                 *    popUpTo(Routes.IntroScreen.route){ inclusive = true }
+                 * }
+                 */
+
+            }
+        }
+        state.currentUserExistError != null -> {
+            IntroError(
+                navController = navController,
+                state = state
+            )
+        }
+        else -> {
+            IntroContent(
+                navController = navController,
+                viewModel = viewModel,
+                state = state
+            )
+        }
+    }
 }
 
 /**

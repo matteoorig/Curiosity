@@ -3,14 +3,18 @@ package com.curiosity.presentation.sign_in
 /**
  * @author matteooriggi
  */
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.sign_in.content.SignInContent
+import com.curiosity.presentation.sign_in.content.SignInError
 
 /**
  * Composable function that represents the sign-in screen of the application.
@@ -23,12 +27,38 @@ fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel(),
 ){
     val state by viewModel.state.collectAsState()
+    val mailValue by viewModel.mailValue.collectAsState()
+    val passwordValue by viewModel.passwordValue.collectAsState()
 
-    SignInContent(
-        navController = navController,
-        viewModel = viewModel,
-        state = state
-    )
+    when {
+        state.isLoading -> {
+            CircularProgressIndicator()
+        }
+        state.requestSignInError != null -> {
+            SignInError(
+                navController = navController,
+                viewModel = viewModel,
+                state = state
+            )
+        }
+        state.requestSignInSuccessful -> {
+            LaunchedEffect(Unit){
+                // navController.clearBackStack(Routes.SignInScreen.route)
+                // navController.navigate(Routes.ProfileScreen.route)
+            }
+        }
+        else -> {
+            SignInContent(
+                navController = navController,
+                viewModel = viewModel,
+                state = state,
+                mailValue = mailValue,
+                passwordValue = passwordValue
+            )
+        }
+    }
+
+
 }
 
 /**

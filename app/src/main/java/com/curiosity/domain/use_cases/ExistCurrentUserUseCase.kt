@@ -33,7 +33,7 @@ class ExistCurrentUserUseCase @Inject constructor(
             if(currentUser != null){
                 emit(Resource.Success<Boolean>(data = true))
             }else{
-                emit(Resource.Error<Boolean>("ExistCurrentUserUseCase"))
+                emit(Resource.Success<Boolean>(data = false))
             }
         }catch (e: Exception){
             emit(Resource.Error<Boolean>("ExistCurrentUserUseCase" + e.message))

@@ -1,5 +1,9 @@
 package com.curiosity.common.components
 
+/**
+ * @author matteooriggi
+ */
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

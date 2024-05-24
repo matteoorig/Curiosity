@@ -1,5 +1,9 @@
 package com.curiosity.common.components
 
+/**
+ * @author matteooriggi
+ */
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable

@@ -91,6 +91,9 @@ dependencies {
     // Firebase Auth
     implementation("com.google.android.gms:play-services-auth:21.1.1")
     implementation("com.google.firebase:firebase-auth")
+
+    // Extended Icons
+    implementation("androidx.compose.material:material-icons-extended:1.6.7")
 }
 
 // adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it

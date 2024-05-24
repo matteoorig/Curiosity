@@ -5,8 +5,11 @@ package com.curiosity.data.dipendencies
  */
 
 import com.curiosity.data.AuthRepositoryImpl
+import com.curiosity.data.DataRepositoryImpl
 import com.curiosity.domain.repository.AuthRepository
+import com.curiosity.domain.repository.DataRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,4 +38,21 @@ object AppModule {
      */
     @Provides
     fun provideAuthRepository(impl: AuthRepositoryImpl): AuthRepository = impl
+
+    /**
+     * Provides an instance of FirebaseFirestore.
+     *
+     * @return The FirebaseFirestore instance.
+     */
+    @Provides
+    fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
+
+    /**
+     * Provides an implementation of DataRepository.
+     *
+     * @param impl The implementation of DataRepository.
+     * @return The DataRepository instance.
+     */
+    @Provides
+    fun provideDataRepository(impl: DataRepositoryImpl): DataRepository = impl
 }

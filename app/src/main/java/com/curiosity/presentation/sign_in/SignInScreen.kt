@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.sign_in.content.SignInContent
 import com.curiosity.presentation.sign_in.content.SignInError
 
@@ -42,8 +43,12 @@ fun SignInScreen(
         }
         state.requestSignInSuccessful -> {
             LaunchedEffect(Unit){
-                // navController.clearBackStack(Routes.SignInScreen.route)
-                // navController.navigate(Routes.ProfileScreen.route)
+                navController.navigate(Routes.ProfileScreen.route){
+                    popUpTo(route = Routes.SignInScreen.route){
+                        inclusive = true
+                        saveState = false
+                    }
+                }
             }
         }
         else -> {

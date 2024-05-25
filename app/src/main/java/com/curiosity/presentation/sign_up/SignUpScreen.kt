@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.sign_up.content.SignUpContent
 import com.curiosity.presentation.sign_up.content.SignUpError
 
@@ -45,8 +46,14 @@ fun SignUpScreen(
         }
         state.requestSignUpSuccessful -> {
             LaunchedEffect(Unit){
-                // navController.clearBackStack(Routes.SignUpScreen.route)
-                // navController.navigate(Routes.ProfileScreen.route)
+                // TODO: mail check with otp
+                // TODO: start onBoarding views
+                navController.navigate(Routes.ProfileScreen.route){
+                    popUpTo(route = Routes.SignUpScreen.route){
+                        inclusive = true
+                        saveState = false
+                    }
+                }
             }
         }
         else -> {
@@ -62,7 +69,12 @@ fun SignUpScreen(
     }
 }
 
-
+/**
+ * Preview function for the SignUpScreen composable.
+ *
+ * This function is used to display a preview of the SignUpScreen composable in Android Studio.
+ * It helps in visualizing the UI without running the application on a device or emulator.
+ */
 @Preview
 @Composable
 fun SignUpScreenPreview(){

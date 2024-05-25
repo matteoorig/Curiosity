@@ -188,6 +188,12 @@ fun SignUpContent(
     }
 }
 
+/**
+ * Preview function for the SignUpContent composable.
+ *
+ * This function is used to display a preview of the SignUpContent composable in Android Studio.
+ * It helps in visualizing the UI without running the application on a device or emulator.
+ */
 @Preview
 @Composable
 fun SignUpContentPreview(){

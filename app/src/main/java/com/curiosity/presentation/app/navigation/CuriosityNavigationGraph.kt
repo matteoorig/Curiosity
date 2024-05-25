@@ -10,6 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.intro.IntroScreen
+import com.curiosity.presentation.on_boarding.OnBoardingScreen
+import com.curiosity.presentation.profile.ProfileScreen
 import com.curiosity.presentation.sign_in.SignInScreen
 import com.curiosity.presentation.sign_up.SignUpScreen
 
@@ -47,6 +49,18 @@ fun CuriosityNavigationGraph() {
             route = Routes.SignUpScreen.route
         ){
             SignUpScreen(navController = navigationController)
+        }
+
+        composable(
+            route = Routes.ProfileScreen.route
+        ){
+            ProfileScreen(navController = navigationController)
+        }
+
+        composable(
+            route = Routes.OnBoardingScreen.route
+        ){
+            OnBoardingScreen(navController = navigationController)
         }
     }
 }

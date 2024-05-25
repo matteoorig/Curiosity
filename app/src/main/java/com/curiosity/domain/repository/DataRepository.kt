@@ -4,7 +4,9 @@ package com.curiosity.domain.repository
  * @author matteooriggi
  */
 
+import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
 /**
  * Interface for data repository operations.
@@ -34,5 +36,16 @@ interface DataRepository {
      * @return A Void? indicating the result of the registration operation.
      */
     suspend fun registerUser(uuid: String, username: String, email: String, password: String): Void?
+
+    /**
+     * Loads a list of areas of interest categories from Firestore.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It retrieves the categories from the "areas_of_interest" collection in Firestore.
+     *
+     * @return A QuerySnapshot containing the result of the query to Firestore.
+     * QuerySnapshot is type of firebase object used for manipulate collections.
+     */
+    suspend fun loadAreasOfInterestCategories(): QuerySnapshot?
 
 }

@@ -5,8 +5,10 @@ package com.curiosity.data
  */
 
 import com.curiosity.data.model.User
+import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.curiosity.domain.repository.DataRepository
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -45,5 +47,18 @@ open class DataRepositoryImpl @Inject constructor(
         return db.collection("users")
             .document(uuid)
             .set(userData).await()
+    }
+
+    /**
+     * Loads a list of areas of interest categories from Firestore.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It retrieves the categories from the "areas_of_interest" collection in Firestore.
+     *
+     * @return A QuerySnapshot containing the result of the query to Firestore.
+     * QuerySnapshot is type of firebase object used for manipulate collections.
+     */
+    override suspend fun loadAreasOfInterestCategories(): QuerySnapshot? {
+        return db.collection("areas_of_interest").get().await()
     }
 }

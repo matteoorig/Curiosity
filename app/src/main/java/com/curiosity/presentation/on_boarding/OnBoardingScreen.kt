@@ -13,6 +13,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.on_boarding.content.OnBoardingPresentationContent
+import com.curiosity.presentation.on_boarding.content.OnBoardingSelectAreasContent
+import com.curiosity.presentation.on_boarding.content.OnBoardingSelectIntervalContent
+import com.curiosity.presentation.on_boarding.content.OnBoardingSummaryContent
 
 /**
  * Composable function that represents the OnBoarding screen of the application.
@@ -31,7 +34,31 @@ fun OnBoardingScreen(
             CircularProgressIndicator()
         }
         state.onPresentationSuccess -> {
+            OnBoardingSelectAreasContent(
+                navController = navController,
+                viewModel = viewModel,
+                state = state
+            )
+        }
+        state.onSelectAreasError.isNotEmpty() -> {
 
+        }
+        state.onSelectAreasSuccess -> {
+            OnBoardingSelectIntervalContent(
+                navController = navController,
+                viewModel = viewModel,
+                state = state
+            )
+        }
+        state.onSelectIntervalError.isNotEmpty() -> {
+
+        }
+        state.onSelectIntervalSuccess -> {
+            OnBoardingSummaryContent(
+                navController = navController,
+                viewModel = viewModel,
+                state = state
+            )
         }
         else -> {
             OnBoardingPresentationContent(

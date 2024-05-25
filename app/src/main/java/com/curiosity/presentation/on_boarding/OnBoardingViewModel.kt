@@ -5,6 +5,8 @@ package com.curiosity.presentation.on_boarding
  */
 
 import androidx.lifecycle.ViewModel
+import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
+import com.curiosity.presentation.sign_in.SignInStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,10 +21,18 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
-
+    // TODO: implement getAreasCategories from LoadAreasCategories Use Case
 ): ViewModel()  {
     private val _state = MutableStateFlow(OnBoardingStates())
     val state: StateFlow<OnBoardingStates> = _state.asStateFlow()
+
+    fun updateStateValue(newState: OnBoardingStates){
+        _state.value = newState
+    }
+
+    fun getAreasOfInterest(): List<CuriosityAreasOfInterestItemData> {
+        TODO("Not yet implemented")
+    }
 
 
 }

@@ -46,11 +46,9 @@ fun SignUpScreen(
         }
         state.requestSignUpSuccessful -> {
             LaunchedEffect(Unit){
-                // TODO: mail check with otp
-                // TODO: start onBoarding views
-                navController.navigate(Routes.ProfileScreen.route){
+                navController.navigate(Routes.OnBoardingScreen.route){
                     popUpTo(route = Routes.SignUpScreen.route){
-                        inclusive = true
+                        inclusive = false
                         saveState = false
                     }
                 }

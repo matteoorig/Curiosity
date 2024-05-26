@@ -29,16 +29,9 @@ import com.curiosity.presentation.on_boarding.OnBoardingStates
 @Composable
 fun OnBoardingError(
     navController: NavController,
-    state: OnBoardingStates
+    state: OnBoardingStates,
+    error: String
 ){
-    var errorMessage: String
-    if(state.onPresentationError.isNotEmpty()){
-        errorMessage = state.onPresentationError
-    }else if(state.onSelectAreasError.isNotEmpty()){
-        errorMessage = state.onSelectAreasError
-    }else{
-        errorMessage = state.onSelectIntervalError
-    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -47,7 +40,7 @@ fun OnBoardingError(
     ){
         CuriosityCoupleTitle(
             titleText = "ERROR",
-            subtitleText = errorMessage
+            subtitleText = error
         )
         CuriosityDefaultButton(
             value = "Reload",
@@ -63,6 +56,7 @@ fun OnBoardingError(
 fun IntroErrorPreview(){
     OnBoardingError(
         navController = rememberNavController(),
-        state = OnBoardingStates()
+        state = OnBoardingStates(),
+        error = "Default error"
     )
 }

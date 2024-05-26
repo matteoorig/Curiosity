@@ -13,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.curiosity.presentation.app.routes.Routes
+import com.curiosity.presentation.profile.content.ProfileContent
 import com.curiosity.presentation.profile.content.ProfileError
 
 /**
@@ -34,7 +36,12 @@ fun ProfileScreen(
         }
         state.currentUserLogout -> {
             LaunchedEffect(Unit){
-                // TODO: bisogna mostrare intro screen
+                navController.navigate(Routes.IntroScreen.route){
+                    popUpTo(route = Routes.ProfileScreen.route){
+                        inclusive = true
+                        saveState = false
+                    }
+                }
             }
         }
         state.currentUserLogoutError != null -> {
@@ -45,7 +52,11 @@ fun ProfileScreen(
             )
         }
         else -> {
-
+            ProfileContent(
+                navController = navController,
+                viewModel = viewModel,
+                state = state
+            )
         }
     }
 }

@@ -48,6 +48,10 @@ fun SignInScreen(
                         inclusive = true
                         saveState = false
                     }
+                    popUpTo(route = Routes.IntroScreen.route){
+                        inclusive = true
+                        saveState = false
+                    }
                 }
             }
         }

@@ -4,6 +4,7 @@ package com.curiosity.data.dipendencies
  * @author matteooriggi
  */
 
+import android.content.Context
 import com.curiosity.data.AuthRepositoryImpl
 import com.curiosity.data.DataRepositoryImpl
 import com.curiosity.domain.repository.AuthRepository
@@ -13,7 +14,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 /**
  * Dagger module that provides dependencies for the application.
@@ -55,4 +58,14 @@ object AppModule {
      */
     @Provides
     fun provideDataRepository(impl: DataRepositoryImpl): DataRepository = impl
+
+    /**
+     * Provides the application context.
+     *
+     * @param context The application context.
+     * @return The application context.
+     */
+    @Provides
+    @Singleton
+    fun provideContext(@ApplicationContext context: Context): Context = context
 }

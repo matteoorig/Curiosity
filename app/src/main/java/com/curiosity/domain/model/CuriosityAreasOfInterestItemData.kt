@@ -1,5 +1,7 @@
 package com.curiosity.domain.model
 
+import android.content.Context
+
 /**
  * @author matteooriggi
  */
@@ -20,4 +22,15 @@ data class CuriosityAreasOfInterestItemData(
     val value: String,
     val icon: Int,
     var isClicked: Boolean = false
-)
+){
+    /**
+     * Companion object to hold static-like methods for CuriosityAreasOfInterestItemData.
+     *
+     * A companion object in Kotlin is similar to static methods and properties in Java.
+     */
+    companion object {
+        fun getIconResId(context: Context, iconName: String): Int {
+            return context.resources.getIdentifier(iconName, "drawable", context.packageName)
+        }
+    }
+}

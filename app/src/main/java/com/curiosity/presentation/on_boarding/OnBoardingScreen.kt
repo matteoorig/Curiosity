@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.curiosity.presentation.on_boarding.content.OnBoardingError
 import com.curiosity.presentation.on_boarding.content.OnBoardingPresentationContent
 import com.curiosity.presentation.on_boarding.content.OnBoardingSelectAreasContent
 import com.curiosity.presentation.on_boarding.content.OnBoardingSelectIntervalContent
@@ -33,6 +34,13 @@ fun OnBoardingScreen(
         state.isLoading -> {
             CircularProgressIndicator()
         }
+        state.loadAreasOfInterestError != null -> {
+            OnBoardingError(
+                navController = navController,
+                state = state,
+                error = state.loadAreasOfInterestError!!
+            )
+        }
         state.onPresentationSuccess -> {
             OnBoardingSelectAreasContent(
                 navController = navController,
@@ -40,8 +48,12 @@ fun OnBoardingScreen(
                 state = state
             )
         }
-        state.onSelectAreasError.isNotEmpty() -> {
-
+        state.onSelectAreasError != null -> {
+            OnBoardingError(
+                navController = navController,
+                state = state,
+                error = state.onSelectAreasError!!
+            )
         }
         state.onSelectAreasSuccess -> {
             OnBoardingSelectIntervalContent(
@@ -50,8 +62,12 @@ fun OnBoardingScreen(
                 state = state
             )
         }
-        state.onSelectIntervalError.isNotEmpty() -> {
-
+        state.onSelectIntervalError != null -> {
+            OnBoardingError(
+                navController = navController,
+                state = state,
+                error = state.onSelectIntervalError!!
+            )
         }
         state.onSelectIntervalSuccess -> {
             OnBoardingSummaryContent(

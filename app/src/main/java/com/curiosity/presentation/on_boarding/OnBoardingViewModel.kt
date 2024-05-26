@@ -91,8 +91,8 @@ class OnBoardingViewModel @Inject constructor(
         if(selectedItems.isEmpty()){
             Toast.makeText(
                 context,
-                "You must select at least one area of interest"
-                , Toast.LENGTH_LONG
+                "You must select at least one area of interest",
+                Toast.LENGTH_LONG
             ).show()
         }else{
             _selectedListAreasOfInterest.value = selectedItems
@@ -101,7 +101,15 @@ class OnBoardingViewModel @Inject constructor(
     }
 
     fun confirmSelectionIntervalNotification(){
-        Log.d("confirmSelectionIntervalNotification", "" + _isMinutes.value + " | " + _interval.value)
+        if(_interval.value == 0){
+            Toast.makeText(
+                context,
+                "I'm sorry but don't be clever, you can't turn off notifications this way.",
+                Toast.LENGTH_LONG
+            ).show()
+        }else {
+            _state.value = OnBoardingStates(onSelectIntervalSuccess = true)
+        }
     }
 
 

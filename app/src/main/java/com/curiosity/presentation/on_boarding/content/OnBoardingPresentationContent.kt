@@ -36,12 +36,17 @@ fun OnBoardingPresentationContent(
     viewModel: OnBoardingViewModel,
     state: OnBoardingStates
 ){
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 25.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(
+                bottom = 26.dp,
+                top = 26.dp,
+                start = 18.dp,
+                end = 18.dp
+            ),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         CuriosityCoupleTitle(
             titleText = "Hi there!",

@@ -29,6 +29,8 @@ fun OnBoardingScreen(
     viewModel: OnBoardingViewModel = hiltViewModel(),
 ){
     val state by viewModel.state.collectAsState()
+    val isMinutes by viewModel.isMinutes.collectAsState()
+    val interval by viewModel.interval.collectAsState()
 
     when {
         state.isLoading -> {
@@ -59,7 +61,9 @@ fun OnBoardingScreen(
             OnBoardingSelectIntervalContent(
                 navController = navController,
                 viewModel = viewModel,
-                state = state
+                state = state,
+                isMinutes = isMinutes,
+                interval = interval
             )
         }
         state.onSelectIntervalError != null -> {

@@ -44,9 +44,13 @@ fun OnBoardingSelectAreasContent(
 ){
     Column(
         modifier = Modifier
-            .fillMaxWidth()
             .fillMaxSize()
-            .padding(top = 25.dp),
+            .padding(
+                bottom = 26.dp,
+                top = 26.dp,
+                start = 18.dp,
+                end = 18.dp
+            ),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -86,7 +90,7 @@ fun OnBoardingSelectAreasContent(
             valueColor = colorResource(id = R.color.white),
             backgroundColor = CuriosityYellow,
             onClick = {
-
+                viewModel.confirmSelectionAreasOfInterest()
             }
         )
     }

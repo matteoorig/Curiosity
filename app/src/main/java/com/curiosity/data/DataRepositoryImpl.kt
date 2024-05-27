@@ -7,6 +7,7 @@ package com.curiosity.data
 import com.curiosity.data.model.User
 import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.curiosity.domain.repository.DataRepository
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.tasks.await
@@ -42,11 +43,16 @@ open class DataRepositoryImpl @Inject constructor(
      * @param password The password of the user.
      * @return A Void? indicating the result of the registration operation.
      */
-    override suspend fun registerUser(uuid: String, username: String, email: String, password: String): Void? {
-        val userData: HashMap<String, Any> = User(uuid = uuid, username = username, email= email, password = password).getHashMap()
+    override suspend fun registerUser(user: User): Void? {
         return db.collection("users")
-            .document(uuid)
-            .set(userData).await()
+            .document(user.uuid!!)
+            .set(
+                user.getHashMap()
+            ).await()
+    }
+
+    override suspend fun getUser(uuid: String): DocumentSnapshot? {
+        return db.collection("users").document(uuid).get().await()
     }
 
     /**

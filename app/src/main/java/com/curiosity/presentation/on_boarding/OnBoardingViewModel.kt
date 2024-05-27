@@ -138,7 +138,7 @@ class OnBoardingViewModel @Inject constructor(
         if(_selectedListAreasOfInterest.value.isEmpty() || _interval.value == 0){
             Toast.makeText(
                 context,
-                "I'm sorry but due to an internal error we lost your choices. " +
+                "I'm sorry but because an internal error we lost your choices. " +
                         "There will be the default ones. Don't worry, you can change it in any time.",
                 Toast.LENGTH_LONG
             ).show()
@@ -146,7 +146,6 @@ class OnBoardingViewModel @Inject constructor(
         // TODO:
 
         }else{
-
             // TODO: Creare UseCase per scrittura delle preferenze dell'utente in firestore
         }
     }

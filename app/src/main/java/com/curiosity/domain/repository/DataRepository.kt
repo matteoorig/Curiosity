@@ -4,7 +4,9 @@ package com.curiosity.domain.repository
  * @author matteooriggi
  */
 
+import com.curiosity.data.model.User
 import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
@@ -35,8 +37,11 @@ interface DataRepository {
      * @param password The password of the user.
      * @return A Void? indicating the result of the registration operation.
      */
-    suspend fun registerUser(uuid: String, username: String, email: String, password: String): Void?
+    suspend fun registerUser(user: User): Void?
 
+    suspend fun getUser(uuid: String): DocumentSnapshot?
+
+    // suspend fun updateUserPreferences(uuid: String, )
     /**
      * Loads a list of areas of interest categories from Firestore.
      *

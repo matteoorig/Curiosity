@@ -29,7 +29,7 @@ fun CuriosityNavigationGraph() {
     // Define the navigation graph
     NavHost(
         navController = navigationController,
-        startDestination = Routes.OnBoardingScreen.route
+        startDestination = Routes.IntroScreen.route
     ) {
 
         // Define singular node of the Navigation Graph

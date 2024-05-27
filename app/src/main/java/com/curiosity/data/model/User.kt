@@ -4,7 +4,10 @@ data class User(
     val uuid: String? = "",
     val username: String? = "",
     val email: String? = "",
-    val password: String? = ""
+    val password: String? = "",
+    val level: Int = 1,
+    val coins: Int = 0,
+    val preferences: List<Preferences>
 ) {
 
     /**

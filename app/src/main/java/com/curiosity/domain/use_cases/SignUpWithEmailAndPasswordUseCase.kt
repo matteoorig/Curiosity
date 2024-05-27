@@ -4,6 +4,7 @@ package com.curiosity.domain.use_cases
  * @author matteooriggi
  */
 
+import com.curiosity.data.model.User
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
@@ -33,12 +34,6 @@ class SignUpWithEmailAndPasswordUseCase @Inject constructor(
             emit(Resource.Loading<AuthResult>())
             val currentUser = repository.currentUser
 
-            // DEV
-            // se esiste già attualmente si effettua la signOut() perchè firebase ricorda l'accesso
-            if(currentUser != null){
-                repository.signOut()
-            }
-
 
             if(currentUser != null){
                 emit(Resource.Error<AuthResult>("createUserWithEmailAndPassword " + "User already exist"))
@@ -46,7 +41,15 @@ class SignUpWithEmailAndPasswordUseCase @Inject constructor(
                 val result = repository.createUserWithEmailAndPassword(email, password)
 
                 if(result.user != null){
-                    dataRepository.registerUser(result.user!!.uid, username, email, password)
+                    val user: User = User(
+                        uuid = result.user!!.uid,
+                        username = username,
+                        email= email,
+                        password = password,
+                        preferences = emptyList()
+                    )
+
+                    dataRepository.registerUser(user)
                 }
                 emit(Resource.Success<AuthResult>(data = result))
             }

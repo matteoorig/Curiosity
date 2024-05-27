@@ -4,6 +4,7 @@ package com.curiosity.data
  * @author matteooriggi
  */
 
+import com.curiosity.data.model.Preferences
 import com.curiosity.data.model.User
 import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.curiosity.domain.repository.DataRepository
@@ -51,8 +52,34 @@ open class DataRepositoryImpl @Inject constructor(
             ).await()
     }
 
+    /**
+     * Retrieves a user document from the Firebase Firestore database.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It retrieves the user document with the specified UUID from the "users" collection in Firestore.
+     *
+     * @param uuid The unique identifier of the user.
+     * @return A DocumentSnapshot containing the user data, or null if the user document does not exist or the query fails.
+     */
     override suspend fun getUser(uuid: String): DocumentSnapshot? {
         return db.collection("users").document(uuid).get().await()
+    }
+
+    /**
+     * Updates the preferences of a user document in the Firebase Firestore database.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It updates the "preferences" field of the user document with the given UUID in the "users" collection.
+     *
+     * @param uuid The unique identifier of the user.
+     * @param preferences The new preferences to update for the user.
+     * @return A Void? indicating the result of the update operation. Returns null if the update fails.
+     */
+    override suspend fun updateUserPreferences(uuid: String, preferences: Preferences): Void? {
+        return db.collection("users").document(uuid).update(
+            "preferences",
+            preferences.getHashMap()
+        ).await()
     }
 
     /**

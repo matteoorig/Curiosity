@@ -4,6 +4,7 @@ package com.curiosity.domain.repository
  * @author matteooriggi
  */
 
+import com.curiosity.data.model.Preferences
 import com.curiosity.data.model.User
 import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.google.firebase.firestore.DocumentSnapshot
@@ -39,9 +40,29 @@ interface DataRepository {
      */
     suspend fun registerUser(user: User): Void?
 
+    /**
+     * Retrieves a user document from the Firebase Firestore database.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It retrieves the user document with the specified UUID from the "users" collection in Firestore.
+     *
+     * @param uuid The unique identifier of the user.
+     * @return A DocumentSnapshot containing the user data, or null if the user document does not exist or the query fails.
+     */
     suspend fun getUser(uuid: String): DocumentSnapshot?
 
-    // suspend fun updateUserPreferences(uuid: String, )
+    /**
+     * Updates the preferences of a user document in the Firebase Firestore database.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It updates the "preferences" field of the user document with the given UUID in the "users" collection.
+     *
+     * @param uuid The unique identifier of the user.
+     * @param preferences The new preferences to update for the user.
+     * @return A Void? indicating the result of the update operation. Returns null if the update fails.
+     */
+    suspend fun updateUserPreferences(uuid: String, preferences: Preferences): Void?
+
     /**
      * Loads a list of areas of interest categories from Firestore.
      *

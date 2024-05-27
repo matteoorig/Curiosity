@@ -34,27 +34,48 @@ class OnBoardingViewModel @Inject constructor(
 ): ViewModel()  {
 
     init {
+        // Loading the categories of the areas of interest present in firestore. This allows the scalability of the application.
         loadAreasOfInterestCategories()
     }
 
     private val _state = MutableStateFlow(OnBoardingStates())
     val state: StateFlow<OnBoardingStates> = _state.asStateFlow()
 
+    // Contains the categories present in firestore.
     private var _listAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
+    // Contains the categories selected by user.
     private var _selectedListAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
 
+    // Allows to define whether the interval is in hours or minutes.
     private val _isMinutes = MutableStateFlow(false)
     val isMinutes: StateFlow<Boolean> = _isMinutes.asStateFlow()
 
+    // Contains the numeric value of the time interval.
     private val _interval = MutableStateFlow(1)
     val interval: StateFlow<Int> = _interval.asStateFlow()
 
-    fun updateStateValue(newState: OnBoardingStates){
-        _state.value = newState
-    }
-
+    // Method used by the composable function to obtain the list of areas of interest and the related icons present in firestore.
     fun getAreasOfInterest(): List<CuriosityAreasOfInterestItemData> {
         return _listAreasOfInterest.value
+    }
+
+    // Method used by the composable function to get all the selected areas of interest in a single string.
+    fun getAreasOfInterestValuesFormatted(): String {
+        var result = ""
+        _selectedListAreasOfInterest.value.forEach { area ->
+            result += if(area.idx < _selectedListAreasOfInterest.value.size) area.value + ", " else ""
+        }
+        return result
+    }
+
+    // Method used by the composable function to obtain the interval value formatted for user.
+
+    fun getIntervalFormattedValue(): String {
+        return if(isMinutes.value) "" + _interval.value + " minutes" else "" + _interval.value + " hours"
+    }
+
+    fun updateStateValue(newState: OnBoardingStates){
+        _state.value = newState
     }
 
     fun updateIsMinutesValue(newValue: Boolean){
@@ -104,11 +125,29 @@ class OnBoardingViewModel @Inject constructor(
         if(_interval.value == 0){
             Toast.makeText(
                 context,
-                "I'm sorry but don't be clever, you can't turn off notifications this way.",
+                "I'm sorry but don't be clever, you can't turn off notifications in this way.",
                 Toast.LENGTH_LONG
             ).show()
         }else {
             _state.value = OnBoardingStates(onSelectIntervalSuccess = true)
+        }
+    }
+
+    fun confirmSelectionExploreTheApp(){
+
+        if(_selectedListAreasOfInterest.value.isEmpty() || _interval.value == 0){
+            Toast.makeText(
+                context,
+                "I'm sorry but due to an internal error we lost your choices. " +
+                        "There will be the default ones. Don't worry, you can change it in any time.",
+                Toast.LENGTH_LONG
+            ).show()
+
+        // TODO:
+
+        }else{
+
+            // TODO: Creare UseCase per scrittura delle preferenze dell'utente in firestore
         }
     }
 

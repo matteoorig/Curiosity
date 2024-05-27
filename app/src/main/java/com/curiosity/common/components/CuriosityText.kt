@@ -13,8 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import com.curiosity.common.fonts.Poppins
 import com.curiosity.ui.theme.CuriosityViolet
@@ -26,6 +28,7 @@ fun CuriosityText(
     textColor: Color = Color.Black,
     textSize: TextUnit = 18.sp,
     textWeight: FontWeight = FontWeight.Bold,
+    maxLines: Int? = null
 ){
     Row(
         modifier = modifier ?: Modifier
@@ -39,6 +42,8 @@ fun CuriosityText(
             fontWeight = textWeight,
             fontFamily = Poppins,
             textAlign = TextAlign.Center,
+            maxLines = maxLines ?: 2,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }

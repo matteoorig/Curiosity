@@ -29,32 +29,30 @@ class SignUpWithEmailAndPasswordUseCase @Inject constructor(
     private val repository: AuthRepository,
     private val dataRepository: DataRepository
 ) {
-    operator fun invoke(username: String, email: String, password: String): Flow<Resource<AuthResult>> = flow {
+    operator fun invoke(username: String, email: String, password: String): Flow<Resource<User>> = flow {
         try {
-            emit(Resource.Loading<AuthResult>())
+            emit(Resource.Loading<User>())
             val currentUser = repository.currentUser
 
 
             if(currentUser != null){
-                emit(Resource.Error<AuthResult>("createUserWithEmailAndPassword " + "User already exist"))
+                emit(Resource.Error<User>("createUserWithEmailAndPassword " + "User already exist"))
             }else{
                 val result = repository.createUserWithEmailAndPassword(email, password)
 
-                if(result.user != null){
-                    val user: User = User(
-                        uuid = result.user!!.uid,
-                        username = username,
-                        email= email,
-                        password = password,
-                        preferences = emptyList()
-                    )
+                val user: User = User(
+                    uuid = result.user!!.uid,
+                    username = username,
+                    email = email,
+                    password = password,
+                    preferences = emptyList()
+                )
 
-                    dataRepository.registerUser(user)
-                }
-                emit(Resource.Success<AuthResult>(data = result))
+                dataRepository.registerUser(user)
+                emit(Resource.Success<User>(data = user))
             }
         }catch (e: Exception){
-            emit(Resource.Error<AuthResult>("createUserWithEmailAndPassword" + e.message))
+            emit(Resource.Error<User>("createUserWithEmailAndPassword" + e.message))
         }
     }.flowOn(Dispatchers.IO)
 }

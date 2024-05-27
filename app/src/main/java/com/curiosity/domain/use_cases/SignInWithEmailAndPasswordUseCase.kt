@@ -20,15 +20,13 @@ class SignInWithEmailAndPasswordUseCase @Inject constructor(
     private val dataRepository: DataRepository
 ){
 
-    operator fun invoke(email: String, password: String): Flow<Resource<AuthResult>> = flow {
+    operator fun invoke(email: String, password: String): Flow<Resource<User>> = flow {
         try {
-            emit(Resource.Loading<AuthResult>())
+            emit(Resource.Loading<User>())
             val currentUser = repository.currentUser
 
-
-
             if(currentUser != null){
-                emit(Resource.Error<AuthResult>("signInUserWithEmailAndPassword " + "User already exist"))
+                emit(Resource.Error<User>("signInUserWithEmailAndPassword " + "User already exist"))
             }else{
                 val result = repository.signInUserWithEmailAndPassword(email, password)
                 val userData = dataRepository.getUser(result.user!!.uid)!!.data
@@ -37,13 +35,13 @@ class SignInWithEmailAndPasswordUseCase @Inject constructor(
                     username = userData!!["username"].toString(),
                     email = userData["email"].toString(),
                     level = userData["level"].toString().toInt(),
-                    coins = userData["username"].toString().toInt(),
+                    coins = userData["coins"].toString().toInt(),
                     preferences = emptyList()
                 )
-                emit(Resource.Success<AuthResult>(data = result))
+                emit(Resource.Success<User>(data = user))
             }
         }catch (e: Exception){
-            emit(Resource.Error<AuthResult>("signInUserWithEmailAndPassword " + e.message))
+            emit(Resource.Error<User>("signInUserWithEmailAndPassword " + e.message))
         }
     }.flowOn(Dispatchers.IO)
 }

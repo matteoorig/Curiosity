@@ -4,7 +4,8 @@ package com.curiosity.domain.use_cases
  * @author matteooriggi
  */
 
-import com.curiosity.data.model.User
+import com.curiosity.domain.model.Preferences
+import com.curiosity.domain.model.User
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
@@ -45,7 +46,7 @@ class SignUpWithEmailAndPasswordUseCase @Inject constructor(
                     username = username,
                     email = email,
                     password = password,
-                    preferences = preferencesHashMap
+                    preferences = Preferences.fromHashMap(preferencesHashMap)
                 )
 
                 dataRepository.registerUser(user)

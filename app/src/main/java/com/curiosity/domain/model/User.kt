@@ -1,17 +1,17 @@
-package com.curiosity.data.model
+package com.curiosity.domain.model
 
 /**
  * @author matteooriggi
  */
 
 data class User(
-    val uuid: String? = "",
-    val username: String? = "",
-    val email: String? = "",
-    val password: String? = "",
-    val level: Int = 1,
-    val coins: Int = 0,
-    val preferences: HashMap<String, Map<String, Any>>
+    var uuid: String? = "",
+    var username: String? = "",
+    var email: String? = "",
+    var password: String? = "",
+    var level: Int = 1,
+    var coins: Int = 0,
+    var preferences: List<Preferences> = emptyList()
 ) {
 
     /**
@@ -29,8 +29,8 @@ data class User(
                 hashMap[property.name] = property.get(user ?: this) ?: ""
             }
         }
-        // Add preferences separately since it's already a HashMap
-        hashMap["preferences"] = (user ?: this).preferences
+        // Add preferences with its getHashMap method
+        hashMap["preferences"] = Preferences.getHashMap((user ?: this).preferences)
         return hashMap
     }
 }

@@ -5,14 +5,12 @@ package com.curiosity.presentation.on_boarding
  */
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.curiosity.data.model.Preferences
+import com.curiosity.domain.model.Preferences
 import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.curiosity.domain.model.Resource
-import com.curiosity.domain.repository.DataRepository
 import com.curiosity.domain.use_cases.LoadAreasCategoriesUseCase
 import com.curiosity.domain.use_cases.UpdateCurrentUserPreferencesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -67,14 +65,12 @@ class OnBoardingViewModel @Inject constructor(
     fun getAreasOfInterestValuesFormatted(): String {
         var result = ""
         _selectedListAreasOfInterest.value.forEachIndexed { index, area ->
-            Log.d("INDEX", index.toString())
             result += if(index < _selectedListAreasOfInterest.value.size - 1) area.value + ", " else area.value + ""
         }
         return result
     }
 
     // Method used by the composable function to obtain the interval value formatted for user.
-
     fun getIntervalFormattedValue(): String {
         return if(isMinutes.value) "" + _interval.value + " minutes" else "" + _interval.value + " hours"
     }

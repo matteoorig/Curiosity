@@ -4,9 +4,8 @@ package com.curiosity.domain.repository
  * @author matteooriggi
  */
 
-import com.curiosity.data.model.Preferences
-import com.curiosity.data.model.User
-import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
+import com.curiosity.domain.model.Preferences
+import com.curiosity.domain.model.User
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot

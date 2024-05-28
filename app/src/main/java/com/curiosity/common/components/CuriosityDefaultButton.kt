@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.curiosity.common.fonts.Poppins
@@ -28,8 +29,11 @@ import com.curiosity.ui.theme.CuriosityViolet
 
 @Composable
 fun CuriosityDefaultButton(
+    modifier: Modifier? = null,
     value: String,
     valueColor: Color = Color.Black,
+    valueSize: TextUnit = 24.sp,
+    valueWeight: FontWeight = FontWeight.Bold,
     height: Dp? = null,
     width: Dp? = null,
     backgroundColor: Color? = null,
@@ -37,7 +41,7 @@ fun CuriosityDefaultButton(
     onClick: () -> Unit
 ){
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier ?: Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
         Button(
@@ -58,8 +62,8 @@ fun CuriosityDefaultButton(
             Text(
                 text = value,
                 color = valueColor,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
+                fontSize = valueSize,
+                fontWeight = valueWeight,
                 fontFamily = Poppins
             )
         }

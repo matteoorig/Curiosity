@@ -9,6 +9,7 @@ import com.curiosity.domain.model.User
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
+import com.curiosity.domain.repository.SharedPreferencesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,7 +28,8 @@ import javax.inject.Inject
  */
 class SignUpWithEmailAndPasswordUseCase @Inject constructor(
     private val repository: AuthRepository,
-    private val dataRepository: DataRepository
+    private val dataRepository: DataRepository,
+    private val sharedPreferencesRepository: SharedPreferencesRepository
 ) {
     operator fun invoke(username: String, email: String, password: String): Flow<Resource<User>> = flow {
         try {
@@ -50,6 +52,8 @@ class SignUpWithEmailAndPasswordUseCase @Inject constructor(
                 )
 
                 dataRepository.registerUser(user)
+                sharedPreferencesRepository.saveUser(user)
+
                 emit(Resource.Success<User>(data = user))
             }
         }catch (e: Exception){

@@ -7,8 +7,10 @@ package com.curiosity.data.dipendencies
 import android.content.Context
 import com.curiosity.data.AuthRepositoryImpl
 import com.curiosity.data.DataRepositoryImpl
+import com.curiosity.data.SharedPreferencesRepositoryImpl
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
+import com.curiosity.domain.repository.SharedPreferencesRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -68,4 +70,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideContext(@ApplicationContext context: Context): Context = context
+
+    @Provides
+    fun provideSharedPreferences(impl: SharedPreferencesRepositoryImpl): SharedPreferencesRepository = impl
 }

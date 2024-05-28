@@ -55,13 +55,13 @@ class SignInViewModel @Inject constructor(
             signInWithEmailAndPasswordUseCase(_mailValue.value, _passwordValue.value).onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {
-                        _state.value = _state.value.copy(isLoading = true)
+                        _state.value = SignInStates(isLoading = true)
                     }
                     is Resource.Success -> {
-                        _state.value = _state.value.copy(isLoading = false, requestSignInSuccessful = true)
+                        _state.value = SignInStates(isLoading = false, requestSignInSuccessful = true)
                     }
                     is Resource.Error -> {
-                        _state.value = _state.value.copy(isLoading = false, requestSignInError = resource.message)
+                        _state.value = SignInStates(isLoading = false, requestSignInError = resource.message)
                     }
                 }
             }.launchIn(this)

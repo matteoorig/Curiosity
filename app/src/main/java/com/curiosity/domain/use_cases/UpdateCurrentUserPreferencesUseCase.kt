@@ -4,21 +4,22 @@ package com.curiosity.domain.use_cases
  * @author matteooriggi
  */
 
+import android.util.Log
+import com.curiosity.data.model.Preferences
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
-import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class InsertCurrentUserPreferencesUseCase @Inject constructor(
+class UpdateCurrentUserPreferencesUseCase @Inject constructor(
     private val repository: AuthRepository,
     private val dataRepository: DataRepository
 ) {
-    operator fun invoke() : Flow<Resource<Boolean>> = flow {
+    operator fun invoke(preferences: List<Preferences>) : Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>())
             val currentUser = repository.currentUser
@@ -27,6 +28,8 @@ class InsertCurrentUserPreferencesUseCase @Inject constructor(
                 emit(Resource.Error<Boolean>("InsertCurrentUserPreferencesUseCase no user logged in"))
             }else{
 
+                dataRepository.updateUserPreferences(currentUser.uid, preferences)
+                emit(Resource.Success<Boolean>(data = true))
             }
 
         }catch (e: Exception){

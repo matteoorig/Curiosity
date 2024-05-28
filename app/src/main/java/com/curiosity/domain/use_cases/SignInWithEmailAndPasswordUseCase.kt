@@ -8,7 +8,6 @@ import com.curiosity.data.model.User
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
-import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -30,13 +29,14 @@ class SignInWithEmailAndPasswordUseCase @Inject constructor(
             }else{
                 val result = repository.signInUserWithEmailAndPassword(email, password)
                 val userData = dataRepository.getUser(result.user!!.uid)!!.data
+                val preferencesHashMap: HashMap<String, Map<String, Any>> = HashMap<String, Map<String, Any>>()
                 val user: User = User(
                     uuid = result.user!!.uid,
                     username = userData!!["username"].toString(),
                     email = userData["email"].toString(),
                     level = userData["level"].toString().toInt(),
                     coins = userData["coins"].toString().toInt(),
-                    preferences = emptyList()
+                    preferences = preferencesHashMap
                 )
                 emit(Resource.Success<User>(data = user))
             }

@@ -62,15 +62,15 @@ class SignUpViewModel @Inject constructor(
             flow.onEach { resource ->
                 when (resource) {
                     is Resource.Loading -> {
-                        _state.value = _state.value.copy(isLoading = true)
+                        _state.value = SignUpStates(isLoading = true)
                     }
 
                     is Resource.Success -> {
-                        _state.value = _state.value.copy(isLoading = false,requestSignUpSuccessful = true)
+                        _state.value = SignUpStates(isLoading = false,requestSignUpSuccessful = true)
                     }
 
                     is Resource.Error -> {
-                        _state.value = _state.value.copy(isLoading = false, requestSignUpError = resource.message)
+                        _state.value = SignUpStates(isLoading = false, requestSignUpError = resource.message)
                     }
                 }
             }.launchIn(this)

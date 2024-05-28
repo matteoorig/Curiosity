@@ -6,12 +6,14 @@ package com.curiosity.presentation.on_boarding
 
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.on_boarding.content.OnBoardingError
 import com.curiosity.presentation.on_boarding.content.OnBoardingPresentationContent
 import com.curiosity.presentation.on_boarding.content.OnBoardingSelectAreasContent
@@ -79,6 +81,17 @@ fun OnBoardingScreen(
                 viewModel = viewModel,
                 state = state
             )
+        }
+        state.onSummarySuccess -> {
+            LaunchedEffect(Unit){
+                navController.navigate(Routes.ProfileScreen.route){
+                    popUpTo(route = Routes.OnBoardingScreen.route){
+                        inclusive = true
+                        saveState = false
+                    }
+
+                }
+            }
         }
         else -> {
             OnBoardingPresentationContent(

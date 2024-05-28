@@ -42,16 +42,16 @@ class IntroViewModel @Inject constructor(
             existCurrentUserUseCase().onEach { resource ->
                 when (resource) {
                     is Resource.Loading -> {
-                        _state.value = _state.value.copy(isLoading = true)
+                        _state.value = IntroStates(isLoading = true)
                     }
                     is Resource.Success -> {
-                        _state.value = _state.value.copy(
+                        _state.value = IntroStates(
                             isLoading = false,
                             currentUserExist = resource.data ?: false
                         )
                     }
                     is Resource.Error -> {
-                        _state.value = _state.value.copy(
+                        _state.value = IntroStates(
                             isLoading = false,
                             currentUserExistError = resource.message
                         )

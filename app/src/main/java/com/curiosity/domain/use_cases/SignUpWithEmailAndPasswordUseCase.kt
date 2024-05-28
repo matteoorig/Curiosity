@@ -8,7 +8,6 @@ import com.curiosity.data.model.User
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
-import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -39,13 +38,14 @@ class SignUpWithEmailAndPasswordUseCase @Inject constructor(
                 emit(Resource.Error<User>("createUserWithEmailAndPassword " + "User already exist"))
             }else{
                 val result = repository.createUserWithEmailAndPassword(email, password)
+                val preferencesHashMap: HashMap<String, Map<String, Any>> = HashMap<String, Map<String, Any>>()
 
                 val user: User = User(
                     uuid = result.user!!.uid,
                     username = username,
                     email = email,
                     password = password,
-                    preferences = emptyList()
+                    preferences = preferencesHashMap
                 )
 
                 dataRepository.registerUser(user)

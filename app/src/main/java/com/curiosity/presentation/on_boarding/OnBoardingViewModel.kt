@@ -9,9 +9,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.curiosity.data.model.Preferences
 import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.curiosity.domain.model.Resource
+import com.curiosity.domain.repository.DataRepository
 import com.curiosity.domain.use_cases.LoadAreasCategoriesUseCase
+import com.curiosity.domain.use_cases.UpdateCurrentUserPreferencesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +33,8 @@ import javax.inject.Inject
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
     private val loadAreasCategoriesUseCase: LoadAreasCategoriesUseCase,
-    private val context: Context
+    private val context: Context,
+    private val updateCurrentUserPreferencesUseCase: UpdateCurrentUserPreferencesUseCase
 ): ViewModel()  {
 
     init {
@@ -62,8 +66,9 @@ class OnBoardingViewModel @Inject constructor(
     // Method used by the composable function to get all the selected areas of interest in a single string.
     fun getAreasOfInterestValuesFormatted(): String {
         var result = ""
-        _selectedListAreasOfInterest.value.forEach { area ->
-            result += if(area.idx < _selectedListAreasOfInterest.value.size) area.value + ", " else ""
+        _selectedListAreasOfInterest.value.forEachIndexed { index, area ->
+            Log.d("INDEX", index.toString())
+            result += if(index < _selectedListAreasOfInterest.value.size - 1) area.value + ", " else area.value + ""
         }
         return result
     }
@@ -92,14 +97,14 @@ class OnBoardingViewModel @Inject constructor(
             flow.onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {
-                        _state.value = _state.value.copy(isLoading = true)
+                        _state.value = OnBoardingStates(isLoading = true)
                     }
                     is Resource.Success -> {
                         _listAreasOfInterest.value = resource.data!!
-                        _state.value = _state.value.copy(isLoading = false, loadAreasOfInterestSuccess = true)
+                        _state.value = OnBoardingStates(isLoading = false, loadAreasOfInterestSuccess = true)
                     }
                     is Resource.Error -> {
-                        _state.value = _state.value.copy(isLoading = false, loadAreasOfInterestError = resource.message)
+                        _state.value = OnBoardingStates(isLoading = false, loadAreasOfInterestError = resource.message)
                     }
                 }
             }.launchIn(this)
@@ -142,11 +147,29 @@ class OnBoardingViewModel @Inject constructor(
                         "There will be the default ones. Don't worry, you can change it in any time.",
                 Toast.LENGTH_LONG
             ).show()
-
-        // TODO:
-
         }else{
-            // TODO: Creare UseCase per scrittura delle preferenze dell'utente in firestore
+
+            val listOfPreferences: List<Preferences> = _selectedListAreasOfInterest.value.map { selectedArea ->
+                Preferences(
+                    preferenceValue = selectedArea.value
+                )
+            }
+            viewModelScope.launch {
+                val flow = updateCurrentUserPreferencesUseCase(listOfPreferences)
+                flow.onEach { resource ->
+                    when(resource){
+                        is Resource.Loading -> {
+                            _state.value = OnBoardingStates(isLoading = true)
+                        }
+                        is Resource.Success -> {
+                            _state.value = OnBoardingStates(onSummarySuccess = true)
+                        }
+                        is Resource.Error -> {
+                            _state.value = OnBoardingStates(onSummaryError = resource.message)
+                        }
+                    }
+                }.launchIn(this)
+            }
         }
     }
 

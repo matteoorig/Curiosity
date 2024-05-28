@@ -6,7 +6,6 @@ package com.curiosity.data
 
 import com.curiosity.data.model.Preferences
 import com.curiosity.data.model.User
-import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.curiosity.domain.repository.DataRepository
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -75,10 +74,11 @@ open class DataRepositoryImpl @Inject constructor(
      * @param preferences The new preferences to update for the user.
      * @return A Void? indicating the result of the update operation. Returns null if the update fails.
      */
-    override suspend fun updateUserPreferences(uuid: String, preferences: Preferences): Void? {
+    override suspend fun updateUserPreferences(uuid: String, preferences: List<Preferences>): Void? {
+        val preferencesHashMap: HashMap<String, Map<String, Any>> = Preferences.getHashMap(preferences)
         return db.collection("users").document(uuid).update(
             "preferences",
-            preferences.getHashMap()
+            preferencesHashMap
         ).await()
     }
 

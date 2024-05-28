@@ -61,7 +61,7 @@ interface DataRepository {
      * @param preferences The new preferences to update for the user.
      * @return A Void? indicating the result of the update operation. Returns null if the update fails.
      */
-    suspend fun updateUserPreferences(uuid: String, preferences: Preferences): Void?
+    suspend fun updateUserPreferences(uuid: String, preferences: List<Preferences>): Void?
 
     /**
      * Loads a list of areas of interest categories from Firestore.

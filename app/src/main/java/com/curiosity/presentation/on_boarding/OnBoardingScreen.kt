@@ -84,12 +84,11 @@ fun OnBoardingScreen(
         }
         state.onSummarySuccess -> {
             LaunchedEffect(Unit){
-                navController.navigate(Routes.ProfileScreen.route){
+                navController.navigate(Routes.HomeScreen.route){
                     popUpTo(route = Routes.OnBoardingScreen.route){
                         inclusive = true
                         saveState = false
                     }
-
                 }
             }
         }

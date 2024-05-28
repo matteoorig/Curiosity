@@ -33,7 +33,12 @@ sealed class Routes(val route: String) {
     object ProfileScreen : Routes("profile_screen")
 
     /**
-     * Object representing the profile screen route.
+     * Object representing the on boarding screen route.
      */
     object OnBoardingScreen : Routes("on_boarding_screen")
+
+    /**
+     * Object representing the home screen route.
+     */
+    object HomeScreen : Routes("home_screen")
 }

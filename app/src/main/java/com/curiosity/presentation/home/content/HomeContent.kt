@@ -40,6 +40,7 @@ import com.curiosity.common.components.CuriosityDefaultButton
 import com.curiosity.common.components.CuriositySvg
 import com.curiosity.common.components.CuriositySvgButton
 import com.curiosity.common.components.CuriosityText
+import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.home.HomeViewModel
 import com.curiosity.presentation.home.content.composable.ShakeConfig
 import com.curiosity.presentation.home.content.composable.ShakeController
@@ -92,7 +93,7 @@ fun HomeContent(
                     modifier = Modifier.size(32.dp),
                     drawableResource = R.drawable.profile,
                     onClick = {
-                        // Callback click profile
+                        navController.navigate(Routes.ProfileScreen.route)
                     }
                 )
             }

@@ -43,7 +43,7 @@ fun SignInScreen(
         }
         state.requestSignInSuccessful -> {
             LaunchedEffect(Unit){
-                navController.navigate(Routes.ProfileScreen.route){
+                navController.navigate(Routes.HomeScreen.route){
                     popUpTo(route = Routes.SignInScreen.route){
                         inclusive = true
                         saveState = false

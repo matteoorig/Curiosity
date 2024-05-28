@@ -60,7 +60,7 @@ fun ProfileContent(
             CuriositySvgButton(
                 drawableResource = R.drawable.arrow
             ) {
-
+                navController.popBackStack()
             }
             CuriosityText(
                 modifier = Modifier.padding(start = 15.dp),

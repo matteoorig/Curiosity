@@ -1,21 +1,24 @@
 package com.curiosity.data.model
 
+/**
+ * @author matteooriggi
+ */
+
 data class Preferences(
     val preferenceValue: String,
-    val interest: Int
+    val interest: Int = 0
 ){
-    fun getHashMap(preference: Preferences? = null): HashMap<String, Any> {
-        // define hash map
-        val hashMap: HashMap<String, Any> = hashMapOf<String, Any>()
-        // getting the field of User data class
-        val properties = Preferences::class.java.declaredFields
-        // for ech field i add the correct value of the property in the hash map
-        properties.forEach { property ->
-            if (property.name != "\$stable") {
-                property.isAccessible = true
-                hashMap[property.name] = property.get(preference ?: this) ?: ""
+    companion object {
+        fun getHashMap(preferencesList: List<Preferences>): HashMap<String, Map<String, Any>> {
+
+            val preferencesHashMap: HashMap<String, Map<String, Any>> = HashMap()
+            preferencesList.forEach { preference ->
+                preferencesHashMap[preference.preferenceValue] = mapOf(
+                    "preferenceValue" to preference.preferenceValue,
+                    "interest" to preference.interest
+                )
             }
+            return preferencesHashMap
         }
-        return hashMap
     }
 }

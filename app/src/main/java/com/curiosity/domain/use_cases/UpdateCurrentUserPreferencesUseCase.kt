@@ -8,6 +8,7 @@ import com.curiosity.domain.model.Preferences
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
+import com.curiosity.domain.repository.SharedPreferencesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,7 +28,8 @@ import javax.inject.Inject
  */
 class UpdateCurrentUserPreferencesUseCase @Inject constructor(
     private val repository: AuthRepository,
-    private val dataRepository: DataRepository
+    private val dataRepository: DataRepository,
+    private val sharedPreferencesRepository: SharedPreferencesRepository
 ) {
     operator fun invoke(preferences: List<Preferences>) : Flow<Resource<Boolean>> = flow {
         try {
@@ -39,9 +41,17 @@ class UpdateCurrentUserPreferencesUseCase @Inject constructor(
             if(currentUser == null){
                 emit(Resource.Error<Boolean>("InsertCurrentUserPreferencesUseCase no user logged in"))
             }else{
+
+                // TEMPORANEO
+                val user = sharedPreferencesRepository.getUser()
+
+
                 // Update the preferences of the current user in Firebase Firestore
                 // Every error is handled by the Flow.
                 dataRepository.updateUserPreferences(currentUser.uid, preferences)
+
+                // Update user preferences in the sharedPreferences.
+                sharedPreferencesRepository.saveCurrentUserPreferences(preferences)
 
                 emit(Resource.Success<Boolean>(data = true))
             }

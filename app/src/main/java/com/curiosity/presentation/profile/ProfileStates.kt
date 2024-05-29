@@ -9,6 +9,8 @@ package com.curiosity.presentation.profile
  */
 data class ProfileStates(
     val isLoading: Boolean = false,
+    val loadUserSuccess: Boolean = false,
+    val loadUserError: String? = null,
     val currentUserLogout: Boolean = false,
     val currentUserLogoutError: String? = null
 )

@@ -7,4 +7,6 @@ package com.curiosity.presentation.home
 
 data class HomeStates(
     val isLoading: Boolean = false,
+    val loadUserSuccess: Boolean = false,
+    val loadUserError: String? = null
 )

@@ -45,8 +45,8 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         editor.putString("user_email", user.email)
         editor.putString("user_coins", user.coins.toString())
         editor.putString("user_level", user.level.toString())
-        editor.putStringSet("user_preferences_values", Preferences.toStringValueList(user.preferences).toMutableSet())
-        editor.putStringSet("user_preferences_interest", Preferences.toStringInterestList(user.preferences).toMutableSet())
+        editor.putString("user_preferences_values", Preferences.toStringValuesParsed(user.preferences))
+        editor.putString("user_preferences_interest", Preferences.toStringInterestsParsed(user.preferences))
         editor.apply()
     }
 
@@ -64,8 +64,8 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         val userEmail: String = sharedPreferences.getString("user_email", null) ?: return null
         val userCoins: String = sharedPreferences.getString("user_coins", null) ?: return null
         val userLevel: String = sharedPreferences.getString("user_level", null) ?: return null
-        val userPreferencesValues: MutableSet<String> = sharedPreferences.getStringSet("user_preferences_values", null) ?: return null
-        val userPreferencesInterest: MutableSet<String> = sharedPreferences.getStringSet("user_preferences_interest", null) ?: return null
+        val userPreferencesValues: String = sharedPreferences.getString("user_preferences_values", null) ?: return null
+        val userPreferencesInterest: String = sharedPreferences.getString("user_preferences_interest", null) ?: return null
 
         return User(
             uuid = userUuid,
@@ -73,7 +73,7 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
             email = userEmail,
             coins = userCoins.toInt(),
             level = userLevel.toInt(),
-            preferences = Preferences.fromStringLists(userPreferencesValues.toList(), userPreferencesInterest.toList())
+            preferences = Preferences.fromParsedStrings(userPreferencesValues, userPreferencesInterest)
         )
     }
 
@@ -107,8 +107,8 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
      */
     override suspend fun saveCurrentUserPreferences(preferences: List<Preferences>) {
         val editor = sharedPreferences.edit()
-        editor.putStringSet("user_preferences_values", Preferences.toStringValueList(preferences).toMutableSet())
-        editor.putStringSet("user_preferences_interest", Preferences.toStringInterestList(preferences).toMutableSet())
+        editor.putString("user_preferences_values", Preferences.toStringValuesParsed(preferences))
+        editor.putString("user_preferences_interest", Preferences.toStringInterestsParsed(preferences))
         editor.apply()
     }
 

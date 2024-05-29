@@ -7,7 +7,10 @@ package com.curiosity.presentation.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.curiosity.domain.model.Resource
+import com.curiosity.domain.model.User
+import com.curiosity.domain.use_cases.LoadCurrentUserUseCase
 import com.curiosity.domain.use_cases.LogoutCurrentUserUseCase
+import com.curiosity.presentation.home.HomeStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,14 +28,46 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
+    private val loadCurrentUserUseCase: LoadCurrentUserUseCase,
     private val logoutCurrentUserUseCase: LogoutCurrentUserUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(ProfileStates())
     val state: StateFlow<ProfileStates> = _state.asStateFlow()
 
+    private val _user = MutableStateFlow(User())
+    val user: StateFlow<User> = _user.asStateFlow()
+
     fun updateStateValue(newState: ProfileStates){
         _state.value = newState
+    }
+
+    fun updateUserValue(newState: User){
+        _user.value = newState
+    }
+
+    init {
+        getUser()
+    }
+
+    private fun getUser(){
+        viewModelScope.launch {
+            val flow = loadCurrentUserUseCase()
+            flow.onEach { resource ->
+                when(resource){
+                    is Resource.Loading -> {
+                        _state.value = ProfileStates(isLoading = true)
+                    }
+                    is Resource.Success -> {
+                        updateUserValue(resource.data!!)
+                        _state.value = ProfileStates(loadUserSuccess = true)
+                    }
+                    is Resource.Error -> {
+                        _state.value = ProfileStates(loadUserError = resource.message)
+                    }
+                }
+            }.launchIn(this)
+        }
     }
 
     fun logOut(){

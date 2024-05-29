@@ -40,6 +40,7 @@ import com.curiosity.common.components.CuriosityDefaultButton
 import com.curiosity.common.components.CuriositySvg
 import com.curiosity.common.components.CuriositySvgButton
 import com.curiosity.common.components.CuriosityText
+import com.curiosity.domain.model.User
 import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.home.HomeViewModel
 import com.curiosity.presentation.home.content.composable.ShakeConfig
@@ -53,7 +54,8 @@ import com.curiosity.ui.theme.CuriosityViolet
 @Composable
 fun HomeContent(
     navController: NavController,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    user: User
 ){
 
     val draggableOffset: Int = 5
@@ -83,7 +85,7 @@ fun HomeContent(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 CoinContainer(
-                    value = "98",
+                    value = user.coins.toString(),
                     valueSize = 32.sp,
                     modifier = Modifier
                         .padding(bottom = 8.dp)

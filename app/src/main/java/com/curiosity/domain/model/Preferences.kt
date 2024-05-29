@@ -50,45 +50,48 @@ data class Preferences(
         }
 
         /**
-         * Convert two lists of strings to a list of Preferences objects.
+         * Convert parsed strings of preference values and interests into a list of Preferences objects.
          *
-         * @param preferenceValues The list of strings containing preference values.
-         * @param interests The list of strings containing interests.
-         * @return A list of Preferences objects created from the provided values.
+         * @param preferenceValuesString The string of preference values separated by ';'.
+         * @param interestsString The string of interest values separated by ';'.
+         * @return A list of Preferences objects.
          */
-        fun fromStringLists(preferenceValues: List<String>, interests: List<String>): List<Preferences> {
+        fun fromParsedStrings(preferenceValuesString: String, interestsString: String): List<Preferences> {
+            if (preferenceValuesString.isEmpty() && interestsString.isEmpty()) {
+                return emptyList()
+            }
+            val preferenceValues = preferenceValuesString.split(";")
+            val interests = interestsString.split(";").map { it.toInt() }
+
             if (preferenceValues.size != interests.size) {
-                throw IllegalArgumentException("The size of preferenceValues and interests lists must be the same")
+                throw IllegalArgumentException("Preference values and interests must have the same number of elements")
             }
 
-            val preferencesList = mutableListOf<Preferences>()
-
-            for (i in preferenceValues.indices) {
-                val interest = interests[i].toIntOrNull() ?: 0
-                preferencesList.add(Preferences(preferenceValues[i], interest))
+            return preferenceValues.zip(interests).map { (value, interest) ->
+                Preferences(preferenceValue = value, interest = interest)
             }
-
-            return preferencesList
         }
 
         /**
-         * Convert a list of Preferences objects to a list of their preference values.
+         * Convert a list of Preferences objects to a single string of their preference values.
          *
          * @param preferencesList The list of Preferences objects to be converted.
-         * @return A list of strings containing the preference values.
+         * @return A string containing the preference values separated by ';'.
          */
-        fun toStringValueList(preferencesList: List<Preferences>): List<String> {
-            return preferencesList.map { it.preferenceValue }
+        fun toStringValuesParsed(preferencesList: List<Preferences>): String {
+            val str: String = preferencesList.joinToString(separator = ";") { it.preferenceValue }
+            return str
         }
 
         /**
-         * Convert a list of Preferences objects to a list of their interest values.
+         * Convert a list of Preferences objects to a single string of their interest values.
          *
          * @param preferencesList The list of Preferences objects to be converted.
-         * @return A list of strings containing the interest.
+         * @return A string containing the interest values separated by ';'.
          */
-        fun toStringInterestList(preferencesList: List<Preferences>): List<String> {
-            return preferencesList.map { it.interest.toString() }
+        fun toStringInterestsParsed(preferencesList: List<Preferences>): String {
+            val str: String = preferencesList.joinToString(separator = ";") { it.interest.toString() }
+            return str
         }
     }
 }

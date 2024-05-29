@@ -4,6 +4,7 @@ package com.curiosity.domain.use_cases
  * @author matteooriggi
  */
 
+import com.curiosity.domain.model.Preferences
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.model.User
 import com.curiosity.domain.repository.AuthRepository
@@ -48,6 +49,14 @@ class SignInWithEmailAndPasswordUseCase @Inject constructor(
                 // Get user data from Firebase Firestore
                 val userData = dataRepository.getUser(result.user!!.uid)!!.data
 
+                // Parsing preferences from Firestore data
+                val preferencesList = (userData!!["preferences"] as HashMap<String, Map<String, Any>>).map { (key, valueMap) ->
+                    Preferences(
+                        preferenceValue = valueMap["preferenceValue"].toString(),
+                        interest = (valueMap["interest"] as Number).toInt()
+                    )
+                }
+
                 // Create a User instance with the obtained data.
                 val user: User = User(
                     uuid = result.user!!.uid,
@@ -55,6 +64,8 @@ class SignInWithEmailAndPasswordUseCase @Inject constructor(
                     email = userData["email"].toString(),
                     level = userData["level"].toString().toInt(),
                     coins = userData["coins"].toString().toInt(),
+                    interval = userData["interval"].toString().toInt(),
+                    preferences = preferencesList
                 )
 
                 // Remove user if exist

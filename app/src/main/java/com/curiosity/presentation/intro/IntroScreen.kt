@@ -36,7 +36,7 @@ fun IntroScreen(
         state.currentUserExist -> {
             LaunchedEffect(Unit) {
                 // I navigate to the page and delete the present screens and the current screen from the stack
-                navController.navigate(Routes.ProfileScreen.route){
+                navController.navigate(Routes.HomeScreen.route){
                     popUpTo(route = Routes.IntroScreen.route){
                         inclusive = true
                         saveState = false

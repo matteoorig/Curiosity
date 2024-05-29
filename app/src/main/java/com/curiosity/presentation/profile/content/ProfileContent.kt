@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,6 +29,7 @@ import com.curiosity.common.components.CuriosityText
 import com.curiosity.common.components.ProfileHelpContainer
 import com.curiosity.common.components.ProfileSettingsContainer
 import com.curiosity.common.components.UserContainer
+import com.curiosity.domain.model.User
 import com.curiosity.presentation.profile.ProfileStates
 import com.curiosity.presentation.profile.ProfileViewModel
 import com.curiosity.ui.theme.CuriosityViolet
@@ -44,6 +44,7 @@ fun ProfileContent(
     navController: NavController,
     viewModel: ProfileViewModel,
     state: ProfileStates,
+    user: User
 ){
     Column(
         modifier = Modifier
@@ -76,11 +77,11 @@ fun ProfileContent(
             verticalAlignment = Alignment.Bottom
         ) {
             CoinContainer(
-                value = "98"
+                value = user.coins.toString()
             )
             UserContainer(
                 modifier = Modifier.padding(bottom = 24.dp),
-                username = "default"
+                username = user.username ?: "no user"
             )
         }
         Column {
@@ -116,6 +117,7 @@ fun ProfileContentPreview(){
     ProfileContent(
         navController = rememberNavController(),
         viewModel = hiltViewModel(),
-        state = ProfileStates()
+        state = ProfileStates(),
+        user = User()
     )
 }

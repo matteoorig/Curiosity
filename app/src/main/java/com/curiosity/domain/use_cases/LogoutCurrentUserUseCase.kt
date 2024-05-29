@@ -13,15 +13,28 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+/**
+ * Use case for logging out the current user.
+ *
+ * This use case handles the process of logging out the currently authenticated user.
+ * It interacts with the AuthRepository to perform the sign-out operation. The state
+ * of the operation is managed using Flow<Resource<AuthResult>>.
+ *
+ * @param repository The AuthRepository used for authentication operations.
+ */
 class LogoutCurrentUserUseCase @Inject constructor(
     private val repository: AuthRepository,
 ) {
     operator fun invoke(): Flow<Resource<AuthResult>> = flow {
         try {
             emit(Resource.Loading<AuthResult>())
+
+            // Get the current user instance.
             val currentUser = repository.currentUser
 
+            // Check if the currentUser instance contains a user.
             if(currentUser != null){
+                // Sign out the current user.
                 repository.signOut()
                 emit(Resource.Success<AuthResult>())
             }else{

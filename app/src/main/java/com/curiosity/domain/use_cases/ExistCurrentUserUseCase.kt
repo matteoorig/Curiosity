@@ -23,13 +23,14 @@ import javax.inject.Inject
  */
 class ExistCurrentUserUseCase @Inject constructor(
     private val repository: AuthRepository,
-    // prima era private val repository: AuthRepositoryImpl,
 ) {
     operator fun invoke(): Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>())
+            // Get the current user instance.
             val currentUser = repository.currentUser
 
+            // Check if the currentUser instance contains a user.
             if(currentUser != null){
                 emit(Resource.Success<Boolean>(data = true))
             }else{

@@ -21,7 +21,7 @@ import javax.inject.Inject
  *
  * This use case handles the process of signing up a new user using email and password.
  * It interacts with the AuthRepository to perform the sign-up operation and the DataRepository
- * to register the user in the database. The state of the operation is managed using Flow<Resource<AuthResult>>.
+ * to register the user in the database. The state of the operation is managed using Flow<Resource<User>>.
  *
  * @param repository The AuthRepository used for authentication operations.
  * @param dataRepository The DataRepository used for database operations.
@@ -34,15 +34,20 @@ class SignUpWithEmailAndPasswordUseCase @Inject constructor(
     operator fun invoke(username: String, email: String, password: String): Flow<Resource<User>> = flow {
         try {
             emit(Resource.Loading<User>())
+            // Get the currentUser instance
             val currentUser = repository.currentUser
 
-
+            // Check if the currentUser instance contains a user.
             if(currentUser != null){
                 emit(Resource.Error<User>("createUserWithEmailAndPassword " + "User already exist"))
             }else{
+                // Firebase Authentication Sign up with the credentials provided by the UI.
                 val result = repository.createUserWithEmailAndPassword(email, password)
+
+                // Empty map to be able to already structure the document in the Firebase Firestore
                 val preferencesHashMap: HashMap<String, Map<String, Any>> = HashMap<String, Map<String, Any>>()
 
+                // Create a User instance.
                 val user: User = User(
                     uuid = result.user!!.uid,
                     username = username,
@@ -51,7 +56,13 @@ class SignUpWithEmailAndPasswordUseCase @Inject constructor(
                     preferences = Preferences.fromHashMap(preferencesHashMap)
                 )
 
+                // Save user in Firebase Firestore
                 dataRepository.registerUser(user)
+
+                // Remove user if exist
+                sharedPreferencesRepository.removeUser()
+
+                // Save user in SharedPreferences
                 sharedPreferencesRepository.saveUser(user)
 
                 emit(Resource.Success<User>(data = user))

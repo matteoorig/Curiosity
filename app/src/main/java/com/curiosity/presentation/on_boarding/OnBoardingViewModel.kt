@@ -12,6 +12,7 @@ import com.curiosity.domain.model.Preferences
 import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.use_cases.LoadAreasCategoriesUseCase
+import com.curiosity.domain.use_cases.UpdateCurrentUserIntervalUseCase
 import com.curiosity.domain.use_cases.UpdateCurrentUserPreferencesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +33,8 @@ import javax.inject.Inject
 class OnBoardingViewModel @Inject constructor(
     private val loadAreasCategoriesUseCase: LoadAreasCategoriesUseCase,
     private val context: Context,
-    private val updateCurrentUserPreferencesUseCase: UpdateCurrentUserPreferencesUseCase
+    private val updateCurrentUserPreferencesUseCase: UpdateCurrentUserPreferencesUseCase,
+    private val updateCurrentUserIntervalUseCase: UpdateCurrentUserIntervalUseCase
 ): ViewModel()  {
 
     init {
@@ -158,10 +160,26 @@ class OnBoardingViewModel @Inject constructor(
                             _state.value = OnBoardingStates(isLoading = true)
                         }
                         is Resource.Success -> {
-                            _state.value = OnBoardingStates(onSummarySuccess = true)
+                            _state.value = OnBoardingStates(onSummaryPreferencesSuccess = true)
                         }
                         is Resource.Error -> {
-                            _state.value = OnBoardingStates(onSummaryError = resource.message)
+                            _state.value = OnBoardingStates(onSummaryPreferencesError = resource.message)
+                        }
+                    }
+                }.launchIn(this)
+            }
+            viewModelScope.launch {
+                val flow = updateCurrentUserIntervalUseCase(_isMinutes.value, _interval.value)
+                flow.onEach { resource ->
+                    when(resource){
+                        is Resource.Loading -> {
+                            _state.value = OnBoardingStates(isLoading = true)
+                        }
+                        is Resource.Success -> {
+                            _state.value = OnBoardingStates(onSummaryIntervalSuccess = true)
+                        }
+                        is Resource.Error -> {
+                            _state.value = OnBoardingStates(onSummaryIntervalError = resource.message)
                         }
                     }
                 }.launchIn(this)

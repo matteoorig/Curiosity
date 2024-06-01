@@ -27,7 +27,6 @@ import javax.inject.Inject
 @HiltViewModel
 class IntroViewModel @Inject constructor(
     private val existCurrentUserUseCase: ExistCurrentUserUseCase,
-    private val logoutCurrentUserUseCase: LogoutCurrentUserUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(IntroStates())

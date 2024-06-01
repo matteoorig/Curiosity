@@ -14,6 +14,8 @@ data class OnBoardingStates(
     val onSelectAreasError: String? = null,
     val onSelectIntervalSuccess: Boolean = false,
     val onSelectIntervalError: String? = null,
-    val onSummarySuccess: Boolean = false,
-    val onSummaryError: String? = null,
+    val onSummaryPreferencesSuccess: Boolean = false,
+    val onSummaryPreferencesError: String? = null,
+    val onSummaryIntervalSuccess: Boolean = false,
+    val onSummaryIntervalError: String? = null,
 )

@@ -82,7 +82,7 @@ fun OnBoardingScreen(
                 state = state
             )
         }
-        state.onSummarySuccess -> {
+        state.onSummaryIntervalSuccess -> {
             LaunchedEffect(Unit){
                 navController.navigate(Routes.HomeScreen.route){
                     popUpTo(route = Routes.OnBoardingScreen.route){

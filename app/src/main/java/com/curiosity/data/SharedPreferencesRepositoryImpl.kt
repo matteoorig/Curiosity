@@ -45,6 +45,8 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         editor.putString("user_email", user.email)
         editor.putString("user_coins", user.coins.toString())
         editor.putString("user_level", user.level.toString())
+        editor.putString("interval", user.interval.toString())
+        editor.putString("isMinutes", user.isMinutes.toString())
         editor.putString("user_preferences_values", Preferences.toStringValuesParsed(user.preferences))
         editor.putString("user_preferences_interest", Preferences.toStringInterestsParsed(user.preferences))
         editor.apply()
@@ -91,6 +93,8 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
             editor.remove("user_email")
             editor.remove("user_coins")
             editor.remove("user_level")
+            editor.remove("interval")
+            editor.remove("isMinutes")
             editor.remove("user_preferences_values")
             editor.remove("user_preferences_interest")
         }
@@ -109,6 +113,22 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         val editor = sharedPreferences.edit()
         editor.putString("user_preferences_values", Preferences.toStringValuesParsed(preferences))
         editor.putString("user_preferences_interest", Preferences.toStringInterestsParsed(preferences))
+        editor.apply()
+    }
+
+    /**
+     * Saves the current user's preferences to SharedPreferences.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It saves the "preferences" field of the current user to SharedPreferences.
+     *
+     * @param isMinutes The boolean value if the interval is in minutes or in hours.
+     * @param interval The interval time value between notification.
+     */
+    override suspend fun saveCurrentUserInterval(isMinutes: Boolean, interval: Int) {
+        val editor = sharedPreferences.edit()
+        editor.putString("isMinutes", isMinutes.toString())
+        editor.putString("interval", interval.toString())
         editor.apply()
     }
 

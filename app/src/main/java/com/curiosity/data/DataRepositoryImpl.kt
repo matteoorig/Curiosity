@@ -82,6 +82,15 @@ open class DataRepositoryImpl @Inject constructor(
         ).await()
     }
 
+    override suspend fun updateUserInterval(uuid: String, isMinutes: Boolean, interval: Int): Void? {
+        return db.collection("users").document(uuid).update(
+            hashMapOf<String, Any>(
+                "isMinute" to isMinutes,
+                "interval" to interval.toString()
+            )
+        ).await()
+    }
+
     /**
      * Loads a list of areas of interest categories from Firestore.
      *

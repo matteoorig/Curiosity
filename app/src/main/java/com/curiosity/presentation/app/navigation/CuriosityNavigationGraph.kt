@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.app.routes.Routes
+import com.curiosity.presentation.areas_of_interest.AreasOfInterestScreen
 import com.curiosity.presentation.home.HomeScreen
 import com.curiosity.presentation.intro.IntroScreen
 import com.curiosity.presentation.on_boarding.OnBoardingScreen
@@ -68,6 +69,12 @@ fun CuriosityNavigationGraph() {
             route = Routes.HomeScreen.route
         ){
             HomeScreen(navController = navigationController)
+        }
+
+        composable(
+            route = Routes.AreasOfInterestScreen.route
+        ){
+            AreasOfInterestScreen(navController = navigationController)
         }
     }
 }

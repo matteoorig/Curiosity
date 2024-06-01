@@ -30,6 +30,7 @@ import com.curiosity.common.components.ProfileHelpContainer
 import com.curiosity.common.components.ProfileSettingsContainer
 import com.curiosity.common.components.UserContainer
 import com.curiosity.domain.model.User
+import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.profile.ProfileStates
 import com.curiosity.presentation.profile.ProfileViewModel
 import com.curiosity.ui.theme.CuriosityViolet
@@ -87,7 +88,7 @@ fun ProfileContent(
         Column {
             ProfileSettingsContainer(
                 onClickAreasOfInterest = {
-
+                    navController.navigate(Routes.AreasOfInterestScreen.route)
                 },
                 onClickIntervalBetweenNotification = {
 

@@ -41,4 +41,9 @@ sealed class Routes(val route: String) {
      * Object representing the home screen route.
      */
     object HomeScreen : Routes("home_screen")
+
+    /**
+     * Object representing the areas of interest screen route.
+     */
+    object AreasOfInterestScreen : Routes("areas_of_interest_screen")
 }

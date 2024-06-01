@@ -85,7 +85,7 @@ open class DataRepositoryImpl @Inject constructor(
     override suspend fun updateUserInterval(uuid: String, isMinutes: Boolean, interval: Int): Void? {
         return db.collection("users").document(uuid).update(
             hashMapOf<String, Any>(
-                "isMinute" to isMinutes,
+                "isMinutes" to isMinutes,
                 "interval" to interval.toString()
             )
         ).await()

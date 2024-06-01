@@ -66,6 +66,8 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         val userEmail: String = sharedPreferences.getString("user_email", null) ?: return null
         val userCoins: String = sharedPreferences.getString("user_coins", null) ?: return null
         val userLevel: String = sharedPreferences.getString("user_level", null) ?: return null
+        val userIsMinutes: String = sharedPreferences.getString("isMinutes", null) ?: return null
+        val userInterval: String = sharedPreferences.getString("interval", null) ?: return null
         val userPreferencesValues: String = sharedPreferences.getString("user_preferences_values", null) ?: return null
         val userPreferencesInterest: String = sharedPreferences.getString("user_preferences_interest", null) ?: return null
 
@@ -75,6 +77,8 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
             email = userEmail,
             coins = userCoins.toInt(),
             level = userLevel.toInt(),
+            isMinutes = userIsMinutes.toBoolean(),
+            interval = userInterval.toInt(),
             preferences = Preferences.fromParsedStrings(userPreferencesValues, userPreferencesInterest)
         )
     }

@@ -4,6 +4,7 @@ package com.curiosity.domain.use_cases
  * @author matteooriggi
  */
 
+import android.util.Log
 import com.curiosity.domain.model.Preferences
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.model.User
@@ -79,6 +80,7 @@ class SignInWithEmailAndPasswordUseCase @Inject constructor(
             }
         }catch (e: Exception){
             emit(Resource.Error<User>("signInUserWithEmailAndPassword " + e.message))
+            Log.d("signInUserWithEmailAndPassword", "" + e.message)
         }
     }.flowOn(Dispatchers.IO)
 }

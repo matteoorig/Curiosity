@@ -62,6 +62,8 @@ interface DataRepository {
      */
     suspend fun updateUserPreferences(uuid: String, preferences: List<Preferences>): Void?
 
+    suspend fun updateUserInterval(uuid: String, isMinutes: Boolean, interval: Int): Void?
+
     /**
      * Loads a list of areas of interest categories from Firestore.
      *

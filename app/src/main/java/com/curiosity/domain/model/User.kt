@@ -11,6 +11,7 @@ data class User(
     var password: String? = "",
     var level: Int = 1,
     var coins: Int = 0,
+    var isMinutes: Boolean = true,
     var interval: Int = 5,
     var preferences: List<Preferences> = emptyList()
 ) {

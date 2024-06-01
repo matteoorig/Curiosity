@@ -42,10 +42,6 @@ class UpdateCurrentUserPreferencesUseCase @Inject constructor(
                 emit(Resource.Error<Boolean>("InsertCurrentUserPreferencesUseCase no user logged in"))
             }else{
 
-                // TEMPORANEO
-                val user = sharedPreferencesRepository.getUser()
-
-
                 // Update the preferences of the current user in Firebase Firestore
                 // Every error is handled by the Flow.
                 dataRepository.updateUserPreferences(currentUser.uid, preferences)

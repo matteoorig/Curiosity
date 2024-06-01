@@ -48,5 +48,24 @@ interface SharedPreferencesRepository {
     suspend fun existKey(key: String): Boolean
 
 
+    /**
+     * Saves the current user's preferences to SharedPreferences.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It saves the "preferences" field of the current user to SharedPreferences.
+     *
+     * @param preferences The list of Preferences to be saved for the current user.
+     */
     suspend fun saveCurrentUserPreferences(preferences: List<Preferences>)
+
+    /**
+     * Saves the current user's interval and its relative type to SharedPreferences.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It saves the "isMinutes" and "interval" fields of the current user to SharedPreferences.
+     *
+     * @param isMinutes The boolean value if the interval is in minutes or in hours.
+     * @param interval The interval time value between notification.
+     */
+    suspend fun saveCurrentUserInterval(isMinutes: Boolean, interval: Int)
 }

@@ -64,6 +64,7 @@ class SignInWithEmailAndPasswordUseCase @Inject constructor(
                     email = userData["email"].toString(),
                     level = userData["level"].toString().toInt(),
                     coins = userData["coins"].toString().toInt(),
+                    isMinutes = userData["isMinutes"] as Boolean,
                     interval = userData["interval"].toString().toInt(),
                     preferences = preferencesList
                 )

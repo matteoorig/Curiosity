@@ -26,7 +26,8 @@ fun ProfileSettingsContainer(
     onClickAreasOfInterest: () -> Unit,
     onClickIntervalBetweenNotification: () -> Unit,
     onClickChangePassword: () -> Unit,
-    onClickLogout: () -> Unit
+    onClickLogout: () -> Unit,
+    intervalFormatted: String
 ){
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -75,7 +76,8 @@ fun ProfileSettingsContainer(
                     secondLineText = "Notification",
                     icon = R.drawable.intervall_notification,
                     paddingIcon = 22.dp,
-                    onClick = onClickIntervalBetweenNotification
+                    onClick = onClickIntervalBetweenNotification,
+                    subTitle = intervalFormatted
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 ProfileLogoutButton(
@@ -102,6 +104,7 @@ fun ProfileSettingsContainerPreview(){
         },
         onClickLogout = {
 
-        }
+        },
+        intervalFormatted = "current: 15 m"
     )
 }

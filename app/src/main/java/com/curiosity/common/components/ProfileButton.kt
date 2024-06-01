@@ -40,6 +40,7 @@ import com.curiosity.ui.theme.CuriosityViolet
 fun ProfileButton(
     firstLineText: String? = null,
     secondLineText:String? = null,
+    subTitle: String? = null,
     icon: Int = R.drawable.ic_launcher_background,
     height: Dp? = null,
     width: Dp? = null,
@@ -82,6 +83,16 @@ fun ProfileButton(
                 fontFamily = Poppins,
                 color = CuriosityViolet
             )
+            if(subTitle != null){
+                Text(
+                    text = subTitle,
+                    textAlign = TextAlign.Center,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    fontFamily = Poppins,
+                    color = CuriosityViolet
+                )
+            }
         }
         Column(
             modifier = Modifier
@@ -112,6 +123,7 @@ fun ProfileButtonPreview(){
         width = 200.dp,
         height = 100.dp,
         paddingIcon = 20.dp,
+        subTitle = "current: 15",
         onClick = {
 
         }

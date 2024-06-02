@@ -19,7 +19,6 @@ import com.curiosity.common.components.CuriosityCoupleTitle
 import com.curiosity.common.components.CuriosityDefaultButton
 import com.curiosity.presentation.profile.ProfileStates
 import com.curiosity.presentation.profile.ProfileViewModel
-import com.curiosity.presentation.sign_up.SignUpStates
 
 /**
  * Composable function that displays an error screen for the profile flow.
@@ -34,7 +33,8 @@ import com.curiosity.presentation.sign_up.SignUpStates
 fun ProfileError(
     navController: NavController,
     viewModel: ProfileViewModel,
-    state: ProfileStates
+    state: ProfileStates,
+    error: String
 ){
     Column(
         modifier = Modifier
@@ -44,7 +44,7 @@ fun ProfileError(
     ){
         CuriosityCoupleTitle(
             titleText = "ERROR",
-            subtitleText = state.currentUserLogoutError ?: "Internal error"
+            subtitleText = error
         )
         CuriosityDefaultButton(
             value = "Reload",
@@ -61,6 +61,7 @@ fun ProfileErrorPreview(){
     ProfileError(
         navController = rememberNavController(),
         viewModel = hiltViewModel(),
-        state = ProfileStates()
+        state = ProfileStates(),
+        error = "Default error"
     )
 }

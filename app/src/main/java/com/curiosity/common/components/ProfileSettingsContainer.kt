@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,7 +26,6 @@ fun ProfileSettingsContainer(
     onClickIntervalBetweenNotification: () -> Unit,
     onClickChangePassword: () -> Unit,
     onClickLogout: () -> Unit,
-    intervalFormatted: String
 ){
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -77,7 +75,6 @@ fun ProfileSettingsContainer(
                     icon = R.drawable.intervall_notification,
                     paddingIcon = 22.dp,
                     onClick = onClickIntervalBetweenNotification,
-                    subTitle = intervalFormatted
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 ProfileLogoutButton(
@@ -104,7 +101,6 @@ fun ProfileSettingsContainerPreview(){
         },
         onClickLogout = {
 
-        },
-        intervalFormatted = "current: 15 m"
+        }
     )
 }

@@ -49,7 +49,16 @@ fun ProfileScreen(
             ProfileError(
                 navController = navController,
                 viewModel = viewModel,
-                state = state
+                state = state,
+                error = state.currentUserLogoutError!!
+            )
+        }
+        state.loadUserError != null -> {
+            ProfileError(
+                navController = navController,
+                viewModel = viewModel,
+                state = state,
+                error = state.loadUserError!!
             )
         }
         else -> {

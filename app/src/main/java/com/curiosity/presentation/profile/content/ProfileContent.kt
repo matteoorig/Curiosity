@@ -99,7 +99,6 @@ fun ProfileContent(
                 onClickLogout = {
                     viewModel.logOut()
                 },
-                intervalFormatted = "current: " + user.interval + if(user.isMinutes) " m" else " h"
             )
             Spacer(modifier = Modifier.height(15.dp))
             ProfileHelpContainer()

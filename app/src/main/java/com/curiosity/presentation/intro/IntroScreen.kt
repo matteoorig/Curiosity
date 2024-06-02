@@ -4,18 +4,26 @@ package com.curiosity.presentation.intro
  * @author matteooriggi
  */
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.intro.content.IntroContent
 import com.curiosity.presentation.intro.content.IntroError
+import com.curiosity.presentation.intro.content.IntroRequestNotificationPermission
 
 /**
  * Composable function that represents the intro screen of the application.
@@ -28,6 +36,18 @@ fun IntroScreen(
     viewModel: IntroViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
+
+    val context = LocalContext.current
+    val hasNotificationPermission by remember {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mutableStateOf(
+                ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            )
+        }else mutableStateOf(true)
+    }
 
     when {
         state.isLoading -> {
@@ -46,8 +66,15 @@ fun IntroScreen(
         }
         state.currentUserExistError != null -> {
             IntroError(
+                viewModel = viewModel,
                 navController = navController,
-                state = state
+                state = state,
+                error = state.currentUserExistError!!
+            )
+        }
+        !state.hasNotificationPermissionSuccessful -> {
+            IntroRequestNotificationPermission(
+                viewModel = viewModel
             )
         }
         else -> {

@@ -12,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.curiosity.common.components.CuriosityCoupleTitle
 import com.curiosity.common.components.CuriosityDefaultButton
 import com.curiosity.presentation.intro.IntroStates
+import com.curiosity.presentation.intro.IntroViewModel
 
 /**
  * Composable function that displays an error screen for the intro flow.
@@ -28,8 +30,10 @@ import com.curiosity.presentation.intro.IntroStates
  */
 @Composable
 fun IntroError(
+    viewModel: IntroViewModel,
     navController: NavController,
-    state: IntroStates
+    state: IntroStates,
+    error: String
 ){
     Column(
         modifier = Modifier
@@ -39,12 +43,12 @@ fun IntroError(
     ){
         CuriosityCoupleTitle(
             titleText = "ERROR",
-            subtitleText = state.currentUserExistError ?: "Internal error"
+            subtitleText = error
         )
         CuriosityDefaultButton(
             value = "Reload",
             onClick = {
-                navController.popBackStack()
+                viewModel.setStateValue(IntroStates())
             }
         )
     }
@@ -54,7 +58,9 @@ fun IntroError(
 @Composable
 fun IntroErrorPreview(){
     IntroError(
+        viewModel = hiltViewModel(),
         navController = rememberNavController(),
-        state = IntroStates()
+        state = IntroStates(),
+        error = "Default error"
     )
 }

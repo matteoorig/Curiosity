@@ -9,6 +9,8 @@ package com.curiosity.presentation.intro
  */
 data class IntroStates(
     val isLoading: Boolean = false,
+    val hasNotificationPermissionSuccessful: Boolean = false,
+    val hasNotificationPermissionError: String? = null,
     val currentUserExist: Boolean = false,
     val currentUserExistError: String? = null
 )

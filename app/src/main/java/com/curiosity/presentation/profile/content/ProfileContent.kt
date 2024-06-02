@@ -91,7 +91,7 @@ fun ProfileContent(
                     navController.navigate(Routes.AreasOfInterestScreen.route)
                 },
                 onClickIntervalBetweenNotification = {
-
+                    navController.navigate(Routes.IntervalNotification.route)
                 },
                 onClickChangePassword = {
 

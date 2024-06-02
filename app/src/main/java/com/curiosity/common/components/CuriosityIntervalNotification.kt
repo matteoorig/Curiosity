@@ -4,6 +4,7 @@ package com.curiosity.common.components
  * @author matteooriggi
  */
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -24,6 +25,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,12 +50,12 @@ fun CuriosityIntervalNotification(
     updateIsMinutes: (Boolean) -> Unit,
     updateInterval: (Int) -> Unit
 ){
-
+    
     var myInterval = remember {
         mutableIntStateOf(interval)
     }
 
-    var myIsMinutes = remember {
+    var currentIsMinutes = remember {
         mutableStateOf(isMinutes)
     }
 
@@ -63,8 +65,8 @@ fun CuriosityIntervalNotification(
     }
 
     fun setIsMinutesValue(newValue: Boolean){
-        myIsMinutes.value = newValue
-        updateIsMinutes(myIsMinutes.value)
+        currentIsMinutes.value = newValue
+        updateIsMinutes(currentIsMinutes.value)
     }
 
     fun incrementInterval(isMinutes: MutableState<Boolean>, interval: MutableIntState){
@@ -112,7 +114,7 @@ fun CuriosityIntervalNotification(
                 .clip(RoundedCornerShape(10.dp))
                 .background(CuriosityGray)
                 .clickable {
-                    setIsMinutesValue(!myIsMinutes.value)
+                    setIsMinutesValue(!currentIsMinutes.value)
                     setIntervalValue(1)
                 },
             horizontalArrangement = Arrangement.SpaceAround
@@ -125,13 +127,13 @@ fun CuriosityIntervalNotification(
                     .fillMaxHeight()
                     .padding(4.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(if (myIsMinutes.value) CuriosityViolet else Color.Transparent),
+                    .background(if (currentIsMinutes.value) CuriosityViolet else Color.Transparent),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ){
                 CuriosityText(
                     value = "minutes",
-                    textColor = if (myIsMinutes.value) Color.White else CuriosityViolet,
+                    textColor = if (currentIsMinutes.value) Color.White else CuriosityViolet,
                     textWeight = FontWeight.Medium,
                     textSize = 24.sp
                 )
@@ -142,13 +144,13 @@ fun CuriosityIntervalNotification(
                     .fillMaxHeight()
                     .padding(4.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(if (!myIsMinutes.value) CuriosityViolet else Color.Transparent),
+                    .background(if (!currentIsMinutes.value) CuriosityViolet else Color.Transparent),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ){
                 CuriosityText(
                     value = "hour",
-                    textColor = if (!myIsMinutes.value) Color.White else CuriosityViolet,
+                    textColor = if (!currentIsMinutes.value) Color.White else CuriosityViolet,
                     textWeight = FontWeight.Medium,
                     textSize = 24.sp
                 )
@@ -168,7 +170,7 @@ fun CuriosityIntervalNotification(
                             isPressed = true
                             incrementJob = coroutineScope.launch {
                                 while (isPressed) {
-                                    decrementInterval(myIsMinutes, myInterval)
+                                    decrementInterval(currentIsMinutes, myInterval)
                                     delay(100)
                                 }
                             }
@@ -180,7 +182,7 @@ fun CuriosityIntervalNotification(
                             incrementJob = null
                         },
                         onTap = {
-                            decrementInterval(myIsMinutes, myInterval)
+                            decrementInterval(currentIsMinutes, myInterval)
                         }
                     )
                 },
@@ -206,7 +208,7 @@ fun CuriosityIntervalNotification(
                 )
                 CuriosityText(
                     modifier = Modifier.padding(bottom = 10.dp),
-                    value = if(myIsMinutes.value) "m" else "h",
+                    value = if(currentIsMinutes.value) "m" else "h",
                     textSize = 24.sp,
                     textWeight = FontWeight.Medium,
                     textColor = CuriosityViolet
@@ -220,7 +222,7 @@ fun CuriosityIntervalNotification(
                             isPressed = true
                             incrementJob = coroutineScope.launch {
                                 while (isPressed) {
-                                    incrementInterval(myIsMinutes, myInterval)
+                                    incrementInterval(currentIsMinutes, myInterval)
                                     delay(100)
                                 }
                             }
@@ -232,7 +234,7 @@ fun CuriosityIntervalNotification(
                             incrementJob = null
                         },
                         onTap = {
-                            incrementInterval(myIsMinutes, myInterval)
+                            incrementInterval(currentIsMinutes, myInterval)
                         }
                     )
                 },

@@ -4,6 +4,7 @@ package com.curiosity.presentation.profile
  * @author matteooriggi
  */
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.curiosity.domain.model.Resource

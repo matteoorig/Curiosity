@@ -31,7 +31,22 @@ fun AreasOfInterestScreen(
         state.loadAreasOfInterestError != null -> {
             AreasOfInterestError(
                 navController = navController,
-                state = state
+                state = state,
+                error = state.loadAreasOfInterestError!!
+            )
+        }
+        state.loadCurrentUserAreasOfInterestError != null -> {
+            AreasOfInterestError(
+                navController = navController,
+                state = state,
+                error = state.loadCurrentUserAreasOfInterestError!!
+            )
+        }
+        state.updateCurrentUserAreasOfInterestError != null -> {
+            AreasOfInterestError(
+                navController = navController,
+                state = state,
+                error = state.updateCurrentUserAreasOfInterestError!!
             )
         }
         state.updateCurrentUserAreasOfInterestSuccess -> {

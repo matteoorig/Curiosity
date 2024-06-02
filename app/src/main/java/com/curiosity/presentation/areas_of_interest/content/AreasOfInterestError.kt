@@ -24,12 +24,13 @@ import com.curiosity.presentation.areas_of_interest.AreasOfInterestStates
  * This function displays an error message and a button to reload the areas of interest screen.
  *
  * @param navController The NavController used for navigation.
- * @param state The state of the intro screen, which includes the error message.
+ * @param state The state of the areas of interest screen, which includes the error message.
  */
 @Composable
 fun AreasOfInterestError(
     navController: NavController,
-    state: AreasOfInterestStates
+    state: AreasOfInterestStates,
+    error: String
 ){
     Column(
         modifier = Modifier
@@ -39,7 +40,7 @@ fun AreasOfInterestError(
     ){
         CuriosityCoupleTitle(
             titleText = "ERROR",
-            subtitleText = state.loadAreasOfInterestError ?: "Internal error"
+            subtitleText = error
         )
         CuriosityDefaultButton(
             value = "Reload",
@@ -55,6 +56,7 @@ fun AreasOfInterestError(
 fun AreasOfInterestErrorPreview(){
     AreasOfInterestError(
         navController = rememberNavController(),
-        state = AreasOfInterestStates()
+        state = AreasOfInterestStates(),
+        error = "Internal Error"
     )
 }

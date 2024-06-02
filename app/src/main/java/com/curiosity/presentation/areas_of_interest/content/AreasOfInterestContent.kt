@@ -30,6 +30,7 @@ import com.curiosity.common.components.CuriositySvgButton
 import com.curiosity.common.components.CuriosityText
 import com.curiosity.presentation.areas_of_interest.AreasOfInterestViewModel
 import com.curiosity.ui.theme.CuriosityGray
+import com.curiosity.ui.theme.CuriosityOrange
 import com.curiosity.ui.theme.CuriosityViolet
 import com.curiosity.ui.theme.CuriosityYellow
 
@@ -97,7 +98,7 @@ fun AreasOfInterestContent(
             CuriosityDefaultButton(
                 value = "CONFIRM",
                 valueColor = Color.White,
-                backgroundColor = CuriosityYellow,
+                backgroundColor = CuriosityOrange,
                 onClick = {
                     viewModel.confirmSelectionAreasOfInterest()
                 }

@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.areas_of_interest.AreasOfInterestScreen
 import com.curiosity.presentation.home.HomeScreen
+import com.curiosity.presentation.interval_notification.IntervalNotificationScreen
 import com.curiosity.presentation.intro.IntroScreen
 import com.curiosity.presentation.on_boarding.OnBoardingScreen
 import com.curiosity.presentation.profile.ProfileScreen
@@ -75,6 +76,12 @@ fun CuriosityNavigationGraph() {
             route = Routes.AreasOfInterestScreen.route
         ){
             AreasOfInterestScreen(navController = navigationController)
+        }
+
+        composable(
+            route = Routes.IntervalNotification.route
+        ){
+            IntervalNotificationScreen(navController = navigationController)
         }
     }
 }

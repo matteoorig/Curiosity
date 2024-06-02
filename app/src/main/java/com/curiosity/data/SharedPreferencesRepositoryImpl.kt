@@ -91,17 +91,7 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
      */
     override suspend fun removeUser() {
         val editor = sharedPreferences.edit()
-        if(existKey("user_uuid")){
-            editor.remove("user_uuid")
-            editor.remove("user_username")
-            editor.remove("user_email")
-            editor.remove("user_coins")
-            editor.remove("user_level")
-            editor.remove("interval")
-            editor.remove("isMinutes")
-            editor.remove("user_preferences_values")
-            editor.remove("user_preferences_interest")
-        }
+        editor.clear()
         editor.apply()
     }
 

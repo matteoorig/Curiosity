@@ -46,4 +46,9 @@ sealed class Routes(val route: String) {
      * Object representing the areas of interest screen route.
      */
     object AreasOfInterestScreen : Routes("areas_of_interest_screen")
+
+    /**
+     * Object representing the interval notification screen route.
+     */
+    object IntervalNotification : Routes("interval_notification_screen")
 }

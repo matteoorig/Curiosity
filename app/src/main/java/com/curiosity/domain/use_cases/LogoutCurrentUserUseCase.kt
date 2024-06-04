@@ -4,6 +4,7 @@ package com.curiosity.domain.use_cases
  * @author matteooriggi
  */
 
+import com.curiosity.data.SharedPreferencesRepositoryImpl
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.repository.AuthRepository
 import com.google.firebase.auth.AuthResult
@@ -24,6 +25,7 @@ import javax.inject.Inject
  */
 class LogoutCurrentUserUseCase @Inject constructor(
     private val repository: AuthRepository,
+    private val sharedPreferencesRepositoryImpl: SharedPreferencesRepositoryImpl
 ) {
     operator fun invoke(): Flow<Resource<AuthResult>> = flow {
         try {
@@ -36,6 +38,7 @@ class LogoutCurrentUserUseCase @Inject constructor(
             if(currentUser != null){
                 // Sign out the current user.
                 repository.signOut()
+                sharedPreferencesRepositoryImpl.removeUser()
                 emit(Resource.Success<AuthResult>())
             }else{
                 emit(Resource.Error<AuthResult>("LogoutCurrentUserUseCase " + "No users are logged in"))

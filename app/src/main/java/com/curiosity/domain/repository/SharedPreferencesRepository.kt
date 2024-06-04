@@ -4,6 +4,7 @@ package com.curiosity.domain.repository
  * @author matteooriggi
  */
 
+import com.curiosity.domain.model.IntervalNotification
 import com.curiosity.domain.model.Preferences
 import com.curiosity.domain.model.User
 
@@ -68,4 +69,6 @@ interface SharedPreferencesRepository {
      * @param interval The interval time value between notification.
      */
     suspend fun saveCurrentUserInterval(isMinutes: Boolean, interval: Int)
+
+    fun getInterval(): IntervalNotification?
 }

@@ -6,9 +6,11 @@ package com.curiosity.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.curiosity.domain.model.IntervalNotification
 import com.curiosity.domain.model.Preferences
 import com.curiosity.domain.model.User
 import com.curiosity.domain.repository.SharedPreferencesRepository
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -138,5 +140,20 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         return sharedPreferences.contains(key)
     }
 
+    override fun getInterval(): IntervalNotification? {
+        val editor = sharedPreferences.edit()
 
+        val userIsMinutes: String? = sharedPreferences.getString("isMinutes", null)
+        val userInterval: String? = sharedPreferences.getString("interval", null)!!
+
+        editor.apply()
+        return if(userIsMinutes != null && userInterval != null){
+            IntervalNotification(
+                userInterval.toLong(),
+                if(userIsMinutes.toBoolean()) TimeUnit.MINUTES else TimeUnit.HOURS
+            )
+        }else{
+            null
+        }
+    }
 }

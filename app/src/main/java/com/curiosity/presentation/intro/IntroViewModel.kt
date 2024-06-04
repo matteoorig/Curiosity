@@ -21,6 +21,7 @@ import com.curiosity.R
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.use_cases.ExistCurrentUserUseCase
 import com.curiosity.domain.use_cases.LogoutCurrentUserUseCase
+import com.curiosity.domain.use_cases.NotificationWorkerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,6 +29,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -39,7 +41,8 @@ import javax.inject.Inject
 @HiltViewModel
 class IntroViewModel @Inject constructor(
     private val existCurrentUserUseCase: ExistCurrentUserUseCase,
-    private val context: Context
+    private val context: Context,
+    private val notificationWorkerUseCase: NotificationWorkerUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(IntroStates())
@@ -56,8 +59,6 @@ class IntroViewModel @Inject constructor(
                 context,
                 Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
-
-            Log.d("POST_NOTIFICATIONS_CURIOSITY", "Stato del permmesso: $hasNotificationPermission")
         } else {
             hasNotificationPermission = true
         }
@@ -65,6 +66,7 @@ class IntroViewModel @Inject constructor(
         if(hasNotificationPermission){
             _state.value = _state.value.copy(hasNotificationPermissionSuccessful = hasNotificationPermission)
             checkUserExist()
+            showNotification()
         }else {
             _state.value = _state.value.copy(hasNotificationPermissionSuccessful = hasNotificationPermission, hasNotificationPermissionError = "To use Curiosity you must give notifications permission. Go to settings and change permission value")
         }
@@ -72,23 +74,19 @@ class IntroViewModel @Inject constructor(
 
     fun confirmNotificationPermission(response: Boolean){
         if(response){
-            // mando una notifica di prova
-            showNotification()
             _state.value = IntroStates(hasNotificationPermissionSuccessful = true)
             checkUserExist()
+            showNotification()
         }else{
             _state.value = IntroStates(hasNotificationPermissionSuccessful = false, hasNotificationPermissionError = "To use Curiosity you must give notifications permission. Go to settings and change permission value")
         }
     }
 
     private fun showNotification(){
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notification = NotificationCompat.Builder(context, "curiosity_identifier")
-            .setContentText("Prova content text")
-            .setContentTitle("hello world")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .build()
-        notificationManager.notify(1, notification)
+        viewModelScope.launch {
+
+            notificationWorkerUseCase.execute()
+        }
     }
 
     private fun checkUserExist() {

@@ -33,11 +33,11 @@ class MainActivity : ComponentActivity() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             val channel = NotificationChannel(
                 "curiosity_identifier",
-                "curiosity_notification_channel",
+                "curiosity push notification",
                 NotificationManager.IMPORTANCE_HIGH
             )
             channel.description = "Curiosity application notification transmission channel"
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
 

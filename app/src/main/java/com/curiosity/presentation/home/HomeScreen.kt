@@ -29,6 +29,7 @@ fun HomeScreen(
 
     val state by viewModel.state.collectAsState()
     val user by viewModel.user.collectAsState()
+    val curiosity by viewModel.curiosity.collectAsState()
 
     when {
         state.isLoading -> {
@@ -49,7 +50,9 @@ fun HomeScreen(
             HomeContent(
                 navController = navController,
                 viewModel = viewModel,
-                user = user
+                state = state,
+                user = user,
+                curiosity = curiosity
             )
         }
     }

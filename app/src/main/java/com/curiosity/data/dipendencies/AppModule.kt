@@ -12,12 +12,15 @@ import com.curiosity.data.AuthRepositoryImpl
 import com.curiosity.data.DataRepositoryImpl
 import com.curiosity.data.NotificationRepositoryImpl
 import com.curiosity.data.SharedPreferencesRepositoryImpl
+import com.curiosity.data.StorageRepositoryImpl
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
 import com.curiosity.domain.repository.NotificationRepository
 import com.curiosity.domain.repository.SharedPreferencesRepository
+import com.curiosity.domain.repository.StorageRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -110,4 +113,20 @@ object AppModule {
         WorkManager.initialize(context, configuration)
         return WorkManager.getInstance(context)
     }
+
+    /**
+     * Provides an instance of FirebaseStorage.
+     *
+     * @return The FirebaseStorage instance.
+     */
+    @Provides
+    fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
+
+    /**
+     * Provides the application Firebase Storage.
+     *
+     * @return The StorageRepositoryImpl instance.
+     */
+    @Provides
+    fun provideStorageRepository(impl: StorageRepositoryImpl): StorageRepository = impl
 }

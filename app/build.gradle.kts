@@ -97,9 +97,14 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     // Firebase Firestore
     implementation("com.google.firebase:firebase-firestore")
+    // Firebase Cloud Storage library
+    implementation("com.google.firebase:firebase-storage")
 
     // Extended Icons
     implementation("androidx.compose.material:material-icons-extended:1.6.7")
+
+    // CSV Reader
+    implementation("com.opencsv:opencsv:5.5.2")
 }
 
 // adding hilt dependencies from https://developer.android.com/training/dependency-injection/hilt-android?hl=it

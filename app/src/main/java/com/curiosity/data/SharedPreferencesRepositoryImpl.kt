@@ -144,7 +144,7 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         val editor = sharedPreferences.edit()
 
         val userIsMinutes: String? = sharedPreferences.getString("isMinutes", null)
-        val userInterval: String? = sharedPreferences.getString("interval", null)!!
+        val userInterval: String? = sharedPreferences.getString("interval", null)
 
         editor.apply()
         return if(userIsMinutes != null && userInterval != null){

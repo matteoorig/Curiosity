@@ -4,7 +4,6 @@ package com.curiosity.presentation.home.content
  * @author matteooriggi
  */
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
@@ -20,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -40,8 +40,10 @@ import com.curiosity.common.components.CuriosityDefaultButton
 import com.curiosity.common.components.CuriositySvg
 import com.curiosity.common.components.CuriositySvgButton
 import com.curiosity.common.components.CuriosityText
+import com.curiosity.domain.model.CuriosityData
 import com.curiosity.domain.model.User
 import com.curiosity.presentation.app.routes.Routes
+import com.curiosity.presentation.home.HomeStates
 import com.curiosity.presentation.home.HomeViewModel
 import com.curiosity.presentation.home.content.composable.ShakeConfig
 import com.curiosity.presentation.home.content.composable.ShakeController
@@ -50,12 +52,13 @@ import com.curiosity.ui.theme.CuriosityGray
 import com.curiosity.ui.theme.CuriosityOrange
 import com.curiosity.ui.theme.CuriosityViolet
 
-
 @Composable
 fun HomeContent(
     navController: NavController,
     viewModel: HomeViewModel,
-    user: User
+    state: HomeStates,
+    user: User,
+    curiosity: CuriosityData
 ){
 
     val draggableOffset: Int = 5
@@ -125,11 +128,13 @@ fun HomeContent(
                 .shake(shakeController = shakeController)
                 .border(10.dp, CuriosityViolet, RoundedCornerShape(35.dp))
                 .background(color = CuriosityOrange, shape = RoundedCornerShape(35.dp))
+                .padding(20.dp)
                 .shake(shakeController)
                 .pointerInput(Unit) {
                     detectTapGestures(
                         onTap = {
                             // Callback click on tap item
+                            viewModel.getCuriosity()
                             shakeController.shake(
                                 ShakeConfig(
                                     iterations = 1,
@@ -163,10 +168,18 @@ fun HomeContent(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Urano è l'unico pianeta \n" +
-                    "del nostro sistema solare \n" +
-                    "mai visitato da una \n" +
-                    "sonda spaziale.")
+            if (state.curiosityIsLoading){
+                CircularProgressIndicator()
+            }else{
+                CuriosityText(
+                    value = curiosity.value,
+                    textColor = Color.White,
+                    textSize = 18.sp,
+                    textWeight = FontWeight.Bold,
+                    maxLines = 8
+                )
+            }
+
         }
 
         Column(

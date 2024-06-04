@@ -6,8 +6,10 @@ package com.curiosity.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.curiosity.domain.model.CuriosityData
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.model.User
+import com.curiosity.domain.use_cases.GetCuriosityUseCase
 import com.curiosity.domain.use_cases.LoadCurrentUserUseCase
 import com.curiosity.presentation.on_boarding.OnBoardingStates
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +29,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val loadCurrentUserUseCase: LoadCurrentUserUseCase
+    private val loadCurrentUserUseCase: LoadCurrentUserUseCase,
+    private val getCuriosityUseCase: GetCuriosityUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(HomeStates())
@@ -36,12 +39,19 @@ class HomeViewModel @Inject constructor(
     private val _user = MutableStateFlow(User())
     val user: StateFlow<User> = _user.asStateFlow()
 
+    private val _curiosity = MutableStateFlow(CuriosityData())
+    val curiosity: StateFlow<CuriosityData> = _curiosity.asStateFlow()
+
     fun updateStateValue(newState: HomeStates){
         _state.value = newState
     }
 
     fun updateUserValue(newState: User){
         _user.value = newState
+    }
+
+    fun updateCuriosityValue(newValue: CuriosityData){
+        _curiosity.value = newValue
     }
 
     init {
@@ -62,6 +72,26 @@ class HomeViewModel @Inject constructor(
                     }
                     is Resource.Error -> {
                         _state.value = HomeStates(loadUserError = resource.message)
+                    }
+                }
+            }.launchIn(this)
+        }
+    }
+
+    fun getCuriosity(){
+        viewModelScope.launch {
+            val flow = getCuriosityUseCase()
+            flow.onEach { resource ->
+                when(resource){
+                    is Resource.Loading -> {
+                        _state.value = HomeStates(curiosityIsLoading = true)
+                    }
+                    is Resource.Success -> {
+                        updateCuriosityValue(resource.data!!)
+                        _state.value = HomeStates(loadCurrentCuriositySuccess = true)
+                    }
+                    is Resource.Error -> {
+                        _state.value = HomeStates(loadCurrentCuriosityError = resource.message)
                     }
                 }
             }.launchIn(this)

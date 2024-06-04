@@ -5,11 +5,16 @@ package com.curiosity.data.dipendencies
  */
 
 import android.content.Context
+import androidx.work.Configuration
+import androidx.work.WorkManager
+import androidx.work.WorkerFactory
 import com.curiosity.data.AuthRepositoryImpl
 import com.curiosity.data.DataRepositoryImpl
+import com.curiosity.data.NotificationRepositoryImpl
 import com.curiosity.data.SharedPreferencesRepositoryImpl
 import com.curiosity.domain.repository.AuthRepository
 import com.curiosity.domain.repository.DataRepository
+import com.curiosity.domain.repository.NotificationRepository
 import com.curiosity.domain.repository.SharedPreferencesRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -71,6 +76,38 @@ object AppModule {
     @Singleton
     fun provideContext(@ApplicationContext context: Context): Context = context
 
+    /**
+     * Provides the application sharedPreferences.
+     *
+     * @param impl The implementation of SharedPreferenceRepository.
+     * @return The SharedPreferenceRepository instance.
+     */
     @Provides
     fun provideSharedPreferences(impl: SharedPreferencesRepositoryImpl): SharedPreferencesRepository = impl
+
+    /**
+     * Provides the application notificationRepository.
+     *
+     * @param impl The implementation of NotificationRepository.
+     * @return The NotificationRepository instance.
+     */
+    @Provides
+    fun provideNotificationRepository(impl: NotificationRepositoryImpl): NotificationRepository = impl
+
+    /**
+     * Provides the application WorkManager.
+     *
+     * @param context The application context.
+     * @param workerFactory The application WorkerFactory.
+     * @return The instance of WorkManager.
+     */
+    @Provides
+    @Singleton
+    fun provideWorkManager(@ApplicationContext context: Context, workerFactory: WorkerFactory): WorkManager {
+        val configuration = Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
+        WorkManager.initialize(context, configuration)
+        return WorkManager.getInstance(context)
+    }
 }

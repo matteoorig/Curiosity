@@ -9,8 +9,11 @@ import androidx.lifecycle.viewModelScope
 import com.curiosity.domain.model.CuriosityData
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.model.User
+import com.curiosity.domain.use_cases.DiscardCuriosityUseCase
 import com.curiosity.domain.use_cases.GetCuriosityUseCase
+import com.curiosity.domain.use_cases.KnowCuriosityUseCase
 import com.curiosity.domain.use_cases.LoadCurrentUserUseCase
+import com.curiosity.domain.use_cases.NotKnowCuriosityUseCase
 import com.curiosity.presentation.on_boarding.OnBoardingStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +33,10 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val loadCurrentUserUseCase: LoadCurrentUserUseCase,
-    private val getCuriosityUseCase: GetCuriosityUseCase
+    private val getCuriosityUseCase: GetCuriosityUseCase,
+    private val knowCuriosityUseCase: KnowCuriosityUseCase,
+    private val notKnowCuriosityUseCase: NotKnowCuriosityUseCase,
+    private val discardCuriosityUseCase: DiscardCuriosityUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(HomeStates())
@@ -56,6 +62,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         getUser()
+        getCuriosity()
     }
 
     private fun getUser(){
@@ -96,5 +103,47 @@ class HomeViewModel @Inject constructor(
                 }
             }.launchIn(this)
         }
+    }
+
+    fun knowCuriosity(){
+        viewModelScope.launch {
+            val flow = knowCuriosityUseCase(_user)
+            flow.onEach { resource ->
+                when(resource){
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {}
+                    is Resource.Error -> {}
+                }
+            }.launchIn(this)
+        }
+        getCuriosity()
+    }
+
+    fun notKnowCuriosity(){
+        viewModelScope.launch {
+            val flow = notKnowCuriosityUseCase(_user)
+            flow.onEach { resource ->
+                when(resource){
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {}
+                    is Resource.Error -> {}
+                }
+            }.launchIn(this)
+        }
+        getCuriosity()
+    }
+
+    fun discardCuriosity(){
+        viewModelScope.launch {
+            val flow = discardCuriosityUseCase(_user)
+            flow.onEach { resource ->
+                when(resource){
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {}
+                    is Resource.Error -> {}
+                }
+            }.launchIn(this)
+        }
+        getCuriosity()
     }
 }

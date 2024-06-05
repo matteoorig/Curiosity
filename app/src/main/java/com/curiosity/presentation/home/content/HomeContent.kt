@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -88,7 +87,7 @@ fun HomeContent(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 CoinContainer(
-                    value = user.coins.toString(),
+                    count = user.coins,
                     valueSize = 32.sp,
                     modifier = Modifier
                         .padding(bottom = 8.dp)
@@ -153,6 +152,7 @@ fun HomeContent(
                             horizontalCount += 1
                             if (horizontalCount > draggableOffset) {
                                 // Callback click on drag item
+                                viewModel.discardCuriosity()
                                 shakeController.shake(
                                     ShakeConfig(
                                         iterations = 4,
@@ -168,6 +168,7 @@ fun HomeContent(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             if (state.curiosityIsLoading){
                 CircularProgressIndicator()
             }else{
@@ -205,6 +206,7 @@ fun HomeContent(
                     backgroundColor = CuriosityViolet,
                     onClick = {
                         // Callback click i don't know
+                        viewModel.notKnowCuriosity()
                     }
                 )
                 CuriosityText(
@@ -225,6 +227,7 @@ fun HomeContent(
                     backgroundColor = CuriosityViolet,
                     onClick = {
                         // Callback click i know
+                        viewModel.knowCuriosity()
                     }
                 )
             }

@@ -78,7 +78,7 @@ fun ProfileContent(
             verticalAlignment = Alignment.Bottom
         ) {
             CoinContainer(
-                value = user.coins.toString()
+                count = user.coins
             )
             UserContainer(
                 modifier = Modifier.padding(bottom = 24.dp),

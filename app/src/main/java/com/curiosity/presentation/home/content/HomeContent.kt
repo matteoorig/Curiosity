@@ -133,15 +133,17 @@ fun HomeContent(
                     detectTapGestures(
                         onTap = {
                             // Callback click on tap item
-                            viewModel.getCuriosity()
-                            shakeController.shake(
-                                ShakeConfig(
-                                    iterations = 1,
-                                    intensity = 1_000f,
-                                    rotateX = 20f,
-                                    translateY = -20f,
-                                )
-                            )
+                            /**
+                             * viewModel.getCuriosity()
+                             * shakeController.shake(
+                             *  ShakeConfig(
+                             *    iterations = 1,
+                             *    intensity = 1_000f,
+                             *    rotateX = 20f,
+                             *    translateY = -20f,
+                             *  )
+                             * )
+                             */
                         }
                     )
                 }

@@ -23,9 +23,12 @@ class DiscardCuriosityUseCase @Inject constructor(
 
             emit(Resource.Loading<Boolean>())
 
-            user.value = user.value.copy(
-                coins = user.value.coins - CoinsState.DISCARD.value
-            )
+            if(user.value.coins != 0){
+                user.value = user.value.copy(
+                    coins = user.value.coins - CoinsState.DISCARD.value
+                )
+            }
+
 
             // Save current user in sharedPreferences
             sharedPreferencesRepository.saveUser(user.value)

@@ -72,7 +72,7 @@ fun CuriosityIntervalNotification(
     fun incrementInterval(isMinutes: MutableState<Boolean>, interval: MutableIntState){
         if(isMinutes.value){
             if(interval.value == 60){
-                setIntervalValue(1)
+                setIntervalValue(15)
             }else{
                 setIntervalValue(interval.value+1)
             }
@@ -87,7 +87,7 @@ fun CuriosityIntervalNotification(
 
     fun decrementInterval(isMinutes: MutableState<Boolean>, interval: MutableIntState){
         if(isMinutes.value){
-            if(interval.value == 1){
+            if(interval.value == 15){
                 setIntervalValue(60)
             } else{
                 setIntervalValue(interval.value-1)
@@ -115,7 +115,7 @@ fun CuriosityIntervalNotification(
                 .background(CuriosityGray)
                 .clickable {
                     setIsMinutesValue(!currentIsMinutes.value)
-                    setIntervalValue(1)
+                    if(currentIsMinutes.value) setIntervalValue(15) else setIntervalValue(1)
                 },
             horizontalArrangement = Arrangement.SpaceAround
 

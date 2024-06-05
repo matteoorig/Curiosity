@@ -25,7 +25,6 @@ class KnowCuriosityUseCase @Inject constructor(
 
             user.value = user.value.copy(
                 coins = user.value.coins + CoinsState.VICTORY.value
-
             )
 
             // Save current user in sharedPreferences

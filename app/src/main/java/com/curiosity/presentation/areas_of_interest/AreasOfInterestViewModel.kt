@@ -128,8 +128,12 @@ class AreasOfInterestViewModel @Inject constructor(
                         _state.value = AreasOfInterestStates(isLoading = true)
                     }
                     is Resource.Success -> {
-                        _selectedCurrentUserListAreasOfInterest.value = resource.data!!.preferences
-                        _state.value = AreasOfInterestStates(loadCurrentUserAreasOfInterestSuccess = true)
+                        resource.data?.let {
+                            _selectedCurrentUserListAreasOfInterest.value = it.preferences
+                            _state.value = AreasOfInterestStates(loadCurrentUserAreasOfInterestSuccess = true)
+                        } ?: run {
+                            _state.value = AreasOfInterestStates(loadCurrentUserAreasOfInterestError = "I'm sorry, try again!")
+                        }
                     }
                     is Resource.Error -> {
                         _state.value = AreasOfInterestStates(loadCurrentUserAreasOfInterestError = resource.message)

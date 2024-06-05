@@ -98,23 +98,6 @@ object AppModule {
     fun provideNotificationRepository(impl: NotificationRepositoryImpl): NotificationRepository = impl
 
     /**
-     * Provides the application WorkManager.
-     *
-     * @param context The application context.
-     * @param workerFactory The application WorkerFactory.
-     * @return The instance of WorkManager.
-     */
-    @Provides
-    @Singleton
-    fun provideWorkManager(@ApplicationContext context: Context, workerFactory: WorkerFactory): WorkManager {
-        val configuration = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
-        WorkManager.initialize(context, configuration)
-        return WorkManager.getInstance(context)
-    }
-
-    /**
      * Provides an instance of FirebaseStorage.
      *
      * @return The FirebaseStorage instance.

@@ -84,7 +84,6 @@ class IntroViewModel @Inject constructor(
 
     private fun showNotification(){
         viewModelScope.launch {
-
             notificationWorkerUseCase.execute()
         }
     }

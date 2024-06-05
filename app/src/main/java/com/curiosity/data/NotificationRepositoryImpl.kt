@@ -44,6 +44,7 @@ class NotificationRepositoryImpl @Inject constructor(
             repeatInterval = userInterval?.interval ?: interval,
             repeatIntervalTimeUnit = userInterval?.timeUnit ?: timeUnit
         )
+            .addTag("curiosity_work")
             .build()
 
         Log.i("WorkManager",

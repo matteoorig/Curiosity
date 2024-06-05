@@ -28,7 +28,8 @@ fun CuriosityText(
     textColor: Color = Color.Black,
     textSize: TextUnit = 18.sp,
     textWeight: FontWeight = FontWeight.Bold,
-    maxLines: Int? = null
+    maxLines: Int? = null,
+    softWrap: Boolean = true
 ){
     Row(
         modifier = modifier ?: Modifier
@@ -44,6 +45,7 @@ fun CuriosityText(
             textAlign = TextAlign.Center,
             maxLines = maxLines ?: 2,
             overflow = TextOverflow.Ellipsis,
+            softWrap = softWrap
         )
     }
 }

@@ -42,7 +42,7 @@ import javax.inject.Inject
 class IntroViewModel @Inject constructor(
     private val existCurrentUserUseCase: ExistCurrentUserUseCase,
     private val context: Context,
-    private val notificationWorkerUseCase: NotificationWorkerUseCase
+    private val notificationWorkerUseCase: NotificationWorkerUseCase,
 ): ViewModel() {
 
     private val _state = MutableStateFlow(IntroStates())

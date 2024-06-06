@@ -62,7 +62,7 @@ fun IntroContent(
 
         Column {
             CuriosityDefaultButton(
-                value = "Sign In",
+                value = "Log in",
                 valueColor = CuriosityViolet,
                 borderColor = CuriosityViolet,
                 onClick = {

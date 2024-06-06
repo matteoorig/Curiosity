@@ -5,7 +5,10 @@ package com.curiosity.domain.use_cases
  */
 
 import com.curiosity.domain.model.CuriosityData
+import com.curiosity.domain.model.Preferences
 import com.curiosity.domain.model.Resource
+import com.curiosity.domain.model.User
+import com.curiosity.domain.repository.SharedPreferencesRepository
 import com.curiosity.domain.repository.StorageRepository
 import com.opencsv.CSVReader
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +18,7 @@ import kotlinx.coroutines.flow.flowOn
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.security.Policy.Parameters
 import javax.inject.Inject
 
 /**
@@ -23,7 +27,8 @@ import javax.inject.Inject
  * @property storageRepository The repository for accessing the storage data.
  */
 class GetCuriosityUseCase @Inject constructor(
-    private val storageRepository: StorageRepository
+    private val storageRepository: StorageRepository,
+    private val sharedPreferencesRepository: SharedPreferencesRepository
 ) {
 
     /**
@@ -39,9 +44,16 @@ class GetCuriosityUseCase @Inject constructor(
             val bytes: ByteArray = storageRepository.getCuriositiesDataset()
             val curiosities = readCSVFile(bytes)
 
+            val user: User? = sharedPreferencesRepository.getUser()
+
             if (curiosities != null) {
-                val curiosity = getRandomCuriosity(curiosities)
-                emit(Resource.Success<CuriosityData>(data = curiosity))
+                if(user != null){
+                    val curiosity = getFilteredRandomCuriosity(curiosities, user.preferences)
+                    emit(Resource.Success<CuriosityData>(data = curiosity))
+                }else {
+                    val curiosity = getRandomCuriosity(curiosities)
+                    emit(Resource.Success<CuriosityData>(data = curiosity))
+                }
             } else {
                 emit(Resource.Error<CuriosityData>("Server error on reading curiosities"))
             }
@@ -84,5 +96,19 @@ class GetCuriosityUseCase @Inject constructor(
      */
     private fun getRandomCuriosity(curiosities: List<CuriosityData>): CuriosityData {
         return curiosities.random()
+    }
+
+    /**
+     * Selects a random curiosity from the list that matches the given filter of preferences.
+     *
+     * @param curiosities The list of curiosities.
+     * @param filter The list of preferences to filter the curiosities by their category.
+     * @return A random CuriosityData object that matches the filter. If no such curiosity exists, returns null.
+     */
+    private fun getFilteredRandomCuriosity(curiosities: List<CuriosityData>, filter: List<Preferences>): CuriosityData? {
+        val filteredCuriosities = curiosities.filter { curiosity ->
+            filter.any { preference -> preference.preferenceValue == curiosity.category }
+        }
+        return filteredCuriosities.random()
     }
 }

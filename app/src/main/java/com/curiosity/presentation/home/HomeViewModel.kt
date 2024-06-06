@@ -14,6 +14,7 @@ import com.curiosity.domain.use_cases.GetCuriosityUseCase
 import com.curiosity.domain.use_cases.KnowCuriosityUseCase
 import com.curiosity.domain.use_cases.LoadCurrentUserUseCase
 import com.curiosity.domain.use_cases.NotKnowCuriosityUseCase
+import com.curiosity.presentation.areas_of_interest.AreasOfInterestStates
 import com.curiosity.presentation.on_boarding.OnBoardingStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -71,14 +72,18 @@ class HomeViewModel @Inject constructor(
             flow.onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {
-                        _state.value = HomeStates(isLoading = true)
+                        _state.value = _state.value.copy(isLoading = true)
                     }
                     is Resource.Success -> {
-                        updateUserValue(resource.data!!)
-                        _state.value = HomeStates(loadUserSuccess = true)
+                        resource.data?.let {
+                            updateUserValue(it)
+                            _state.value = _state.value.copy(isLoading = false, loadUserSuccess = true)
+                        } ?: run {
+                            _state.value = _state.value.copy(isLoading = false, loadUserError = resource.message)
+                        }
                     }
                     is Resource.Error -> {
-                        _state.value = HomeStates(loadUserError = resource.message)
+                        _state.value = _state.value.copy(isLoading = false, loadUserError = resource.message)
                     }
                 }
             }.launchIn(this)
@@ -91,14 +96,14 @@ class HomeViewModel @Inject constructor(
             flow.onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {
-                        _state.value = HomeStates(curiosityIsLoading = true)
+                        _state.value = _state.value.copy(curiosityIsLoading = true)
                     }
                     is Resource.Success -> {
                         updateCuriosityValue(resource.data!!)
-                        _state.value = HomeStates(loadCurrentCuriositySuccess = true)
+                        _state.value = _state.value.copy(curiosityIsLoading = false, loadCurrentCuriositySuccess = true)
                     }
                     is Resource.Error -> {
-                        _state.value = HomeStates(loadCurrentCuriosityError = resource.message)
+                        _state.value = _state.value.copy(curiosityIsLoading = false, loadCurrentCuriosityError = resource.message)
                     }
                 }
             }.launchIn(this)

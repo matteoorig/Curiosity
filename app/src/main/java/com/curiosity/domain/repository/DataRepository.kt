@@ -62,6 +62,18 @@ interface DataRepository {
      */
     suspend fun updateUserPreferences(uuid: String, preferences: List<Preferences>): Void?
 
+    /**
+     * Updates the user's notification interval in Firestore.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It updates the interval at which the user receives notifications based on the provided parameters.
+     *
+     * @param uuid The unique identifier of the user.
+     * @param isMinutes A boolean indicating whether the interval is specified in minutes.
+     *                  If true, the interval is in minutes; if false, the interval is in hours.
+     * @param interval The length of the interval. The unit of the interval is determined by the isMinutes parameter.
+     * @return A nullable Void indicating the result of the Firestore operation. Returns null if the operation fails.
+     */
     suspend fun updateUserInterval(uuid: String, isMinutes: Boolean, interval: Int): Void?
 
     /**
@@ -74,5 +86,7 @@ interface DataRepository {
      * QuerySnapshot is type of firebase object used for manipulate collections.
      */
     suspend fun loadAreasOfInterestCategories(): QuerySnapshot?
+
+    suspend fun updateUserCoins(uuid: String, coins: Int): Void?
 
 }

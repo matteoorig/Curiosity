@@ -7,6 +7,7 @@ package com.curiosity.domain.use_cases
 import com.curiosity.domain.model.CoinsState
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.model.User
+import com.curiosity.domain.repository.DataRepository
 import com.curiosity.domain.repository.SharedPreferencesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +17,8 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class KnowCuriosityUseCase @Inject constructor(
-    private val sharedPreferencesRepository: SharedPreferencesRepository
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val dataRepository: DataRepository
 ) {
     operator fun invoke(user: MutableStateFlow<User>): Flow<Resource<Boolean>> = flow {
         try {
@@ -30,6 +32,8 @@ class KnowCuriosityUseCase @Inject constructor(
             // Save current user in sharedPreferences
             sharedPreferencesRepository.saveUser(user.value)
 
+            // Update user coins in Firestore
+            dataRepository.updateUserCoins(user.value.uuid!!, user.value.coins)
 
         }catch (e: Exception){
             emit(Resource.Error<Boolean>("KnowCuriosityUseCase" + e.message))

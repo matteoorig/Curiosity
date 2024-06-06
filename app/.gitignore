@@ -49,3 +49,5 @@ Thumbs.db
 *.so
 *.stacktrace
 
+# private api url
+/src/main/java/com/curiosity/common/CuriosityUrl.kt

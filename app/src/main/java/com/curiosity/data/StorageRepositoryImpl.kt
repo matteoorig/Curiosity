@@ -4,6 +4,7 @@ package com.curiosity.data
  * @author matteooriggi
  */
 
+import com.curiosity.common.CuriosityUrl
 import com.curiosity.domain.repository.StorageRepository
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
@@ -31,7 +32,7 @@ class StorageRepositoryImpl @Inject constructor(
      * @return A ByteArray containing the dataset of curiosities.
      */
     override suspend fun getCuriositiesDataset(): ByteArray {
-        val curiositiesGsReference = storage.getReferenceFromUrl("gs://curiosity-f95fc.appspot.com/curiosities_dataset.csv")
+        val curiositiesGsReference = storage.getReferenceFromUrl(CuriosityUrl.storageCuriositiesDataset)
         return curiositiesGsReference.getBytes(Long.MAX_VALUE).await()
     }
 

@@ -77,7 +77,7 @@ fun SignInContent(
             }
             CuriosityCoupleTitle(
                 titleText = "Hi!",
-                subtitleText = "Sign in to continue"
+                subtitleText = "Log in to continue"
             )
             Spacer(modifier = Modifier.height(10.dp))
         }

@@ -25,7 +25,7 @@ class DiscardCuriosityUseCase @Inject constructor(
 
             emit(Resource.Loading<Boolean>())
 
-            if(user.value.coins != 0){
+            if(user.value.coins - CoinsState.DISCARD.value > 0){
                 user.value = user.value.copy(
                     coins = user.value.coins - CoinsState.DISCARD.value
                 )

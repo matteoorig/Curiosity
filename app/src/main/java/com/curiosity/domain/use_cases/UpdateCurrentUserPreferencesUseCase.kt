@@ -4,6 +4,7 @@ package com.curiosity.domain.use_cases
  * @author matteooriggi
  */
 
+import android.util.Log
 import com.curiosity.domain.model.Preferences
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.repository.AuthRepository
@@ -46,8 +47,14 @@ class UpdateCurrentUserPreferencesUseCase @Inject constructor(
                 // Every error is handled by the Flow.
                 dataRepository.updateUserPreferences(currentUser.uid, preferences)
 
+                val tmpUser = sharedPreferencesRepository.getUser()
+                println(tmpUser)
                 // Update user preferences in the sharedPreferences.
                 sharedPreferencesRepository.saveCurrentUserPreferences(preferences)
+
+                val tmp2User = sharedPreferencesRepository.getUser()
+                println(tmp2User)
+
 
                 emit(Resource.Success<Boolean>(data = true))
             }

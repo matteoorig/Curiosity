@@ -72,18 +72,18 @@ class HomeViewModel @Inject constructor(
             flow.onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {
-                        _state.value = _state.value.copy(isLoading = true)
+                        _state.value = HomeStates(isLoading = true)
                     }
                     is Resource.Success -> {
                         resource.data?.let {
                             updateUserValue(it)
-                            _state.value = _state.value.copy(isLoading = false, loadUserSuccess = true)
+                            _state.value = HomeStates(loadUserSuccess = true)
                         } ?: run {
-                            _state.value = _state.value.copy(isLoading = false, loadUserError = resource.message)
+                            _state.value = HomeStates(loadUserError = resource.message)
                         }
                     }
                     is Resource.Error -> {
-                        _state.value = _state.value.copy(isLoading = false, loadUserError = resource.message)
+                        _state.value = HomeStates(loadUserError = resource.message)
                     }
                 }
             }.launchIn(this)
@@ -96,14 +96,14 @@ class HomeViewModel @Inject constructor(
             flow.onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {
-                        _state.value = _state.value.copy(curiosityIsLoading = true)
+                        _state.value = HomeStates(curiosityIsLoading = true)
                     }
                     is Resource.Success -> {
                         updateCuriosityValue(resource.data!!)
-                        _state.value = _state.value.copy(curiosityIsLoading = false, loadCurrentCuriositySuccess = true)
+                        _state.value = HomeStates(loadCurrentCuriositySuccess = true)
                     }
                     is Resource.Error -> {
-                        _state.value = _state.value.copy(curiosityIsLoading = false, loadCurrentCuriosityError = resource.message)
+                        _state.value = HomeStates(loadCurrentCuriosityError = resource.message)
                     }
                 }
             }.launchIn(this)

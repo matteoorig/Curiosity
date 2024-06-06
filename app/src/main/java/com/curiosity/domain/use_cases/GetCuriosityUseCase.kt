@@ -20,6 +20,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.security.Policy.Parameters
 import javax.inject.Inject
+import kotlin.random.Random
 
 /**
  * Use case for retrieving a random curiosity from a dataset stored in Firebase.
@@ -109,6 +110,7 @@ class GetCuriosityUseCase @Inject constructor(
         val filteredCuriosities = curiosities.filter { curiosity ->
             filter.any { preference -> preference.preferenceValue == curiosity.category }
         }
-        return filteredCuriosities.random()
+        val randIndex = Random.nextInt(0, filteredCuriosities.size)
+        return filteredCuriosities[randIndex]
     }
 }

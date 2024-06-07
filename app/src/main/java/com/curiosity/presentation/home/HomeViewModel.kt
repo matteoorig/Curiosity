@@ -120,7 +120,11 @@ class HomeViewModel @Inject constructor(
             flow.onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {}
-                    is Resource.Success -> {}
+                    is Resource.Success -> {
+                        resource.data?.let {
+                            updateUserValue(it)
+                        }
+                    }
                     is Resource.Error -> {}
                 }
             }.launchIn(this)
@@ -134,7 +138,11 @@ class HomeViewModel @Inject constructor(
             flow.onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {}
-                    is Resource.Success -> {}
+                    is Resource.Success -> {
+                        resource.data?.let {
+                            updateUserValue(it)
+                        }
+                    }
                     is Resource.Error -> {}
                 }
             }.launchIn(this)
@@ -148,7 +156,11 @@ class HomeViewModel @Inject constructor(
             flow.onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {}
-                    is Resource.Success -> {}
+                    is Resource.Success -> {
+                        resource.data?.let {
+                            updateUserValue(it)
+                        }
+                    }
                     is Resource.Error -> {}
                 }
             }.launchIn(this)

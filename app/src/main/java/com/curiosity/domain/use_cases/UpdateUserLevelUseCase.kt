@@ -20,9 +20,9 @@ class UpdateUserLevelUseCase @Inject constructor(
     private val dataRepository: DataRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository
 ) {
-    operator fun invoke(user: MutableStateFlow<User>): Flow<Resource<Boolean>> = flow {
+    operator fun invoke(user: MutableStateFlow<User>): Flow<Resource<User>> = flow {
         try {
-            emit(Resource.Loading<Boolean>())
+            emit(Resource.Loading<User>())
 
             // Based on the range of coins I assign the correct level to the user
             val updatedLevel: Int = when(user.value.coins) {
@@ -33,17 +33,15 @@ class UpdateUserLevelUseCase @Inject constructor(
                 in 700 .. 999 -> 5
                 else -> 6
             }
-            Log.d("UpdateUserLevelUseCase", "arrivato")
+            user.value.level = updatedLevel
             dataRepository.updateUserLevel(user.value.uuid!!, updatedLevel)
 
             sharedPreferencesRepository.saveCurrentUserLevel(updatedLevel)
 
-            val userMi = sharedPreferencesRepository.getUser()
-            println(userMi)
 
-            emit(Resource.Success<Boolean>())
+            emit(Resource.Success<User>(data = user.value))
         }catch (e: Exception){
-            emit(Resource.Error<Boolean>("UpdateUserLevelUseCase" + e.message))
+            emit(Resource.Error<User>("UpdateUserLevelUseCase" + e.message))
         }
     }.flowOn(Dispatchers.IO)
 }

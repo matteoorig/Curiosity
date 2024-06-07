@@ -77,7 +77,7 @@ fun OnBoardingSelectAreasContent(
                 )
             }
             CuriositySvg(
-                drawableResource = R.drawable.single_yellow_cartoon
+                drawableResource = R.drawable.single_orange_cartoon
             )
         }
 

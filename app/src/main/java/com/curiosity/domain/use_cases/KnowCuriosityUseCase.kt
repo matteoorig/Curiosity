@@ -21,10 +21,10 @@ class KnowCuriosityUseCase @Inject constructor(
     private val dataRepository: DataRepository,
     private val updateUserLevelUseCase: UpdateUserLevelUseCase
 ) {
-    operator fun invoke(user: MutableStateFlow<User>): Flow<Resource<Boolean>> = flow {
+    operator fun invoke(user: MutableStateFlow<User>): Flow<Resource<User>> = flow {
         try {
 
-            emit(Resource.Loading<Boolean>())
+            emit(Resource.Loading<User>())
 
             user.value = user.value.copy(
                 coins = user.value.coins + CoinsState.VICTORY.value
@@ -40,15 +40,15 @@ class KnowCuriosityUseCase @Inject constructor(
             // Update user level in Firestore and SharedPreferences
             updateUserLevelUseCase(user).collect { result ->
                 when (result) {
-                    is Resource.Success -> emit(Resource.Success<Boolean>())
-                    is Resource.Error -> emit(Resource.Error<Boolean>("NotKnowCuriosityUseCase: " + result.message))
-                    is Resource.Loading -> emit(Resource.Loading<Boolean>())
+                    is Resource.Success -> emit(Resource.Success<User>(data = result.data))
+                    is Resource.Error -> emit(Resource.Error<User>("KnowCuriosityUseCase: " + result.message))
+                    is Resource.Loading -> emit(Resource.Loading<User>())
                 }
             }
 
 
         }catch (e: Exception){
-            emit(Resource.Error<Boolean>("KnowCuriosityUseCase" + e.message))
+            emit(Resource.Error<User>("KnowCuriosityUseCase" + e.message))
         }
     }.flowOn(Dispatchers.IO)
 }

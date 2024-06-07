@@ -111,7 +111,7 @@ class NotificationWorker @AssistedInject constructor(
             .setContentTitle("New Curiosity")
             .setContentText(data.value)
             .setStyle(NotificationCompat.BigTextStyle().bigText(data.value))
-            .addAction(R.drawable.single_yellow_cartoon, "I know", knowCuriosityPendingIntent)
+            .addAction(R.drawable.single_orange_cartoon, "I know", knowCuriosityPendingIntent)
             .addAction(R.drawable.single_blue_cartoon, "I don't know", notKnowCuriosityPendingIntent)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)

@@ -47,9 +47,14 @@ import com.curiosity.presentation.home.HomeViewModel
 import com.curiosity.presentation.home.content.composable.ShakeConfig
 import com.curiosity.presentation.home.content.composable.ShakeController
 import com.curiosity.presentation.home.content.composable.shake
+import com.curiosity.ui.theme.CuriosityBlue
+import com.curiosity.ui.theme.CuriosityDarkViolet
 import com.curiosity.ui.theme.CuriosityGray
+import com.curiosity.ui.theme.CuriosityGreen
 import com.curiosity.ui.theme.CuriosityOrange
+import com.curiosity.ui.theme.CuriosityPink
 import com.curiosity.ui.theme.CuriosityViolet
+import com.curiosity.ui.theme.CuriosityYellow
 
 @Composable
 fun HomeContent(
@@ -126,7 +131,18 @@ fun HomeContent(
                 .width(300.dp)
                 .shake(shakeController = shakeController)
                 .border(10.dp, CuriosityViolet, RoundedCornerShape(35.dp))
-                .background(color = CuriosityOrange, shape = RoundedCornerShape(35.dp))
+                .background(
+                    color = when (user.level) {
+                        1 -> CuriosityYellow
+                        2 -> CuriosityPink
+                        3 -> CuriosityGreen
+                        4 -> CuriosityDarkViolet
+                        5 -> CuriosityOrange
+                        6 -> CuriosityBlue
+                        else -> Color.Transparent
+                    },
+                    shape = RoundedCornerShape(35.dp)
+                )
                 .padding(20.dp)
                 .shake(shakeController)
                 .pointerInput(Unit) {
@@ -182,16 +198,44 @@ fun HomeContent(
                     maxLines = 8
                 )
             }
-
         }
 
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CuriositySvg(
-                drawableResource = R.drawable.single_yellow_cartoon
-            )
+            when(user.level) {
+                1 -> {
+                    CuriositySvg(
+                        drawableResource = R.drawable.single_yellow_cartoon
+                    )
+                }
+                2 -> {
+                    CuriositySvg(
+                        drawableResource = R.drawable.single_pink_cartoon
+                    )
+                }
+                3 -> {
+                    CuriositySvg(
+                        drawableResource = R.drawable.single_green_cartoon
+                    )
+                }
+                4 -> {
+                    CuriositySvg(
+                        drawableResource = R.drawable.single_violet_cartoon
+                    )
+                }
+                5 -> {
+                    CuriositySvg(
+                        drawableResource = R.drawable.single_orange_cartoon
+                    )
+                }
+                6 -> {
+                    CuriositySvg(
+                        drawableResource = R.drawable.single_blue_cartoon
+                    )
+                }
+            }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -233,6 +277,35 @@ fun HomeContent(
                     }
                 )
             }
+        }
+    }
+
+}
+
+fun getBackgroundFromUserLevel(user: User): Color {
+    return when(user.level){
+        1 ->  CuriosityYellow
+        2 ->  CuriosityPink
+        3 ->  CuriosityGreen
+        4 ->  CuriosityDarkViolet
+        5 ->  CuriosityOrange
+        6 ->  CuriosityBlue
+        else -> {
+            Color.Transparent
+        }
+    }
+}
+
+fun getDrawableFromUserLevel(user: User): Int {
+    return when(user.level){
+        1 ->  R.drawable.single_yellow_cartoon
+        2 ->  R.drawable.single_pink_cartoon
+        3 ->  R.drawable.single_green_cartoon
+        4 ->  R.drawable.single_violet_cartoon
+        5 ->  R.drawable.single_orange_cartoon
+        6 ->  R.drawable.single_blue_cartoon
+        else -> {
+            R.drawable.single_yellow_cartoon
         }
     }
 }

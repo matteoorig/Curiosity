@@ -29,7 +29,6 @@ import com.curiosity.R
 import com.curiosity.common.components.CuriosityDefaultButton
 import com.curiosity.common.components.CuriositySvg
 import com.curiosity.common.components.CuriosityText
-import com.curiosity.presentation.intro.IntroStates
 import com.curiosity.presentation.intro.IntroViewModel
 import com.curiosity.ui.theme.CuriosityViolet
 
@@ -80,7 +79,7 @@ fun IntroRequestNotificationPermission(
             ) {
                 CuriositySvg(
                     modifier = Modifier.size(70.dp),
-                    drawableResource = R.drawable.single_yellow_cartoon
+                    drawableResource = R.drawable.single_orange_cartoon
                 )
                 CuriosityText(
                     value = "Without notifications you can't use the app.",

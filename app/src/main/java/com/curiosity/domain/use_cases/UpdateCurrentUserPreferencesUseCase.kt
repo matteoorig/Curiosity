@@ -48,12 +48,12 @@ class UpdateCurrentUserPreferencesUseCase @Inject constructor(
                 dataRepository.updateUserPreferences(currentUser.uid, preferences)
 
                 val tmpUser = sharedPreferencesRepository.getUser()
-                println(tmpUser)
+                Log.d("tag_user", tmpUser!!.preferences.toString())
                 // Update user preferences in the sharedPreferences.
                 sharedPreferencesRepository.saveCurrentUserPreferences(preferences)
 
                 val tmp2User = sharedPreferencesRepository.getUser()
-                println(tmp2User)
+                Log.d("tag_user", tmp2User!!.preferences.toString())
 
 
                 emit(Resource.Success<Boolean>(data = true))

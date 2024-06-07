@@ -30,7 +30,7 @@ class KnowCuriosityUseCase @Inject constructor(
             )
 
             // Save current user in sharedPreferences
-            sharedPreferencesRepository.saveUser(user.value)
+            sharedPreferencesRepository.saveCurrentUserCoins(user.value.coins)
 
             // Update user coins in Firestore
             dataRepository.updateUserCoins(user.value.uuid!!, user.value.coins)

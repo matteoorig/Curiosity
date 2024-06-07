@@ -96,14 +96,18 @@ class HomeViewModel @Inject constructor(
             flow.onEach { resource ->
                 when(resource){
                     is Resource.Loading -> {
-                        _state.value = HomeStates(curiosityIsLoading = true)
+                        _state.value = _state.value.copy(curiosityIsLoading = true)
                     }
                     is Resource.Success -> {
-                        updateCuriosityValue(resource.data!!)
-                        _state.value = HomeStates(loadCurrentCuriositySuccess = true)
+                        resource.data?.let {
+                            updateCuriosityValue(it)
+                            _state.value =  _state.value.copy(curiosityIsLoading = false, loadCurrentCuriositySuccess = true)
+                        } ?: run {
+                            _state.value =  _state.value.copy(curiosityIsLoading = false, loadCurrentCuriosityError = resource.message)
+                        }
                     }
                     is Resource.Error -> {
-                        _state.value = HomeStates(loadCurrentCuriosityError = resource.message)
+                        _state.value =  _state.value.copy(curiosityIsLoading = false, loadCurrentCuriosityError = resource.message)
                     }
                 }
             }.launchIn(this)

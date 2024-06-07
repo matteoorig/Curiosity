@@ -112,6 +112,12 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         editor.apply()
     }
 
+    override suspend fun saveCurrentUserCoins(coins: Int) {
+        val editor = sharedPreferences.edit()
+        editor.putString("user_coins", coins.toString())
+        editor.apply()
+    }
+
     /**
      * Saves the current user's preferences to SharedPreferences.
      *

@@ -38,7 +38,7 @@ import com.curiosity.ui.theme.CuriosityViolet
 @Composable
 fun CoinContainer(
     count: Int,
-    valueSize: TextUnit = 128.sp,
+    valueSize: TextUnit = 68.sp,
     modifier: Modifier? = null
 ){
     var oldCount by remember {

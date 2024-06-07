@@ -29,6 +29,8 @@ import com.curiosity.common.components.CuriosityText
 import com.curiosity.common.components.ProfileHelpContainer
 import com.curiosity.common.components.ProfileSettingsContainer
 import com.curiosity.common.components.UserContainer
+import com.curiosity.common.components.UserLevelPresentation
+import com.curiosity.domain.model.Badge
 import com.curiosity.domain.model.User
 import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.profile.ProfileStates
@@ -45,7 +47,8 @@ fun ProfileContent(
     navController: NavController,
     viewModel: ProfileViewModel,
     state: ProfileStates,
-    user: User
+    user: User,
+    badges: List<Badge>
 ){
     Column(
         modifier = Modifier
@@ -86,6 +89,11 @@ fun ProfileContent(
             )
         }
         Column {
+            if(state.loadUserSuccess){
+                UserLevelPresentation(
+                    badges = badges
+                )
+            }
             ProfileSettingsContainer(
                 onClickAreasOfInterest = {
                     navController.navigate(Routes.AreasOfInterestScreen.route)
@@ -119,6 +127,7 @@ fun ProfileContentPreview(){
         navController = rememberNavController(),
         viewModel = hiltViewModel(),
         state = ProfileStates(),
-        user = User()
+        user = User(),
+        badges = emptyList()
     )
 }

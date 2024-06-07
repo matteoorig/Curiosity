@@ -7,6 +7,9 @@ package com.curiosity.presentation.profile
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.curiosity.R
+import com.curiosity.domain.model.Badge
+import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.model.User
 import com.curiosity.domain.use_cases.LoadCurrentUserUseCase
@@ -39,12 +42,29 @@ class ProfileViewModel @Inject constructor(
     private val _user = MutableStateFlow(User())
     val user: StateFlow<User> = _user.asStateFlow()
 
+    private var _badges = MutableStateFlow<List<Badge>>( listOf(
+            Badge(drawableResource = R.drawable.badge_1, isLocked = true),
+            Badge(drawableResource = R.drawable.badge_2, isLocked = true),
+            Badge(drawableResource = R.drawable.badge_3, isLocked = true),
+            Badge(drawableResource = R.drawable.badge_4, isLocked = true),
+            Badge(drawableResource = R.drawable.badge_5, isLocked = true),
+            Badge(drawableResource = R.drawable.badge_6, isLocked = true)
+        )
+    )
+    val badges: StateFlow<List<Badge>> = _badges.asStateFlow()
+
     fun updateStateValue(newState: ProfileStates){
         _state.value = newState
     }
 
     fun updateUserValue(newState: User){
         _user.value = newState
+    }
+
+    fun updateBadgesValue(isLockedCounter: Int){
+        for (i in 0 until isLockedCounter){
+            _badges.value[i].isLocked = false
+        }
     }
 
     init {
@@ -60,8 +80,13 @@ class ProfileViewModel @Inject constructor(
                         _state.value = ProfileStates(isLoading = true)
                     }
                     is Resource.Success -> {
-                        updateUserValue(resource.data!!)
-                        _state.value = ProfileStates(loadUserSuccess = true)
+                        resource.data?.let {
+                            updateUserValue(it)
+                            updateBadgesValue(it.level)
+                            _state.value = ProfileStates(loadUserSuccess = true)
+                        } ?: run {
+                            _state.value = ProfileStates(loadUserError = "Internal error")
+                        }
                     }
                     is Resource.Error -> {
                         _state.value = ProfileStates(loadUserError = resource.message)

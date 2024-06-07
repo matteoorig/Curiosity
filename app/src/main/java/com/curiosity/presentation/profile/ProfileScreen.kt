@@ -30,6 +30,7 @@ fun ProfileScreen(
 
     val state by viewModel.state.collectAsState()
     val user by viewModel.user.collectAsState()
+    val badges by viewModel.badges.collectAsState()
 
     when {
         state.isLoading -> {
@@ -66,7 +67,8 @@ fun ProfileScreen(
                 navController = navController,
                 viewModel = viewModel,
                 state = state,
-                user = user
+                user = user,
+                badges = badges
             )
         }
     }

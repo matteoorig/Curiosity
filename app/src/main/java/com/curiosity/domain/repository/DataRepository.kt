@@ -87,6 +87,18 @@ interface DataRepository {
      */
     suspend fun loadAreasOfInterestCategories(): QuerySnapshot?
 
+    /**
+     * Updates the user's coin count in Firestore.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It updates the number of coins associated with the specified user in the "users" collection in Firestore.
+     *
+     * @param uuid The unique identifier of the user whose coin count is being updated.
+     * @param coins The new number of coins to set for the user.
+     * @return A nullable Void indicating the result of the Firestore operation. Returns null if the operation fails.
+     */
     suspend fun updateUserCoins(uuid: String, coins: Int): Void?
+
+    suspend fun updateUserLevel(uuid: String, level: Int): Void?
 
 }

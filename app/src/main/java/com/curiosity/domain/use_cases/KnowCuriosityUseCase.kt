@@ -18,7 +18,8 @@ import javax.inject.Inject
 
 class KnowCuriosityUseCase @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val dataRepository: DataRepository
+    private val dataRepository: DataRepository,
+    private val updateUserLevelUseCase: UpdateUserLevelUseCase
 ) {
     operator fun invoke(user: MutableStateFlow<User>): Flow<Resource<Boolean>> = flow {
         try {
@@ -34,6 +35,17 @@ class KnowCuriosityUseCase @Inject constructor(
 
             // Update user coins in Firestore
             dataRepository.updateUserCoins(user.value.uuid!!, user.value.coins)
+
+
+            // Update user level in Firestore and SharedPreferences
+            updateUserLevelUseCase(user).collect { result ->
+                when (result) {
+                    is Resource.Success -> emit(Resource.Success<Boolean>())
+                    is Resource.Error -> emit(Resource.Error<Boolean>("NotKnowCuriosityUseCase: " + result.message))
+                    is Resource.Loading -> emit(Resource.Loading<Boolean>())
+                }
+            }
+
 
         }catch (e: Exception){
             emit(Resource.Error<Boolean>("KnowCuriosityUseCase" + e.message))

@@ -61,6 +61,8 @@ interface SharedPreferencesRepository {
 
     suspend fun saveCurrentUserCoins(coins: Int)
 
+    suspend fun saveCurrentUserLevel(level: Int)
+
     /**
      * Saves the current user's interval and its relative type to SharedPreferences.
      *

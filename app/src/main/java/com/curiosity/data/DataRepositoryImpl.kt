@@ -121,4 +121,12 @@ open class DataRepositoryImpl @Inject constructor(
             )
         ).await()
     }
+
+    override suspend fun updateUserLevel(uuid: String, level: Int): Void? {
+        return db.collection("users").document(uuid).update(
+            hashMapOf<String, Any>(
+                "level" to level,
+            )
+        ).await()
+    }
 }

@@ -118,6 +118,12 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         editor.apply()
     }
 
+    override suspend fun saveCurrentUserLevel(level: Int) {
+        val editor = sharedPreferences.edit()
+        editor.putString("user_level", level.toString())
+        editor.apply()
+    }
+
     /**
      * Saves the current user's preferences to SharedPreferences.
      *

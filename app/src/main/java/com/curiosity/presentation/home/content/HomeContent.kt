@@ -117,8 +117,8 @@ fun HomeContent(
             )
             Spacer(modifier = Modifier.height(15.dp))
             CuriosityText(
-                value = "tap to in the center of the card\n" +
-                        "to generate a new one",
+                value = "swipe over the card\n" +
+                        "to discard the current curiosity",
                 textColor = CuriosityViolet,
                 textSize = 14.sp,
                 textWeight = FontWeight.Medium,

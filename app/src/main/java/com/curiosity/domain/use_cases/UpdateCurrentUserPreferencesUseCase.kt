@@ -32,6 +32,15 @@ class UpdateCurrentUserPreferencesUseCase @Inject constructor(
     private val dataRepository: DataRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository
 ) {
+    /**
+     * Invokes the use case to update the current user's preferences.
+     *
+     * This method updates the preferences for the currently authenticated user, both in Firestore and locally in SharedPreferences.
+     * The state of the operation is emitted as a Flow of Resource containing a Boolean value.
+     *
+     * @param preferences The list of Preferences to be updated for the current user.
+     * @return A Flow of Resource containing a Boolean value indicating the success or failure of the operation.
+     */
     operator fun invoke(preferences: List<Preferences>) : Flow<Resource<Boolean>> = flow {
         try {
             emit(Resource.Loading<Boolean>())

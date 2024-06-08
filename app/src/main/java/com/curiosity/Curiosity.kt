@@ -7,7 +7,6 @@ package com.curiosity
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory

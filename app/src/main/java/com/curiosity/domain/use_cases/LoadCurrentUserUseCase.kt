@@ -7,7 +7,6 @@ package com.curiosity.domain.use_cases
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.model.User
 import com.curiosity.domain.repository.AuthRepository
-import com.curiosity.domain.repository.DataRepository
 import com.curiosity.domain.repository.SharedPreferencesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -29,6 +28,14 @@ class LoadCurrentUserUseCase @Inject constructor(
     private val authRepository: AuthRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository
 ) {
+    /**
+     * Invokes the use case to load the current user's data.
+     *
+     * This method retrieves the currently authenticated user from the AuthRepository and loads the user's data
+     * from SharedPreferences. The state of the operation is emitted as a Flow of Resource containing the User.
+     *
+     * @return A Flow of Resource containing the User.
+     */
     operator fun invoke(): Flow<Resource<User>> = flow {
         try {
             // Get the current user instance.

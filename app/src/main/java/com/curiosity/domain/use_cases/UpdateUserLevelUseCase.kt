@@ -16,10 +16,28 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+/**
+ * Use case for updating the user's level based on their current coin count.
+ *
+ * This use case handles the process of updating the user's level both locally (in SharedPreferences) and remotely (in Firestore).
+ * The level is determined based on the user's current coin count. The state of the operation is managed using Flow<Resource<User>>.
+ *
+ * @property dataRepository The DataRepository used for database operations.
+ * @property sharedPreferencesRepository The SharedPreferencesRepository used for saving user data locally.
+ */
 class UpdateUserLevelUseCase @Inject constructor(
     private val dataRepository: DataRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository
 ) {
+    /**
+     * Invokes the use case to update the user's level.
+     *
+     * This method updates the user's level based on their current coin count, saves the updated level to SharedPreferences,
+     * and updates the level in Firestore. The state of the operation is emitted as a Flow of Resource containing the updated User.
+     *
+     * @param user A MutableStateFlow containing the current user.
+     * @return A Flow of Resource containing the updated User.
+     */
     operator fun invoke(user: MutableStateFlow<User>): Flow<Resource<User>> = flow {
         try {
             emit(Resource.Loading<User>())

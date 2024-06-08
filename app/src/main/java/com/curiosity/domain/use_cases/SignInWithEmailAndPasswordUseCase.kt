@@ -32,7 +32,17 @@ class SignInWithEmailAndPasswordUseCase @Inject constructor(
     private val dataRepository: DataRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository
 ){
-
+    /**
+     * Invokes the use case to sign in with email and password.
+     *
+     * This method handles the entire process of signing in a user using the provided email and password,
+     * retrieving the user data from Firestore, parsing the preferences, creating a User instance,
+     * and saving the user data locally in SharedPreferences.
+     *
+     * @param email The email address of the user.
+     * @param password The password of the user.
+     * @return A Flow of Resource containing the signed-in User.
+     */
     operator fun invoke(email: String, password: String): Flow<Resource<User>> = flow {
         try {
             emit(Resource.Loading<User>())

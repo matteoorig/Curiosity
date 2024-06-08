@@ -14,7 +14,6 @@ import com.curiosity.domain.model.Resource
 import com.curiosity.domain.use_cases.LoadAreasCategoriesUseCase
 import com.curiosity.domain.use_cases.LoadCurrentUserUseCase
 import com.curiosity.domain.use_cases.UpdateCurrentUserPreferencesUseCase
-import com.curiosity.presentation.on_boarding.OnBoardingStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,6 +23,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel class for managing the state of the areas of interest screen.
+ *
+ * This class holds the state of the areas of interest screen using a StateFlow and provides
+ * a way to observe changes to that state.
+ */
 @HiltViewModel
 class AreasOfInterestViewModel @Inject constructor(
     private val context: Context,

@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.use_cases.ResetUserPasswordUseCase
-import com.curiosity.presentation.sign_up.SignUpStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +17,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel class for managing the state of the reset password screen.
+ *
+ * This class holds the state of the reset password screen using a StateFlow and provides
+ * a way to observe changes to that state.
+ */
 @HiltViewModel
 class ResetPasswordViewModel @Inject constructor(
     private val resetUserPasswordUseCase: ResetUserPasswordUseCase

@@ -18,6 +18,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel class for managing the state of the interval notification screen.
+ *
+ * This class holds the state of the interval notification screen using a StateFlow and provides
+ * a way to observe changes to that state.
+ */
 @HiltViewModel
 class IntervalNotificationViewModel @Inject constructor(
     private val loadCurrentUserUseCase: LoadCurrentUserUseCase,

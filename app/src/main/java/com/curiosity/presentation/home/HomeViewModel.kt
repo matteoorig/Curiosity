@@ -14,8 +14,6 @@ import com.curiosity.domain.use_cases.GetCuriosityUseCase
 import com.curiosity.domain.use_cases.KnowCuriosityUseCase
 import com.curiosity.domain.use_cases.LoadCurrentUserUseCase
 import com.curiosity.domain.use_cases.NotKnowCuriosityUseCase
-import com.curiosity.presentation.areas_of_interest.AreasOfInterestStates
-import com.curiosity.presentation.on_boarding.OnBoardingStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

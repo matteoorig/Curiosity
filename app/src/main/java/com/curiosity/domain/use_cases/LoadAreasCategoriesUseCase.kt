@@ -30,6 +30,14 @@ class LoadAreasCategoriesUseCase @Inject constructor(
     private val dataRepository: DataRepository,
     private val context: Context
 ) {
+    /**
+     * Invokes the use case to load areas of interest categories.
+     *
+     * This method loads the areas of interest categories from the repository, processes them
+     * into a list of CuriosityAreasOfInterestItemData, and emits the state of the operation using Flow.
+     *
+     * @return A Flow of Resource containing a list of CuriosityAreasOfInterestItemData.
+     */
     operator fun invoke(): Flow<Resource<List<CuriosityAreasOfInterestItemData>>> = flow {
         try {
             // Initialize an empty list of CuriosityAreasOfInterestItemData.

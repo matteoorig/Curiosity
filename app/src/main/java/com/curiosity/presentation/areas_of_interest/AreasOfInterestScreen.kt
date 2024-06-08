@@ -13,10 +13,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.curiosity.presentation.app.routes.Routes
 import com.curiosity.presentation.areas_of_interest.content.AreasOfInterestContent
 import com.curiosity.presentation.areas_of_interest.content.AreasOfInterestError
 
+
+/**
+ * Composable function that represents the areas of interest screen of the application.
+ *
+ * This function is responsible for displaying the user areas of interest UI elements.
+ */
 @Composable
 fun AreasOfInterestScreen(
     navController: NavController,

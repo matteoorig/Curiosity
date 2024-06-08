@@ -17,6 +17,11 @@ import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.interval_notification.content.IntervalNotificationContent
 import com.curiosity.presentation.interval_notification.content.IntervalNotificationError
 
+/**
+ * Composable function that represents the interval notification screen of the application.
+ *
+ * This function is responsible for displaying the user interval UI.
+ */
 @Composable
 fun IntervalNotificationScreen(
     navController: NavController,

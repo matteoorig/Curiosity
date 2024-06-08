@@ -32,7 +32,6 @@ import com.curiosity.presentation.areas_of_interest.AreasOfInterestViewModel
 import com.curiosity.ui.theme.CuriosityGray
 import com.curiosity.ui.theme.CuriosityOrange
 import com.curiosity.ui.theme.CuriosityViolet
-import com.curiosity.ui.theme.CuriosityYellow
 
 @Composable
 fun AreasOfInterestContent(

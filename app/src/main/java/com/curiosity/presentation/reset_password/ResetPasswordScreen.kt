@@ -16,6 +16,11 @@ import androidx.navigation.compose.rememberNavController
 import com.curiosity.presentation.reset_password.content.ResetPasswordContent
 import com.curiosity.presentation.reset_password.content.ResetPasswordError
 
+/**
+ * Composable function that represents the reset password screen of the application.
+ *
+ * This function is responsible for displaying the reset password UI elements.
+ */
 @Composable
 fun ResetPasswordScreen(
     navController: NavController,

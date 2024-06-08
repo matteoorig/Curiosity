@@ -16,14 +16,34 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+/**
+ * Use case for handling the event when a user does not know a curiosity.
+ *
+ * This use case updates the user's coins and level both locally (in SharedPreferences) and remotely (in Firestore).
+ * It interacts with the SharedPreferencesRepository, DataRepository and UpdateUserLevelUseCase.
+ * The state of the operation is managed using Flow<Resource<User>>.
+ *
+ * @property sharedPreferencesRepository The repository used for managing SharedPreferences operations.
+ * @property dataRepository The repository used for managing Firestore operations.
+ * @property updateUserLevelUseCase The use case for updating the user's level.
+ */
 class NotKnowCuriosityUseCase @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val dataRepository: DataRepository,
     private val updateUserLevelUseCase: UpdateUserLevelUseCase
 ) {
+
+    /**
+     * Invokes the use case when the user does not know a curiosity.
+     *
+     * This method updates the user's coins, saves the updated coins to SharedPreferences,
+     * updates the coins in Firestore, and then updates the user's level both locally and remotely.
+     *
+     * @param user A MutableStateFlow containing the current user.
+     * @return A Flow of Resource containing the updated user.
+     */
     operator fun invoke(user: MutableStateFlow<User>): Flow<Resource<User>> = flow {
         try {
-
             emit(Resource.Loading<User>())
 
             user.value = user.value.copy(

@@ -27,6 +27,15 @@ class LogoutCurrentUserUseCase @Inject constructor(
     private val repository: AuthRepository,
     private val sharedPreferencesRepositoryImpl: SharedPreferencesRepositoryImpl
 ) {
+
+    /**
+     * Invokes the use case to log out the current user.
+     *
+     * This method performs the sign-out operation using the AuthRepository and removes the user data
+     * from SharedPreferences. The state of the operation is emitted as a Flow of Resource containing AuthResult.
+     *
+     * @return A Flow of Resource containing AuthResult.
+     */
     operator fun invoke(): Flow<Resource<AuthResult>> = flow {
         try {
             emit(Resource.Loading<AuthResult>())

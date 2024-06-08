@@ -4,17 +4,14 @@ package com.curiosity.presentation.profile
  * @author matteooriggi
  */
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.curiosity.R
 import com.curiosity.domain.model.Badge
-import com.curiosity.domain.model.CuriosityAreasOfInterestItemData
 import com.curiosity.domain.model.Resource
 import com.curiosity.domain.model.User
 import com.curiosity.domain.use_cases.LoadCurrentUserUseCase
 import com.curiosity.domain.use_cases.LogoutCurrentUserUseCase
-import com.curiosity.presentation.home.HomeStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

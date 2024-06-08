@@ -16,11 +16,28 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+/**
+ * Use case for discarding a curiosity, which involves updating the user's coins and level both locally
+ * (in SharedPreferences) and remotely (in Firestore).
+ *
+ * @property sharedPreferencesRepository Repository for managing SharedPreferences operations.
+ * @property dataRepository Repository for managing Firestore operations.
+ * @property updateUserLevelUseCase Use case for updating the user's level.
+ */
 class DiscardCuriosityUseCase @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val dataRepository: DataRepository,
     private val updateUserLevelUseCase: UpdateUserLevelUseCase
 ) {
+    /**
+     * Invokes the use case to discard a curiosity.
+     *
+     * This method updates the user's coins, saves the updated coins to SharedPreferences,
+     * updates the coins in Firestore, and then updates the user's level both locally and remotely.
+     *
+     * @param user A MutableStateFlow containing the current user.
+     * @return A Flow of Resource containing the updated user.
+     */
     operator fun invoke(user: MutableStateFlow<User>): Flow<Resource<User>> = flow {
         try {
 

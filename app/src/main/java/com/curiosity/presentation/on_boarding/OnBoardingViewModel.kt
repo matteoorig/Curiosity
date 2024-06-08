@@ -37,18 +37,20 @@ class OnBoardingViewModel @Inject constructor(
     private val updateCurrentUserIntervalUseCase: UpdateCurrentUserIntervalUseCase
 ): ViewModel()  {
 
+    // Contains the categories present in firestore.
+    private var _listAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
+    // Contains the categories selected by user.
+    private var _selectedListAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
+
     init {
+        _listAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
+        _selectedListAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
         // Loading the categories of the areas of interest present in firestore. This allows the scalability of the application.
         loadAreasOfInterestCategories()
     }
 
     private val _state = MutableStateFlow(OnBoardingStates())
     val state: StateFlow<OnBoardingStates> = _state.asStateFlow()
-
-    // Contains the categories present in firestore.
-    private var _listAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
-    // Contains the categories selected by user.
-    private var _selectedListAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
 
     // Allows to define whether the interval is in hours or minutes.
     private val _isMinutes = MutableStateFlow(false)

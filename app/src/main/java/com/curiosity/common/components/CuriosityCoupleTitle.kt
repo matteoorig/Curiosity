@@ -30,7 +30,8 @@ fun CuriosityCoupleTitle(
             value = subtitleText,
             textColor = CuriosityViolet,
             textSize = 20.sp,
-            textWeight = FontWeight.Medium
+            textWeight = FontWeight.Medium,
+            maxLines = 5
         )
     }
 

@@ -13,7 +13,7 @@ val Pink40 = Color(0xFF7D5260)
 // figma palette
 val CuriosityGray = Color(0xFFECECEC)
 val CuriosityViolet = Color(0xFF797B95)
-val CuriosityBlue = Color(0xFF797B95)
+val CuriosityBlue = Color(0xFF7CCCED)
 val CuriosityOrange = Color(0xFFF0B94E)
 val CuriosityDarkViolet = Color(0xFF705F9F)
 val CuriosityGreen = Color(0xFF6EAD40)

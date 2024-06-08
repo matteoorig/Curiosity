@@ -207,31 +207,37 @@ fun HomeContent(
             when(user.level) {
                 1 -> {
                     CuriositySvg(
+                        modifier = Modifier.size(110.dp),
                         drawableResource = R.drawable.single_yellow_cartoon
                     )
                 }
                 2 -> {
                     CuriositySvg(
+                        modifier = Modifier.size(110.dp),
                         drawableResource = R.drawable.single_pink_cartoon
                     )
                 }
                 3 -> {
                     CuriositySvg(
+                        modifier = Modifier.size(110.dp),
                         drawableResource = R.drawable.single_green_cartoon
                     )
                 }
                 4 -> {
                     CuriositySvg(
+                        modifier = Modifier.size(110.dp),
                         drawableResource = R.drawable.single_violet_cartoon
                     )
                 }
                 5 -> {
                     CuriositySvg(
+                        modifier = Modifier.size(110.dp),
                         drawableResource = R.drawable.single_orange_cartoon
                     )
                 }
                 6 -> {
                     CuriositySvg(
+                        modifier = Modifier.size(110.dp),
                         drawableResource = R.drawable.single_blue_cartoon
                     )
                 }
@@ -277,35 +283,6 @@ fun HomeContent(
                     }
                 )
             }
-        }
-    }
-
-}
-
-fun getBackgroundFromUserLevel(user: User): Color {
-    return when(user.level){
-        1 ->  CuriosityYellow
-        2 ->  CuriosityPink
-        3 ->  CuriosityGreen
-        4 ->  CuriosityDarkViolet
-        5 ->  CuriosityOrange
-        6 ->  CuriosityBlue
-        else -> {
-            Color.Transparent
-        }
-    }
-}
-
-fun getDrawableFromUserLevel(user: User): Int {
-    return when(user.level){
-        1 ->  R.drawable.single_yellow_cartoon
-        2 ->  R.drawable.single_pink_cartoon
-        3 ->  R.drawable.single_green_cartoon
-        4 ->  R.drawable.single_violet_cartoon
-        5 ->  R.drawable.single_orange_cartoon
-        6 ->  R.drawable.single_blue_cartoon
-        else -> {
-            R.drawable.single_yellow_cartoon
         }
     }
 }

@@ -52,7 +52,6 @@ class SignUpWithEmailAndPasswordUseCase @Inject constructor(
                     uuid = result.user!!.uid,
                     username = username,
                     email = email,
-                    password = password,
                     preferences = Preferences.fromHashMap(preferencesHashMap)
                 )
 

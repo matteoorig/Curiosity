@@ -81,4 +81,10 @@ open class AuthRepositoryImpl @Inject constructor(
             firebaseAuth.signInWithEmailAndPassword(email, password).await()
         }
     }
+
+    override suspend fun resetUserPassword(email: String) {
+        return withContext(Dispatchers.IO){
+            firebaseAuth.sendPasswordResetEmail(email).await()
+        }
+    }
 }

@@ -15,6 +15,7 @@ import com.curiosity.presentation.interval_notification.IntervalNotificationScre
 import com.curiosity.presentation.intro.IntroScreen
 import com.curiosity.presentation.on_boarding.OnBoardingScreen
 import com.curiosity.presentation.profile.ProfileScreen
+import com.curiosity.presentation.reset_password.ResetPasswordScreen
 import com.curiosity.presentation.sign_in.SignInScreen
 import com.curiosity.presentation.sign_up.SignUpScreen
 
@@ -82,6 +83,12 @@ fun CuriosityNavigationGraph() {
             route = Routes.IntervalNotification.route
         ){
             IntervalNotificationScreen(navController = navigationController)
+        }
+
+        composable(
+            route = Routes.ResetPassword.route
+        ){
+            ResetPasswordScreen(navController = navigationController)
         }
     }
 }

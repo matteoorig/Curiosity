@@ -102,7 +102,7 @@ fun ProfileContent(
                     navController.navigate(Routes.IntervalNotification.route)
                 },
                 onClickChangePassword = {
-
+                    navController.navigate(Routes.ResetPassword.route)
                 },
                 onClickLogout = {
                     viewModel.logOut()

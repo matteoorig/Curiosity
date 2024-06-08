@@ -35,15 +35,18 @@ class AreasOfInterestViewModel @Inject constructor(
     private val _state = MutableStateFlow(AreasOfInterestStates())
     val state: StateFlow<AreasOfInterestStates> = _state.asStateFlow()
 
-    init {
-        loadAreasOfInterestCategories()
-        loadCurrentUserAreasOfInterestCategories()
-    }
     // Contains the categories present in firestore.
     private var _listAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
 
     // Contains the categories selected by user.
     private var _selectedCurrentUserListAreasOfInterest = MutableStateFlow<List<Preferences>>(emptyList())
+
+    init {
+        _listAreasOfInterest = MutableStateFlow<List<CuriosityAreasOfInterestItemData>>(emptyList())
+        _selectedCurrentUserListAreasOfInterest = MutableStateFlow<List<Preferences>>(emptyList())
+        loadAreasOfInterestCategories()
+        loadCurrentUserAreasOfInterestCategories()
+    }
 
     fun updateStateValue(newState: AreasOfInterestStates){
         _state.value = newState

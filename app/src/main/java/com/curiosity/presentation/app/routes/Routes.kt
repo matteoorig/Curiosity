@@ -51,4 +51,9 @@ sealed class Routes(val route: String) {
      * Object representing the interval notification screen route.
      */
     object IntervalNotification : Routes("interval_notification_screen")
+
+    /**
+     * Object representing the reset password screen route.
+     */
+    object ResetPassword : Routes("reset_password")
 }

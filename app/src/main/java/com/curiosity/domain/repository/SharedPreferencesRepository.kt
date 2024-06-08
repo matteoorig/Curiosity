@@ -48,7 +48,6 @@ interface SharedPreferencesRepository {
      */
     suspend fun existKey(key: String): Boolean
 
-
     /**
      * Saves the current user's preferences to SharedPreferences.
      *
@@ -59,8 +58,24 @@ interface SharedPreferencesRepository {
      */
     suspend fun saveCurrentUserPreferences(preferences: List<Preferences>)
 
+    /**
+     * Saves the current user's coin count to SharedPreferences.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It saves the "coins" field of the current user to SharedPreferences.
+     *
+     * @param coins The number of coins to be saved for the current user.
+     */
     suspend fun saveCurrentUserCoins(coins: Int)
 
+    /**
+     * Saves the current user's level to SharedPreferences.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It saves the "level" field of the current user to SharedPreferences.
+     *
+     * @param level The level to be saved for the current user.
+     */
     suspend fun saveCurrentUserLevel(level: Int)
 
     /**
@@ -74,5 +89,13 @@ interface SharedPreferencesRepository {
      */
     suspend fun saveCurrentUserInterval(isMinutes: Boolean, interval: Int)
 
+    /**
+     * Retrieves the interval notification settings from SharedPreferences.
+     *
+     * This method reads the "isMinutes" and "interval" fields from SharedPreferences,
+     * and constructs an IntervalNotification object based on these values.
+     *
+     * @return An IntervalNotification object if both "isMinutes" and "interval" are found in SharedPreferences, or null otherwise.
+     */
     fun getInterval(): IntervalNotification?
 }

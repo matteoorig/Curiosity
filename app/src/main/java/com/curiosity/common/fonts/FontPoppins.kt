@@ -9,6 +9,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import com.curiosity.R
 
+/**
+ * Poppins is a FontFamily that includes various weights and styles of the Poppins font.
+ * This FontFamily is used to provide a consistent typography throughout the application.
+ */
 val Poppins = FontFamily(
     // Font(R.font.poppins_blackitalic, FontWeight.W900),
     Font(R.font.poppins_black, FontWeight.W900),
@@ -27,4 +31,4 @@ val Poppins = FontFamily(
     Font(R.font.poppins_extralight, FontWeight.W200),
     Font(R.font.poppins_thinitalic, FontWeight.W100),
     Font(R.font.poppins_thin, FontWeight.W100),
-    )
+)

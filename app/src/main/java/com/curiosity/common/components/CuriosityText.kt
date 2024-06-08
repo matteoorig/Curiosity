@@ -16,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import com.curiosity.common.fonts.Poppins
 import com.curiosity.ui.theme.CuriosityViolet

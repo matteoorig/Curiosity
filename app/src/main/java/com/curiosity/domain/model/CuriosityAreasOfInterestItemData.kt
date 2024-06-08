@@ -1,10 +1,10 @@
 package com.curiosity.domain.model
 
-import android.content.Context
-
 /**
  * @author matteooriggi
  */
+
+import android.content.Context
 
 /**
  * Data class representing an item in the areas of interest.

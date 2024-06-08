@@ -112,12 +112,28 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         editor.apply()
     }
 
+    /**
+     * Saves the current user's coin count to SharedPreferences.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It saves the "coins" field of the current user to SharedPreferences.
+     *
+     * @param coins The number of coins to be saved for the current user.
+     */
     override suspend fun saveCurrentUserCoins(coins: Int) {
         val editor = sharedPreferences.edit()
         editor.putString("user_coins", coins.toString())
         editor.apply()
     }
 
+    /**
+     * Saves the current user's level to SharedPreferences.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It saves the "level" field of the current user to SharedPreferences.
+     *
+     * @param level The level to be saved for the current user.
+     */
     override suspend fun saveCurrentUserLevel(level: Int) {
         val editor = sharedPreferences.edit()
         editor.putString("user_level", level.toString())
@@ -152,6 +168,14 @@ class SharedPreferencesRepositoryImpl @Inject constructor(
         return sharedPreferences.contains(key)
     }
 
+    /**
+     * Retrieves the interval notification settings from SharedPreferences.
+     *
+     * This method reads the "isMinutes" and "interval" fields from SharedPreferences,
+     * and constructs an IntervalNotification object based on these values.
+     *
+     * @return An IntervalNotification object if both "isMinutes" and "interval" are found in SharedPreferences, or null otherwise.
+     */
     override fun getInterval(): IntervalNotification? {
         val editor = sharedPreferences.edit()
 

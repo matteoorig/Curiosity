@@ -33,6 +33,9 @@ class NotificationIntentActionReceiver : BroadcastReceiver() {
         }
     }
 
+    /**
+     * Companion object to hold the constants for the actions.
+     */
     companion object {
         const val KNOW_CURIOSITY = "com.curiosity.KNOW_CURIOSITY"
         const val NOT_KNOW_CURIOSITY = "com.curiosity.NOT_KNOW_CURIOSITY"

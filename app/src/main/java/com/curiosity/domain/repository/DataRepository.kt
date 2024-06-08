@@ -99,6 +99,16 @@ interface DataRepository {
      */
     suspend fun updateUserCoins(uuid: String, coins: Int): Void?
 
+    /**
+     * Updates the level of a user document in the Firebase Firestore database.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It updates the "level" field of the user document with the given UUID in the "users" collection.
+     *
+     * @param uuid The unique identifier of the user.
+     * @param level The new level to update for the user.
+     * @return A Void? indicating the result of the update operation. Returns null if the update fails.
+     */
     suspend fun updateUserLevel(uuid: String, level: Int): Void?
 
 }

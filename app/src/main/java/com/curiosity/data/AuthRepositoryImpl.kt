@@ -82,6 +82,14 @@ open class AuthRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * Sends a password reset email to the specified email address.
+     *
+     * This method is a suspend function and should be called from a coroutine or another suspend function.
+     * It performs the password reset operation on the IO dispatcher to avoid blocking the main thread.
+     *
+     * @param email The email address of the user who wants to reset their password.
+     */
     override suspend fun resetUserPassword(email: String) {
         return withContext(Dispatchers.IO){
             firebaseAuth.sendPasswordResetEmail(email).await()

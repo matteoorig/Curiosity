@@ -5,9 +5,6 @@ package com.curiosity.data.dipendencies
  */
 
 import android.content.Context
-import androidx.work.Configuration
-import androidx.work.WorkManager
-import androidx.work.WorkerFactory
 import com.curiosity.data.AuthRepositoryImpl
 import com.curiosity.data.DataRepositoryImpl
 import com.curiosity.data.NotificationRepositoryImpl

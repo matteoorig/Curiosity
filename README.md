@@ -14,10 +14,11 @@ Applicazione Android sviluppata in Kotlin utilizzando il framework UI dichiarati
 
 ## Introduzione
 
-Curiosity è un'applicazione Android costruita con Kotlin e Jetpack Compose.
+Curiosity è un'applicazione Android costruita con linguaggio Kotlin e framework Jetpack Compose.
 Questa applicazione ti fornisce curiosità su determinate aree d'interesse (storia, arte, scienza ...) che l'utente potrà scegliere e modificare in ogni momento.
 Ogni utente avrà un proprio punteggio in base a quante curiosità conosce, non conosce o che ha scartato, per poi determinarne un livello.
-Le curiosità mostrate all'utente sono visualizzabili nella home page dell'applicazione oppure tramite notifiche push ad ogni intervallo di tempo che l'utente potrà definire e modificare in ogni momento.
+Le curiosità mostrate all'utente sono visualizzabili nella home page dell'applicazione oppure tramite notifiche push 
+Le notifiche verrano mostrate ad ogni intervallo di tempo che l'utente potrà definire e modificare in ogni momento.
 
 ## Features sviluppate
 1. Log-in Firebase Authentication
@@ -28,6 +29,7 @@ Le curiosità mostrate all'utente sono visualizzabili nella home page dell'appli
 6. CRUD operations in Firebase Storage
 7. CRUD operations in Android SharedPreferences
 8. Complex composable functions with simple animations
+9. Utilizzo dei Worker per invio delle notifiche 
 
 ## Architettura di progetto
 Il progetto è stato creato utilizzando la Clean Architecture e la Dependency Injection con i Moduli Dagger-Hilt.
